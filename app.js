@@ -71,6 +71,24 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+
+    editTexts: 'Edit texts', textsTitle: 'Edit website texts',
+    textsHint: 'Fix any wording shown in this language. Changes are published for everyone. Tip: Alt+click any text on the page to jump straight to it.',
+    searchTexts: 'Search texts…', originalText: 'Original', textsSaved: 'Texts updated', resetAll: 'Reset all to original', siteNameLabel: 'Site name', taglineLabel: 'Tagline',
+    quiz: 'Quiz', takeQuiz: 'Take the quiz', retakeQuiz: 'Play again', bestScore: (s, n) => `Best: ${s}/${n}`,
+    quizQ: (i, n) => `Question ${i} of ${n}`, quizRight: 'Correct! 🎉', quizWrong: 'Not quite — see the right answer.',
+    quizNext: 'Next', quizFinish: 'See my result', quizResult: (s, n) => `${s} of ${n} correct`,
+    quizAgain: 'Try again', quizClose: 'Close',
+    editQuiz: 'Quiz', quizEditorTitle: 'Lesson quiz', quizEditorHint: 'Multiple-choice questions for each language. Tick the correct answer.',
+    addQuestion: 'Add question', questionLabel: 'Question', answerN: n => `Answer ${n}`, addAnswer: 'Add answer', removeQuestion: 'Delete question',
+    translateQuiz: 'Translate this quiz to the other languages', confirmOverwriteQuiz: 'This replaces the quiz in the other languages. Continue?',
+    quizInvalid: n => `Question ${n} needs a text, at least two answers and a ticked correct answer.`,
+    needsUpgrade3: 'To save text changes and quizzes, run supabase/upgrade-v3.sql once in Supabase (see README).',
+    achievements: 'My achievements', achSub: 'Everything you earned on this device.', achLessons: 'Lessons done', achStars: 'Quiz stars', achQuizzes: 'Quizzes played', achPerfect: 'Perfect scores',
+    badgesTitle: 'Badges', resultsTitle: 'My quiz results', noResults: 'No quizzes played yet — open a lesson and take its quiz!',
+    attempts: n => n === 1 ? '1 try' : `${n} tries`, fsAgain: 'Click anywhere to return to full screen', locked: 'Locked',
+    b1: 'First quiz', b1d: 'Play any quiz', b2: 'Perfect!', b2d: 'Get every answer right', b3: 'Quiz fan', b3d: 'Play 5 different quizzes',
+    b4: 'Star collector', b4d: 'Earn 10 quiz stars', b5: 'Explorer', b5d: 'Finish 5 lessons', b6: 'Folder champion', b6d: 'Finish every lesson in a folder',
     themeDark: 'Dark mode', themeLight: 'Light mode', availableIn: 'Available in:',
     needsUpgrade: 'To save video links, run supabase/upgrade-v2.sql once in Supabase (see README).',
     loadFailed: 'Could not load lessons. Check your internet connection.'
@@ -125,6 +143,24 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+
+    editTexts: 'تعديل النصوص', textsTitle: 'تعديل نصوص الموقع',
+    textsHint: 'صحّح أي صياغة تظهر بهذه اللغة. التغييرات تُنشر للجميع. نصيحة: اضغط Alt مع النقر على أي نص في الصفحة للوصول إليه مباشرة.',
+    searchTexts: 'ابحث في النصوص…', originalText: 'الأصلي', textsSaved: 'تم تحديث النصوص', resetAll: 'إعادة الكل إلى الأصل', siteNameLabel: 'اسم الموقع', taglineLabel: 'الشعار',
+    quiz: 'اختبار', takeQuiz: 'ابدأ الاختبار', retakeQuiz: 'العب مرة أخرى', bestScore: (s, n) => `الأفضل: ${s}/${n}`,
+    quizQ: (i, n) => `السؤال ${i} من ${n}`, quizRight: 'إجابة صحيحة! 🎉', quizWrong: 'ليس تمامًا — انظر الإجابة الصحيحة.',
+    quizNext: 'التالي', quizFinish: 'عرض نتيجتي', quizResult: (s, n) => `${s} من ${n} إجابات صحيحة`,
+    quizAgain: 'حاول مرة أخرى', quizClose: 'إغلاق',
+    editQuiz: 'الاختبار', quizEditorTitle: 'اختبار الدرس', quizEditorHint: 'أسئلة اختيار من متعدد لكل لغة. حدّد الإجابة الصحيحة.',
+    addQuestion: 'إضافة سؤال', questionLabel: 'السؤال', answerN: n => `الإجابة ${n}`, addAnswer: 'إضافة إجابة', removeQuestion: 'حذف السؤال',
+    translateQuiz: 'ترجمة هذا الاختبار إلى اللغتين الأخريين', confirmOverwriteQuiz: 'سيستبدل هذا الاختبار في اللغتين الأخريين. المتابعة؟',
+    quizInvalid: n => `السؤال ${n} يحتاج إلى نص وإجابتين على الأقل وإجابة صحيحة محدّدة.`,
+    needsUpgrade3: 'لحفظ تعديلات النصوص والاختبارات، شغّل الملف supabase/upgrade-v3.sql مرة واحدة في Supabase (انظر README).',
+    achievements: 'إنجازاتي', achSub: 'كل ما حققته على هذا الجهاز.', achLessons: 'دروس مكتملة', achStars: 'نجوم الاختبارات', achQuizzes: 'اختبارات لُعبت', achPerfect: 'علامات كاملة',
+    badgesTitle: 'الأوسمة', resultsTitle: 'نتائج اختباراتي', noResults: 'لم تلعب أي اختبار بعد — افتح درسًا وابدأ اختباره!',
+    attempts: n => n === 1 ? 'محاولة واحدة' : `${n} محاولات`, fsAgain: 'اضغط في أي مكان للعودة إلى ملء الشاشة', locked: 'مقفل',
+    b1: 'أول اختبار', b1d: 'العب أي اختبار', b2: 'ممتاز!', b2d: 'أجب عن كل الأسئلة بشكل صحيح', b3: 'محب الاختبارات', b3d: 'العب 5 اختبارات مختلفة',
+    b4: 'جامع النجوم', b4d: 'اكسب 10 نجوم في الاختبارات', b5: 'المستكشف', b5d: 'أكمل 5 دروس', b6: 'بطل المجلد', b6d: 'أكمل كل دروس مجلد كامل',
     themeDark: 'الوضع الليلي', themeLight: 'الوضع النهاري', availableIn: 'متوفر بـ:',
     needsUpgrade: 'لحفظ روابط الفيديو، شغّل ملف supabase/upgrade-v2.sql مرة واحدة في Supabase (راجع README).',
     loadFailed: 'تعذّر تحميل الدروس. تحقق من اتصال الإنترنت.'
@@ -179,6 +215,24 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+
+    editTexts: 'Muokkaa tekstejä', textsTitle: 'Muokkaa sivuston tekstejä',
+    textsHint: 'Korjaa mikä tahansa tällä kielellä näkyvä teksti. Muutokset julkaistaan kaikille. Vinkki: Alt+napsautus mihin tahansa tekstiin vie suoraan sen kohdalle.',
+    searchTexts: 'Hae teksteistä…', originalText: 'Alkuperäinen', textsSaved: 'Tekstit päivitetty', resetAll: 'Palauta kaikki alkuperäisiksi', siteNameLabel: 'Sivuston nimi', taglineLabel: 'Slogan',
+    quiz: 'Tietovisa', takeQuiz: 'Tee tietovisa', retakeQuiz: 'Pelaa uudelleen', bestScore: (s, n) => `Paras: ${s}/${n}`,
+    quizQ: (i, n) => `Kysymys ${i}/${n}`, quizRight: 'Oikein! 🎉', quizWrong: 'Ei ihan — katso oikea vastaus.',
+    quizNext: 'Seuraava', quizFinish: 'Näytä tulos', quizResult: (s, n) => `${s}/${n} oikein`,
+    quizAgain: 'Yritä uudelleen', quizClose: 'Sulje',
+    editQuiz: 'Tietovisa', quizEditorTitle: 'Oppitunnin tietovisa', quizEditorHint: 'Monivalintakysymykset jokaiselle kielelle. Merkitse oikea vastaus.',
+    addQuestion: 'Lisää kysymys', questionLabel: 'Kysymys', answerN: n => `Vastaus ${n}`, addAnswer: 'Lisää vastaus', removeQuestion: 'Poista kysymys',
+    translateQuiz: 'Käännä tämä tietovisa muille kielille', confirmOverwriteQuiz: 'Tämä korvaa tietovisan muilla kielillä. Jatketaanko?',
+    quizInvalid: n => `Kysymys ${n} tarvitsee tekstin, vähintään kaksi vastausta ja merkityn oikean vastauksen.`,
+    needsUpgrade3: 'Tekstimuutosten ja tietovisojen tallentamiseksi suorita supabase/upgrade-v3.sql kerran Supabasessa (katso README).',
+    achievements: 'Saavutukseni', achSub: 'Kaikki, mitä olet ansainnut tällä laitteella.', achLessons: 'Tehdyt oppitunnit', achStars: 'Visatähdet', achQuizzes: 'Pelatut visat', achPerfect: 'Täydet pisteet',
+    badgesTitle: 'Merkit', resultsTitle: 'Visatulokseni', noResults: 'Et ole vielä pelannut yhtään visaa — avaa oppitunti ja tee sen visa!',
+    attempts: n => n === 1 ? '1 yritys' : `${n} yritystä`, fsAgain: 'Napsauta mitä tahansa palataksesi koko näyttöön', locked: 'Lukittu',
+    b1: 'Ensimmäinen visa', b1d: 'Pelaa mikä tahansa visa', b2: 'Täydellistä!', b2d: 'Vastaa kaikkiin oikein', b3: 'Visa-fani', b3d: 'Pelaa 5 eri visaa',
+    b4: 'Tähtienkerääjä', b4d: 'Ansaitse 10 visatähteä', b5: 'Tutkija', b5d: 'Suorita 5 oppituntia', b6: 'Kansion mestari', b6d: 'Suorita kaikki kansion oppitunnit',
     themeDark: 'Tumma teema', themeLight: 'Vaalea teema', availableIn: 'Saatavilla:',
     needsUpgrade: 'Videolinkkien tallentamiseksi suorita supabase/upgrade-v2.sql kerran Supabasessa (katso README).',
     loadFailed: 'Oppitunteja ei voitu ladata. Tarkista internetyhteys.'
@@ -194,7 +248,8 @@ const state = {
   user: null,
   route: { view: 'home' },
   editor: null,
-  reorderMode: false
+  reorderMode: false,
+  ui: { ar: {}, en: {}, fi: {} }   // admin-edited wording, loaded from the database
 };
 /* Progress is kept per device (this browser): which lessons were finished here. */
 const readJSON = (k, d) => { try { return JSON.parse(localStorage.getItem(k)) ?? d; } catch (e) { return d; } };
@@ -204,7 +259,11 @@ function setDone(id, v) { v ? doneSet.add(id) : doneSet.delete(id); try { localS
 const readLast = () => readJSON('lpt.last', null);
 function writeLast(id, lang) { try { localStorage.setItem('lpt.last', JSON.stringify({ id, lang })); } catch (e) {} }
 const $ = id => document.getElementById(id);
-const t = (key, ...a) => { const v = (T[state.lang] || T.en)[key] ?? T.en[key]; return typeof v === 'function' ? v(...a) : v; };
+const t = (key, ...a) => {
+  const v = (T[state.lang] || T.en)[key] ?? T.en[key];
+  if (typeof v === 'string') { const o = state.ui[state.lang]; if (o && o[key]) return o[key]; }
+  return typeof v === 'function' ? v(...a) : v;
+};
 
 function pickInitialLang() {
   const q = new URLSearchParams(location.search).get('lang');
@@ -233,7 +292,12 @@ function makeSupabaseBackend() {
     async deleteTopic(id) { must(await sb.from('topics').delete().eq('id', id)); },
     async saveLesson(r) {
       const row = { id: r.id, topic_id: r.topic_id, titles: r.titles, files: r.files || {}, sort: r.sort ?? 0, videos: r.videos || {}, updated_at: new Date().toISOString() };
+      if (r.quiz) row.quiz = r.quiz;
       let res = await sb.from('lessons').upsert(row).select().single();
+      if (res.error && /quiz/i.test(res.error.message)) {
+        if (Object.values(row.quiz || {}).some(a => a && a.length)) throw new Error(t('needsUpgrade3'));
+        delete row.quiz; res = await sb.from('lessons').upsert(row).select().single();
+      }
       if (res.error && /videos/i.test(res.error.message)) {
         if (Object.values(row.videos).some(Boolean)) throw new Error(t('needsUpgrade'));
         delete row.videos; res = await sb.from('lessons').upsert(row).select().single();
@@ -241,6 +305,15 @@ function makeSupabaseBackend() {
       return must(res);
     },
     async deleteLesson(id) { must(await sb.from('lessons').delete().eq('id', id)); },
+    async getSettings() {
+      const { data, error } = await sb.from('settings').select('*');
+      if (error) return {};
+      const o = {}; (data || []).forEach(r => { o[r.key] = r.value; }); return o;
+    },
+    async saveSetting(key, value) {
+      const { error } = await sb.from('settings').upsert({ key, value, updated_at: new Date().toISOString() });
+      if (error) throw new Error(/settings|relation|schema cache/i.test(error.message) ? t('needsUpgrade3') : error.message);
+    },
     async uploadPdf(lessonId, lang, bytes) {
       const path = `${lessonId}/${lang}-${Date.now()}.pdf`;
       must(await sb.storage.from(BUCKET).upload(path, new Blob([bytes], { type: 'application/pdf' }), { contentType: 'application/pdf', cacheControl: '31536000', upsert: false }));
@@ -290,6 +363,8 @@ function makeLocalBackend() {
     },
     async saveLesson(r) { const row = { created_at: new Date().toISOString(), ...r, updated_at: new Date().toISOString() }; await run('lessons', 'readwrite', s => s.put(row)); return row; },
     async deleteLesson(id) { await run('lessons', 'readwrite', s => s.delete(id)); },
+    async getSettings() { return readJSON('lpt.demo.settings', {}); },
+    async saveSetting(key, value) { const o = readJSON('lpt.demo.settings', {}); o[key] = value; localStorage.setItem('lpt.demo.settings', JSON.stringify(o)); },
     async uploadPdf(lessonId, lang, bytes) {
       const path = `${lessonId}/${lang}-${Date.now()}.pdf`;
       await run('files', 'readwrite', s => s.put(new Blob([bytes], { type: 'application/pdf' }), path));
@@ -473,9 +548,11 @@ function applyLang() {
   try { localStorage.setItem('lpt.lang', L); } catch (e) {}
   document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
   document.querySelectorAll('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
   document.querySelectorAll('.lang-switch button').forEach(b => b.classList.toggle('active', b.dataset.lang === L));
-  $('siteName').textContent = (CFG.BRAND_NAME && CFG.BRAND_NAME[L]) || BRAND.name[L];
-  $('siteTagline').textContent = (CFG.BRAND_TAGLINE && CFG.BRAND_TAGLINE[L]) || BRAND.tagline[L];
+  const ov = state.ui[L] || {};
+  $('siteName').textContent = ov._siteName || (CFG.BRAND_NAME && CFG.BRAND_NAME[L]) || BRAND.name[L];
+  $('siteTagline').textContent = ov._tagline || (CFG.BRAND_TAGLINE && CFG.BRAND_TAGLINE[L]) || BRAND.tagline[L];
   updateThemeButton();
   document.title = $('siteName').textContent;
   $('recordBtn').title = t('record');
@@ -498,6 +575,7 @@ function parseHash() {
   const p = location.hash.replace(/^#\/?/, '').split('/');
   if (p[0] === 't' && p[1]) return { view: 'topic', topicId: p[1] };
   if (p[0] === 'maker') return { view: 'maker' };
+  if (p[0] === 'achievements') return { view: 'achievements' };
   if (p[0] === 'e' && p[1]) return { view: 'editor', lessonId: p[1], lang: LANGS.includes(p[2]) ? p[2] : state.lang };
   return { view: 'home' };
 }
@@ -530,10 +608,13 @@ function render() {
   $('topicView').hidden = r.view !== 'topic';
   $('editorView').hidden = r.view !== 'editor';
   $('makerView').hidden = r.view !== 'maker';
+  $('achView').hidden = r.view !== 'achievements';
   $('makerBtn').classList.toggle('active', r.view === 'maker');
+  $('achBtn').classList.toggle('active', r.view === 'achievements');
   if (r.view === 'home') renderHome();
   else if (r.view === 'topic') renderTopic(r.topicId);
   else if (r.view === 'maker') renderMaker();
+  else if (r.view === 'achievements') renderAchievements();
   else if (r.view === 'editor') {
     if (!state.isAdmin) { go('#'); return; }
     renderEditor(r.lessonId, r.lang);
@@ -695,7 +776,9 @@ function renderJourney(lessons, color) {
       h('span', { class: 'stop-num', text: i + 1 }),
       doneNow ? h('span', { class: 'stop-star', text: '★' }) : null
     );
-    const sub = doneNow ? t('doneLabel') : soon ? t('soonIn', state.lang) : file ? t('slides', file.pages) + (video ? ' · 🎬' : '') : '🎬';
+    const qr = quizRes(ls.id, state.lang), hasQuiz = quizOf(ls, state.lang).length > 0;
+    const sub = (doneNow ? t('doneLabel') : soon ? t('soonIn', state.lang) : file ? t('slides', file.pages) + (video ? ' · 🎬' : '') : '🎬')
+      + (qr ? ' · 🧠 ' + '⭐'.repeat(starsFor(qr.best, qr.total)) : hasQuiz ? ' · 🧠' : '');
     const stop = h('div', { class: cls, style: `left:${p.x}%;top:${p.y}px` },
       i === nextIdx ? h('span', { class: 'next-flag', text: t('nextUp') }) : null,
       btn,
@@ -755,6 +838,10 @@ function openLessonSheet(ls) {
   const acts = $('sheetActions'); acts.innerHTML = '';
   if (file) acts.append(h('button', { class: 'btn primary wide', type: 'button', onclick: () => { closeModal('lessonSheet'); present(ls, L); } }, '▶ ', t('present')));
   if (video) acts.append(h('button', { class: 'btn orange' + (file ? '' : ' wide'), type: 'button', onclick: () => openVideo(video) }, '🎬 ', t('watchVideo')));
+  if (quizOf(ls, L).length) {
+    const qr = quizRes(ls.id, L);
+    acts.append(h('button', { class: 'btn gold', type: 'button', onclick: () => openQuiz(ls, L) }, '🧠 ', qr ? t('retakeQuiz') + ' · ' + t('bestScore', qr.best, qr.total) : t('takeQuiz')));
+  }
   if (file) acts.append(h('button', { class: 'btn', type: 'button', onclick: () => downloadLesson(ls, L) }, '⬇ ', t('download')));
   const dn = isDone(ls.id);
   acts.append(h('button', { class: 'btn ' + (dn ? '' : 'green'), type: 'button', onclick: () => { setDone(ls.id, !dn); openLessonSheet(ls); render(); } }, dn ? '↺ ' + t('markNotDone') : '✓ ' + t('markDone')));
@@ -772,6 +859,7 @@ function openLessonSheet(ls) {
         closeModal('lessonSheet'); openLessonModal(ls);
         setTimeout(() => { const v = $('lessonVideo-' + L); if (v) { v.scrollIntoView({ block: 'center', behavior: 'smooth' }); v.focus(); } }, 80);
       } }, '🎬 ', t('videoLink')),
+      h('button', { class: 'btn small', type: 'button', onclick: () => openQuizEditor(ls) }, '🧠 ', t('editQuiz')),
       h('button', { class: 'btn small danger', type: 'button', onclick: () => { closeModal('lessonSheet'); deleteLesson(ls); } }, '🗑 ', t('delete'))
     );
   }
@@ -1180,7 +1268,7 @@ $('pRecord').onclick = () => { P.keepOnFsExit = true; toggleRecording(); };
 $('presenter').addEventListener('mousemove', pokeUI);
 document.addEventListener('fullscreenchange', () => {
   if (!document.fullscreenElement && !$('presenter').hidden) {
-    if (P.keepOnFsExit) { P.keepOnFsExit = false; return; }
+    if (P.keepOnFsExit || R.starting) { P.keepOnFsExit = false; return; }
     closePresenter(); // Esc in fullscreen ends the show, like PowerPoint
   }
 });
@@ -1204,14 +1292,31 @@ let resizeT;
 window.addEventListener('resize', () => { if (!P.pages) return; clearTimeout(resizeT); resizeT = setTimeout(() => { P.cache.clear(); showSlide(P.i); }, 150); });
 
 /* ───────────────────────── Screen + voice recording ───────────────────────── */
-const R = { rec: null, chunks: [], streams: [], ctx: null, start: 0, timer: null };
+const R = { rec: null, chunks: [], streams: [], ctx: null, start: 0, timer: null, starting: false };
+// After the screen-share picker the browser leaves full screen. Go back into it; if the browser
+// wants a fresh click first, the very next click / arrow key / space does it.
+let fsArmed = false;
+function restoreFullscreen() {
+  const el = $('presenter');
+  if (el.hidden || document.fullscreenElement || !el.requestFullscreen) return;
+  el.requestFullscreen({ navigationUI: 'hide' }).then(() => { P.fs = true; }).catch(() => {
+    if (fsArmed) return; fsArmed = true; toast(t('fsAgain'));
+    const fire = ev => {
+      if (ev.type === 'keydown' && !['ArrowRight', 'ArrowLeft', 'ArrowDown', 'ArrowUp', ' ', 'Enter', 'PageDown', 'PageUp'].includes(ev.key)) return;
+      document.removeEventListener('pointerdown', fire, true); document.removeEventListener('keydown', fire, true); fsArmed = false;
+      if (!el.hidden && !document.fullscreenElement) el.requestFullscreen({ navigationUI: 'hide' }).catch(() => {});
+    };
+    document.addEventListener('pointerdown', fire, true); document.addEventListener('keydown', fire, true);
+  });
+}
 async function toggleRecording() {
   if (R.rec) { stopRecording(); return; }
   if (!navigator.mediaDevices?.getDisplayMedia || !window.MediaRecorder) { toast(t('recUnsupported'), true); return; }
   let display;
+  R.starting = true;   // the browser's share picker may drop us out of full screen — don't treat that as "end the show"
   try {
     display = await navigator.mediaDevices.getDisplayMedia({ video: { frameRate: 30 }, audio: true, selfBrowserSurface: 'include', surfaceSwitching: 'include' });
-  } catch (e) { toast(t('recCancelled')); return; }
+  } catch (e) { toast(t('recCancelled')); restoreFullscreen(); setTimeout(() => { R.starting = false; }, 1500); return; }
   let mic = null;
   try { mic = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } }); }
   catch (e) { toast(t('micDenied'), true); }
@@ -1243,6 +1348,8 @@ async function toggleRecording() {
   document.querySelectorAll('#recordBtn .rec-dot, #pRecord .rec-dot').forEach(d => d.classList.add('live'));
   const tick = () => { const s = Math.floor((Date.now() - R.start) / 1000); $('recTime').textContent = `${String(Math.floor(s / 60)).padStart(2, '0')}:${String(s % 60).padStart(2, '0')}`; };
   tick(); R.timer = setInterval(tick, 500);
+  restoreFullscreen();
+  setTimeout(() => { R.starting = false; }, 2000);
 }
 function stopRecording() { if (R.rec && R.rec.state !== 'inactive') R.rec.stop(); }
 $('recordBtn').onclick = toggleRecording;
@@ -1424,6 +1531,249 @@ document.addEventListener('paste', e => {
   if (files.length) { e.preventDefault(); makerAdd(files); }
 });
 
+
+/* ───────────────────────── Editable website texts (admins) ───────────────────────── */
+async function loadUi() {
+  try { const st = await api.getSettings(); state.ui = { ar: {}, en: {}, fi: {}, ...(st.ui_text || {}) }; } catch (e) { /* keep defaults */ }
+}
+function textRows(L) {
+  const rows = [
+    { key: '_siteName', label: t('siteNameLabel'), def: (CFG.BRAND_NAME && CFG.BRAND_NAME[L]) || BRAND.name[L] },
+    { key: '_tagline', label: t('taglineLabel'), def: (CFG.BRAND_TAGLINE && CFG.BRAND_TAGLINE[L]) || BRAND.tagline[L] }
+  ];
+  Object.keys(T.en).forEach(k => {
+    const def = (T[L] || T.en)[k] ?? T.en[k];
+    if (typeof def === 'string' && typeof T.en[k] === 'string') rows.push({ key: k, label: k, def });
+  });
+  return rows;
+}
+function openTextsModal(focusKey) {
+  const L = state.lang, cur = state.ui[L] || {};
+  $('textsLang').textContent = LANG_NAMES[L];
+  $('textsSearch').value = '';
+  const box = $('textsList'); box.innerHTML = '';
+  textRows(L).forEach(r => {
+    const long = r.def.length > 70;
+    const inp = h(long ? 'textarea' : 'input', { ...(long ? { rows: '2' } : { type: 'text' }), dir: L === 'ar' ? 'rtl' : 'ltr', lang: L, placeholder: r.def, 'data-def': r.def });
+    inp.value = cur[r.key] || r.def;
+    const row = h('div', { class: 'text-row', 'data-key': r.key, 'data-search': (r.key + ' ' + r.def + ' ' + (T.en[r.key] || '')).toLowerCase() },
+      h('label', {}, h('span', { class: 'tk', text: r.label }), L !== 'en' && typeof T.en[r.key] === 'string' ? h('span', { class: 'ten', dir: 'ltr', text: 'EN: ' + T.en[r.key] }) : null),
+      inp);
+    inp.addEventListener('input', () => row.classList.toggle('changed', inp.value.trim() !== r.def.trim()));
+    box.append(row);
+  });
+  openModal('textsModal');
+  if (focusKey) setTimeout(() => {
+    const row = box.querySelector(`.text-row[data-key="${CSS.escape(focusKey)}"]`);
+    if (row) { row.scrollIntoView({ block: 'center' }); row.classList.add('flash'); row.querySelector('input,textarea').focus(); }
+  }, 60);
+}
+$('textsBtn').onclick = () => openTextsModal();
+$('textsSearch').addEventListener('input', () => {
+  const q = $('textsSearch').value.trim().toLowerCase();
+  $('textsList').querySelectorAll('.text-row').forEach(r => {
+    const val = r.querySelector('input,textarea').value.toLowerCase();
+    r.hidden = !!q && !r.dataset.search.includes(q) && !val.includes(q);
+  });
+});
+$('textsReset').onclick = () => $('textsList').querySelectorAll('.text-row').forEach(r => {
+  const i = r.querySelector('input,textarea'); i.value = i.dataset.def; r.classList.remove('changed');
+});
+$('textsForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  await guard(async () => {
+    busy(t('saving'));
+    const L = state.lang, out = {};
+    $('textsList').querySelectorAll('.text-row').forEach(r => {
+      const i = r.querySelector('input,textarea'), v = i.value.trim();
+      if (v && v !== i.dataset.def.trim()) out[r.dataset.key] = v;
+    });
+    const fresh = ((await api.getSettings()).ui_text) || {};
+    const next = { ar: {}, en: {}, fi: {}, ...fresh, [L]: out };
+    await api.saveSetting('ui_text', next);
+    state.ui = next;
+    closeModal('textsModal'); applyLang(); render(); toast(t('textsSaved'));
+  });
+  done();
+});
+// Alt+click any text → jump to it in the editor
+document.addEventListener('click', e => {
+  if (!e.altKey || !state.isAdmin) return;
+  const el = e.target.closest('[data-i18n],#siteName,#siteTagline'); if (!el) return;
+  e.preventDefault(); e.stopPropagation();
+  openTextsModal(el.id === 'siteName' ? '_siteName' : el.id === 'siteTagline' ? '_tagline' : el.dataset.i18n);
+}, true);
+
+/* ───────────────────────── Quizzes (scores are kept per device) ───────────────────────── */
+const quizStore = readJSON('lpt.quiz', {});
+const saveQuizStore = () => { try { localStorage.setItem('lpt.quiz', JSON.stringify(quizStore)); } catch (e) {} };
+const quizOf = (ls, lang) => ((ls.quiz && Array.isArray(ls.quiz[lang])) ? ls.quiz[lang] : []).filter(q => q && q.q && Array.isArray(q.a) && q.a.filter(Boolean).length >= 2);
+const quizRes = (id, lang) => quizStore[id + ':' + lang];
+const starsFor = (s, n) => !n ? 0 : s / n >= .9 ? 3 : s / n >= .6 ? 2 : s > 0 ? 1 : 0;
+function recordQuiz(ls, lang, score, total) {
+  const k = ls.id + ':' + lang, r = quizStore[k];
+  const better = !r || score / total >= r.best / (r.total || total);
+  quizStore[k] = {
+    best: better ? score : r.best, total: better ? total : r.total,
+    attempts: (r ? r.attempts : 0) + 1, last: score, lastTotal: total, date: new Date().toISOString()
+  };
+  saveQuizStore();
+}
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+const Q = { ls: null, lang: 'en', qs: [], i: 0, score: 0, locked: false };
+function openQuiz(ls, lang = state.lang) {
+  const qs = quizOf(ls, lang); if (!qs.length) return;
+  closeModal('lessonSheet');
+  Object.assign(Q, { ls, lang, i: 0, score: 0, locked: false });
+  Q.qs = qs.map(q => ({ q: q.q, opts: shuffle(q.a.map((text, idx) => ({ text, ok: idx === (q.c | 0) })).filter(o => o.text)) }));
+  drawQuiz(); $('quizModal').hidden = false;
+}
+function drawQuiz() {
+  const body = $('quizBody'); body.innerHTML = '';
+  body.dir = Q.lang === 'ar' ? 'rtl' : 'ltr'; body.lang = Q.lang;
+  $('quizTitle').textContent = nameOf(Q.ls.titles);
+  if (Q.i >= Q.qs.length) { drawQuizResult(); return; }
+  const q = Q.qs[Q.i]; Q.locked = false;
+  $('quizProgress').style.width = (Q.i / Q.qs.length * 100) + '%';
+  $('quizStep').textContent = t('quizQ', Q.i + 1, Q.qs.length);
+  const fb = h('p', { class: 'quiz-fb', 'aria-live': 'polite' });
+  const next = h('button', { class: 'btn primary', type: 'button', hidden: true, onclick: () => { Q.i++; drawQuiz(); } }, Q.i + 1 >= Q.qs.length ? t('quizFinish') : t('quizNext'));
+  const opts = h('div', { class: 'quiz-opts' });
+  q.opts.forEach(o => {
+    const b = h('button', { class: 'quiz-opt', type: 'button', text: o.text });
+    b.onclick = () => {
+      if (Q.locked) return; Q.locked = true;
+      opts.querySelectorAll('.quiz-opt').forEach((x, k) => { x.disabled = true; if (q.opts[k].ok) x.classList.add('right'); });
+      if (o.ok) { Q.score++; fb.textContent = t('quizRight'); fb.className = 'quiz-fb good'; }
+      else { b.classList.add('wrong'); fb.textContent = t('quizWrong'); fb.className = 'quiz-fb bad'; }
+      next.hidden = false; next.focus();
+    };
+    opts.append(b);
+  });
+  body.append(h('h3', { class: 'quiz-q', text: q.q }), opts, fb, h('div', { class: 'quiz-foot' }, next));
+}
+function drawQuizResult() {
+  const body = $('quizBody'), n = Q.qs.length, s = Q.score, stars = starsFor(s, n);
+  recordQuiz(Q.ls, Q.lang, s, n);
+  const r = quizRes(Q.ls.id, Q.lang);
+  $('quizProgress').style.width = '100%'; $('quizStep').textContent = '';
+  body.append(
+    h('div', { class: 'quiz-result' },
+      h('div', { class: 'quiz-stars' }, [1, 2, 3].map(k => h('span', { class: k <= stars ? 'on' : '', style: `animation-delay:${k * .18}s`, text: '★' }))),
+      h('h3', { text: t('quizResult', s, n) }),
+      h('p', { class: 'muted', text: t('bestScore', r.best, r.total) + ' · ' + t('attempts', r.attempts) })),
+    h('div', { class: 'quiz-foot' },
+      h('button', { class: 'btn', type: 'button', onclick: () => openQuiz(Q.ls, Q.lang) }, '↺ ', t('quizAgain')),
+      h('button', { class: 'btn primary', type: 'button', onclick: () => closeModal('quizModal') }, t('quizClose'))));
+  if (stars >= 2) { const box = h('div', { class: 'quiz-confetti' }); ['⭐', '🎉', '✨', '🌟', '🎈'].forEach((c, k) => { for (let j = 0; j < 5; j++) box.append(h('span', { text: c, style: `left:${(k * 5 + j) * 4}%;animation-delay:${Math.random() * .8}s` })); }); body.append(box); }
+}
+new MutationObserver(() => { if ($('quizModal').hidden) render(); }).observe($('quizModal'), { attributes: true, attributeFilter: ['hidden'] });
+
+/* quiz editor (admins) */
+const QE = { ls: null, lang: 'en', data: {} };
+function openQuizEditor(ls) {
+  closeModal('lessonSheet');
+  QE.ls = ls; QE.lang = state.lang;
+  LANGS.forEach(l => { QE.data[l] = ((ls.quiz && Array.isArray(ls.quiz[l])) ? ls.quiz[l] : []).map(q => ({ q: q.q || '', a: [...(q.a || [])], c: q.c | 0 })); });
+  drawQuizEditor(); openModal('quizEditModal');
+}
+function drawQuizEditor() {
+  const card = $('quizEditModal').querySelector('.modal-card'), sc = card.scrollTop;
+  $('quizEditTitle').textContent = '🧠 ' + t('quizEditorTitle') + ' — ' + nameOf(QE.ls.titles);
+  const tabs = $('quizEditTabs'); tabs.innerHTML = '';
+  LANGS.forEach(l => tabs.append(h('button', { type: 'button', class: l === QE.lang ? 'active' : '', onclick: () => { QE.lang = l; drawQuizEditor(); card.scrollTop = 0; } },
+    h('span', { class: 'dot' + (QE.data[l].length ? ' on' : '') }), LANG_NAMES[l] + (QE.data[l].length ? ` (${QE.data[l].length})` : ''))));
+  const dir = QE.lang === 'ar' ? 'rtl' : 'ltr';
+  const list = $('quizEditList'); list.innerHTML = '';
+  QE.data[QE.lang].forEach((q, qi) => {
+    const qin = h('textarea', { rows: '2', placeholder: t('questionLabel'), dir, lang: QE.lang }); qin.value = q.q; qin.oninput = () => { q.q = qin.value; };
+    const ans = h('div', { class: 'qans' });
+    q.a.forEach((txt, ai) => {
+      const radio = h('input', { type: 'radio', name: 'qc-' + qi, 'aria-label': 'correct' }); radio.checked = q.c === ai; radio.onchange = () => { q.c = ai; };
+      const inp = h('input', { type: 'text', placeholder: t('answerN', ai + 1), dir, lang: QE.lang }); inp.value = txt; inp.oninput = () => { q.a[ai] = inp.value; };
+      const del = h('button', { type: 'button', class: 'btn small', title: t('delete'), disabled: q.a.length <= 2, onclick: () => { q.a.splice(ai, 1); if (q.c === ai) q.c = 0; else if (q.c > ai) q.c--; drawQuizEditor(); } }, '✕');
+      ans.append(h('div', { class: 'qans-row' }, radio, inp, del));
+    });
+    list.append(h('div', { class: 'qcard' },
+      h('div', { class: 'qhead' }, h('b', { text: '#' + (qi + 1) }), h('button', { type: 'button', class: 'btn small danger', onclick: () => { QE.data[QE.lang].splice(qi, 1); drawQuizEditor(); } }, '🗑 ', t('removeQuestion'))),
+      qin, ans,
+      q.a.length < 6 ? h('button', { type: 'button', class: 'btn small', onclick: () => { q.a.push(''); drawQuizEditor(); } }, '＋ ', t('addAnswer')) : null));
+  });
+  $('quizTranslateBtn').disabled = !QE.data[QE.lang].some(q => q.q.trim());
+  card.scrollTop = sc;
+}
+$('quizAddBtn').onclick = () => { QE.data[QE.lang].push({ q: '', a: ['', '', ''], c: 0 }); drawQuizEditor(); const l = $('quizEditList'); l.lastElementChild?.querySelector('textarea')?.focus(); };
+$('quizTranslateBtn').onclick = async () => {
+  const from = QE.lang, src = QE.data[from].filter(q => q.q.trim());
+  const targets = LANGS.filter(l => l !== from);
+  if (!src.length) return;
+  if (targets.some(l => QE.data[l].length) && !confirm(t('confirmOverwriteQuiz'))) return;
+  busy(t('translating'));
+  try {
+    const res = {};
+    for (const l of targets) {
+      res[l] = [];
+      for (const q of src) res[l].push({ q: await translate(q.q.trim(), from, l), a: await Promise.all(q.a.map(x => x.trim() ? translate(x.trim(), from, l) : '')), c: q.c });
+    }
+    Object.assign(QE.data, res); drawQuizEditor();
+  } catch (e) { toast(t('translateFailed'), true); }
+  done();
+};
+$('quizEditForm').addEventListener('submit', async e => {
+  e.preventDefault();
+  await guard(async () => {
+    const out = {};
+    for (const l of LANGS) {
+      out[l] = [];
+      QE.data[l].forEach((q, qi) => {
+        const text = q.q.trim(), opts = q.a.map((x, i) => ({ x: x.trim(), ok: i === q.c })).filter(o => o.x);
+        if (!text && !opts.length) return;
+        if (!text || opts.length < 2 || !opts.some(o => o.ok)) { QE.lang = l; drawQuizEditor(); throw new Error(t('quizInvalid', qi + 1)); }
+        out[l].push({ q: text, a: opts.map(o => o.x), c: opts.findIndex(o => o.ok) });
+      });
+    }
+    busy(t('saving'));
+    await api.saveLesson({ ...QE.ls, quiz: out });
+    closeModal('quizEditModal'); await reload(); toast(t('saved'));
+  });
+  done();
+});
+
+/* ───────────────────────── My achievements ───────────────────────── */
+function renderAchievements() {
+  const results = Object.entries(quizStore).map(([k, r]) => {
+    const i = k.lastIndexOf(':'), ls = state.lessons.find(l => l.id === k.slice(0, i));
+    return ls ? { ls, lang: k.slice(i + 1), r } : null;
+  }).filter(Boolean).sort((a, b) => String(b.r.date).localeCompare(String(a.r.date)));
+  const stars = results.reduce((n, x) => n + starsFor(x.r.best, x.r.total), 0);
+  const perfect = results.filter(x => x.r.total && x.r.best === x.r.total).length;
+  const lessonsDone = state.lessons.filter(l => isDone(l.id)).length;
+  const folderDone = state.topics.some(tp => { const ls = topicLessons(tp.id); return ls.length && ls.every(l => isDone(l.id)); });
+
+  const stats = $('achStats'); stats.innerHTML = '';
+  [['📚', lessonsDone, 'achLessons'], ['⭐', stars, 'achStars'], ['🧠', results.length, 'achQuizzes'], ['💯', perfect, 'achPerfect']]
+    .forEach(([ic, n, k]) => stats.append(h('div', { class: 'ach-tile' }, h('span', { class: 'ic', text: ic }), h('strong', { text: n }), h('small', { text: t(k) }))));
+
+  const badges = $('achBadges'); badges.innerHTML = '';
+  [['🥇', results.length >= 1, 'b1'], ['💯', perfect >= 1, 'b2'], ['🎯', results.length >= 5, 'b3'], ['🌟', stars >= 10, 'b4'], ['🧭', lessonsDone >= 5, 'b5'], ['🏆', folderDone, 'b6']]
+    .forEach(([ic, on, k]) => badges.append(h('div', { class: 'badge' + (on ? ' on' : ''), title: on ? '' : t('locked') },
+      h('span', { class: 'bi', text: on ? ic : '🔒' }), h('b', { text: t(k) }), h('small', { text: t(k + 'd') }))));
+
+  const box = $('achResults'); box.innerHTML = '';
+  $('achEmpty').hidden = results.length > 0;
+  results.forEach(({ ls, lang, r }) => {
+    const tp = state.topics.find(x => x.id === ls.topic_id), ti = state.topics.indexOf(tp);
+    const st = starsFor(r.best, r.total), can = quizOf(ls, lang).length > 0;
+    box.append(h('div', { class: 'ach-row' },
+      h('span', { class: 'ri', text: tp ? topicIcon(tp, ti) : '🧠' }),
+      h('div', { class: 'rt' }, h('b', { text: nameOf(ls.titles) }), h('small', { text: `${tp ? nameOf(tp.names) + ' · ' : ''}${LANG_NAMES[lang]} · ${t('attempts', r.attempts)}` })),
+      h('div', { class: 'rs' }, h('span', { class: 'stars3' }, [1, 2, 3].map(k => h('i', { class: k <= st ? 'on' : '', text: '★' }))), h('small', { text: `${r.best}/${r.total}` })),
+      h('button', { class: 'btn small', type: 'button', disabled: !can, onclick: () => openQuiz(ls, lang) }, '↺ ', t('retakeQuiz'))));
+  });
+}
+$('achBtn').onclick = () => go('#/achievements');
+
 /* ───────────────────────── Auth ───────────────────────── */
 $('adminBtn').onclick = async () => {
   if (!online) return;
@@ -1448,7 +1798,7 @@ $('loginForm').addEventListener('submit', async e => {
 /* ───────────────────────── Boot ───────────────────────── */
 async function reload() {
   const [topics, lessons] = await Promise.all([api.listTopics(), api.listLessons()]);
-  state.topics = topics || []; state.lessons = (lessons || []).map(l => ({ ...l, files: l.files || {}, titles: l.titles || {}, videos: l.videos || {} }));
+  state.topics = topics || []; state.lessons = (lessons || []).map(l => ({ ...l, files: l.files || {}, titles: l.titles || {}, videos: l.videos || {}, quiz: l.quiz || {} }));
   render();
 }
 async function boot() {
@@ -1457,6 +1807,7 @@ async function boot() {
     state.user = await api.session();
     state.isAdmin = await api.checkAdmin(state.user);
   } catch (e) { state.user = null; state.isAdmin = false; }
+  await loadUi();
   applyLang();
   state.route = parseHash();
   try { await reload(); }

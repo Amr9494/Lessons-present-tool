@@ -14,7 +14,7 @@ A website where your team keeps all lesson PDFs in one place, in **Arabic, Engli
 
 Your folders, lessons and PDFs live in **Supabase**, not in these files — replacing the website files never touches them.
 
-1. **Supabase → SQL Editor → New query**, paste `supabase/upgrade-v2.sql`, **Run**. (Only adds two empty columns for videos and icons. Safe to run more than once.)
+1. **Supabase → SQL Editor → New query**, paste `supabase/upgrade-v2.sql`, **Run** (skip if you already did). Then do the same with `supabase/upgrade-v3.sql` (adds quizzes and editable texts). They only add empty columns/tables and are safe to run more than once.
 2. On GitHub, open your repository → **Add file → Upload files**. Drag in everything from this update **except `config.js`** (keep yours — it holds your keys). Press **Commit changes**.
 3. Vercel republishes automatically in about a minute.
 
@@ -81,6 +81,10 @@ Later, to change the site's code, edit the file on GitHub — Vercel republishes
 | Admin | In a folder, **⇅ Reorder** changes the order of stops on the journey. |
 | Everyone | Tap a stop on the map → Present, Watch video, Download, or Mark as done. Reaching the last slide marks it done automatically. |
 | Everyone | **🛠 Lesson maker** (top bar) → add or paste pictures, drag them into order, choose a page size → **Download PDF** or **Preview**. Pictures stay on that computer until you press Clear all. |
+| Admin | **✎ Edit texts** (top bar) → fix any wording in the language you are viewing; changes are published for everyone. **Alt+click** any text on the page to jump straight to it. |
+| Admin | Folder and lesson names: open ✎ Edit — the three language boxes can all be corrected by hand; auto-translation only fills empty boxes. |
+| Admin | On a lesson, **🧠 Quiz** → add multiple-choice questions per language (or write one language and press ⇄ Translate). |
+| Everyone | **🧠 Take the quiz** on a lesson; **🏆 My achievements** (top bar) shows stars, badges and results. They are saved per device. |
 | Admin | In the Lesson maker, **Save as lesson** sends the PDF straight into a new lesson — no download/upload needed. |
 | Admin | Tap a stop → **Arrange slides** → pick a language tab → drag slides, remove with ✕, add pages from another PDF, then **Save**. Viewers' downloads use the new order. |
 

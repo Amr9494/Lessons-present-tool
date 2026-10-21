@@ -30,6 +30,7 @@ create table if not exists public.lessons (
 -- (older installs: columns added by upgrade-v2.sql)
 alter table public.lessons add column if not exists videos jsonb not null default '{}'::jsonb;
 alter table public.topics  add column if not exists icon text;
+alter table public.lessons add column if not exists quiz jsonb not null default '{}'::jsonb;
 create index if not exists lessons_topic_idx on public.lessons(topic_id);
 
 -- Who is allowed to edit. Add people here (see README step 4).
@@ -59,6 +60,16 @@ create policy "topics write"  on public.topics  for all to authenticated using (
 create policy "lessons read"  on public.lessons for select using (true);
 create policy "lessons write" on public.lessons for all to authenticated using (public.is_admin()) with check (public.is_admin());
 create policy "admins self"   on public.admins  for select to authenticated using (user_id = auth.uid());
+
+-- ── Editable website texts ──
+create table if not exists public.settings (
+  key text primary key, value jsonb not null default '{}'::jsonb, updated_at timestamptz not null default now()
+);
+alter table public.settings enable row level security;
+drop policy if exists "settings read"  on public.settings;
+drop policy if exists "settings write" on public.settings;
+create policy "settings read"  on public.settings for select using (true);
+create policy "settings write" on public.settings for all to authenticated using (public.is_admin()) with check (public.is_admin());
 
 -- ── File storage for the PDFs (public to read, admins to write) ──
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)

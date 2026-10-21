@@ -33,6 +33,8 @@
       <button type="button" data-lang="en" lang="en">English</button>
       <button type="button" data-lang="fi" lang="fi">Suomi</button>
     </div>
+    <button type="button" class="btn ghost maker-nav" id="achBtn">🏆 <span data-i18n="achievements">My achievements</span></button>
+    <button type="button" class="btn ghost admin-only" id="textsBtn">✎ <span data-i18n="editTexts">Edit texts</span></button>
     <button type="button" class="btn ghost maker-nav" id="makerBtn">🛠 <span data-i18n="maker">Lesson maker</span></button>
     <button type="button" class="btn icon-btn" id="themeBtn" aria-label="Dark / light"></button>
     <button type="button" class="btn ghost" id="recordBtn"><span class="rec-dot"></span><span data-i18n="record">Record</span></button>
@@ -184,6 +186,22 @@
       </span>
     </div>
   </section>
+  <!-- MY ACHIEVEMENTS -->
+  <section id="achView" class="view" hidden>
+    <nav class="crumbs"><a href="#" data-go="home" data-i18n="allTopics">All topics</a><span>›</span><span data-i18n="achievements">My achievements</span></nav>
+    <div class="view-head">
+      <div>
+        <h1>🏆 <span data-i18n="achievements">My achievements</span></h1>
+        <p class="muted" data-i18n="achSub"></p>
+      </div>
+    </div>
+    <div class="ach-stats" id="achStats"></div>
+    <h2 class="section-title" data-i18n="badgesTitle">Badges</h2>
+    <div class="badges" id="achBadges"></div>
+    <h2 class="section-title" data-i18n="resultsTitle">My quiz results</h2>
+    <div class="ach-results" id="achResults"></div>
+    <div id="achEmpty" class="empty" hidden><div class="empty-icon">🧠</div><p data-i18n="noResults"></p></div>
+  </section>
 </main>
 
 <!-- Lesson sheet (opens from a map stop) -->
@@ -199,6 +217,51 @@
       <div class="sheet-admin admin-only" id="sheetAdmin"></div>
     </div>
   </div>
+</div>
+
+<!-- Quiz player -->
+<div class="modal" id="quizModal" hidden>
+  <div class="modal-card quiz-card">
+    <button type="button" class="sheet-close" data-close aria-label="Close">✕</button>
+    <div class="quiz-top"><span class="quiz-badge">🧠</span><div><small id="quizStep"></small><h2 id="quizTitle"></h2></div></div>
+    <div class="pbar quiz-bar"><div class="pbar-fill" id="quizProgress"></div></div>
+    <div id="quizBody"></div>
+  </div>
+</div>
+
+<!-- Quiz editor (admins) -->
+<div class="modal" id="quizEditModal" hidden>
+  <form class="modal-card wide" id="quizEditForm">
+    <h2 id="quizEditTitle"></h2>
+    <p class="muted" data-i18n="quizEditorHint"></p>
+    <div class="tabs quiz-tabs" id="quizEditTabs" role="tablist"></div>
+    <div id="quizEditList"></div>
+    <div class="quiz-edit-tools">
+      <button type="button" class="btn" id="quizAddBtn">＋ <span data-i18n="addQuestion">Add question</span></button>
+      <button type="button" class="btn" id="quizTranslateBtn">⇄ <span data-i18n="translateQuiz">Translate</span></button>
+    </div>
+    <div class="modal-foot">
+      <button type="button" class="btn" data-close data-i18n="cancel">Cancel</button>
+      <button type="submit" class="btn primary" data-i18n="save">Save</button>
+    </div>
+  </form>
+</div>
+
+<!-- Text editor (admins) -->
+<div class="modal" id="textsModal" hidden>
+  <form class="modal-card wide texts-card" id="textsForm">
+    <h2>✎ <span data-i18n="textsTitle">Edit website texts</span> · <span id="textsLang"></span></h2>
+    <p class="muted" data-i18n="textsHint"></p>
+    <div class="texts-tools">
+      <input type="search" id="textsSearch" data-i18n-placeholder="searchTexts" placeholder="Search…" autocomplete="off">
+      <button type="button" class="btn small danger" id="textsReset" data-i18n="resetAll">Reset all</button>
+    </div>
+    <div id="textsList" class="texts-list"></div>
+    <div class="modal-foot">
+      <button type="button" class="btn" data-close data-i18n="cancel">Cancel</button>
+      <button type="submit" class="btn primary" data-i18n="save">Save</button>
+    </div>
+  </form>
 </div>
 
 <!-- Video player -->
