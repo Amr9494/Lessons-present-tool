@@ -60,7 +60,7 @@ const T = {
     statTopics: 'adventures', statLessons: 'lessons', statDone: 'stars earned',
     continueTitle: 'Continue your journey', continueGo: 'Keep going', chooseAdventure: 'Choose your adventure',
     reorder: 'Reorder', reorderDone: 'Done', chooseIcon: 'Icon', videosTitle: 'YouTube videos (optional)',
-    watchVideo: 'Watch video', markDone: 'Mark as done', markNotDone: 'Not done yet',
+    videoLink: 'Video link', watchVideo: 'Watch video', markDone: 'Mark as done', markNotDone: 'Not done yet',
     doneOf: (d, n) => `${d} of ${n} done`, lessonN: n => `Lesson ${n}`,
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
@@ -108,7 +108,7 @@ const T = {
     statTopics: 'مغامرات', statLessons: 'دروس', statDone: 'نجوم مكتسبة',
     continueTitle: 'تابع رحلتك', continueGo: 'هيا نكمل', chooseAdventure: 'اختر مغامرتك',
     reorder: 'إعادة الترتيب', reorderDone: 'تم', chooseIcon: 'الأيقونة', videosTitle: 'فيديوهات يوتيوب (اختياري)',
-    watchVideo: 'شاهد الفيديو', markDone: 'أكملتُ الدرس', markNotDone: 'لم يكتمل بعد',
+    videoLink: 'رابط الفيديو', watchVideo: 'شاهد الفيديو', markDone: 'أكملتُ الدرس', markNotDone: 'لم يكتمل بعد',
     doneOf: (d, n) => `${d} من ${n} مكتمل`, lessonN: n => `الدرس ${n}`,
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
@@ -156,7 +156,7 @@ const T = {
     statTopics: 'seikkailua', statLessons: 'oppituntia', statDone: 'tähteä ansaittu',
     continueTitle: 'Jatka matkaasi', continueGo: 'Jatketaan', chooseAdventure: 'Valitse seikkailusi',
     reorder: 'Järjestä', reorderDone: 'Valmis', chooseIcon: 'Kuvake', videosTitle: 'YouTube-videot (vapaaehtoinen)',
-    watchVideo: 'Katso video', markDone: 'Merkitse tehdyksi', markNotDone: 'Ei vielä tehty',
+    videoLink: 'Videolinkki', watchVideo: 'Katso video', markDone: 'Merkitse tehdyksi', markNotDone: 'Ei vielä tehty',
     doneOf: (d, n) => `${d}/${n} tehty`, lessonN: n => `Oppitunti ${n}`,
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
@@ -746,6 +746,10 @@ function openLessonSheet(ls) {
     adm.append(
       h('button', { class: 'btn small gold', type: 'button', onclick: () => { closeModal('lessonSheet'); go(`#/e/${ls.id}/${L}`); } }, '⇅ ', t('editSlides')),
       h('button', { class: 'btn small', type: 'button', onclick: () => { closeModal('lessonSheet'); openLessonModal(ls); } }, '✎ ', t('edit')),
+      h('button', { class: 'btn small', type: 'button', onclick: () => {
+        closeModal('lessonSheet'); openLessonModal(ls);
+        setTimeout(() => { const v = $('lessonVideo-' + L); if (v) { v.scrollIntoView({ block: 'center', behavior: 'smooth' }); v.focus(); } }, 80);
+      } }, '🎬 ', t('videoLink')),
       h('button', { class: 'btn small danger', type: 'button', onclick: () => { closeModal('lessonSheet'); deleteLesson(ls); } }, '🗑 ', t('delete'))
     );
   }
