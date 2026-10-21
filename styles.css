@@ -139,7 +139,7 @@ html[data-theme="dark"] .ha.cloud{background:rgba(255,255,255,.14)}
 .ha.h1{left:-10%;width:80%;height:120px;background:#6ee7a8}.ha.h2{right:-15%;width:75%;height:100px;background:#3fcf8e}
 html[data-theme="dark"] .ha.h1{background:#2c3f7a}html[data-theme="dark"] .ha.h2{background:#24346a}
 .ha.e{font-size:38px;filter:drop-shadow(0 4px 2px rgba(0,0,0,.18));animation:bob 3.4s ease-in-out infinite}
-.ha.e1{left:12%;top:0;animation-delay:-1s}.ha.e2{left:58%;bottom:38px}.ha.e3{left:30%;top:58%;font-size:28px;animation-delay:-2s}.ha.e4{right:2%;bottom:46px;animation-delay:-.5s}
+.ha.e1{left:12%;top:0;animation-delay:-1s}.ha.e2{left:58%;bottom:38px}.ha.e3{left:30%;top:58%;font-size:28px;animation-delay:-2s}
 @keyframes float{50%{transform:translateX(14px)}}
 @keyframes bob{50%{transform:translateY(-10px) rotate(4deg)}}
 @media(max-width:760px){.hero{grid-template-columns:1fr}.hero-art{height:130px;margin-top:-6px}.ha.sun{width:64px;height:64px}}
