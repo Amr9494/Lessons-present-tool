@@ -60,6 +60,12 @@ const T = {
     statTopics: 'adventures', statLessons: 'lessons', statDone: 'stars earned',
     continueTitle: 'Continue your journey', continueGo: 'Keep going', chooseAdventure: 'Choose your adventure',
     reorder: 'Reorder', reorderDone: 'Done', chooseIcon: 'Icon', videosTitle: 'YouTube videos (optional)',
+    maker: 'Lesson maker', makerSub: 'Put your pictures in order and turn them into a PDF — no PowerPoint needed.',
+    addPictures: 'Add pictures', sortByName: 'Sort A→Z', clearAll: 'Clear all', confirmClear: 'Remove all pictures from the lesson maker?',
+    makerDrop: 'Drop pictures here, or paste them (Ctrl+V)', makerDropSub: 'JPG, PNG or WebP · they stay on this computer until you clear them',
+    pictures: n => n === 1 ? '1 picture' : `${n} pictures`, pageFormat: 'Page size', fmtFit: 'Same as pictures', fmt169: 'Slide 16:9', fmt43: 'Slide 4:3', fmtA4: 'A4 landscape',
+    fileName: 'PDF name', downloadPdf: 'Download PDF', preview: 'Preview', saveAsLesson: 'Save as lesson', forLang: 'Language',
+    badImage: n => `Couldn’t read “${n}”. Please use JPG or PNG.`, tooBig: 'PDF downloaded, but it is over 50 MB — it may be too big to upload.', pdfReady: 'PDF downloaded',
     videoLink: 'Video link', watchVideo: 'Watch video', markDone: 'Mark as done', markNotDone: 'Not done yet',
     doneOf: (d, n) => `${d} of ${n} done`, lessonN: n => `Lesson ${n}`,
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
@@ -108,6 +114,12 @@ const T = {
     statTopics: 'مغامرات', statLessons: 'دروس', statDone: 'نجوم مكتسبة',
     continueTitle: 'تابع رحلتك', continueGo: 'هيا نكمل', chooseAdventure: 'اختر مغامرتك',
     reorder: 'إعادة الترتيب', reorderDone: 'تم', chooseIcon: 'الأيقونة', videosTitle: 'فيديوهات يوتيوب (اختياري)',
+    maker: 'صانع الدروس', makerSub: 'رتّب صورك وحوّلها إلى ملف PDF — بدون باوربوينت.',
+    addPictures: 'إضافة صور', sortByName: 'ترتيب أبجدي', clearAll: 'مسح الكل', confirmClear: 'حذف كل الصور من صانع الدروس؟',
+    makerDrop: 'أفلت الصور هنا أو الصقها (Ctrl+V)', makerDropSub: 'JPG أو PNG أو WebP · تبقى على هذا الحاسوب حتى تمسحها',
+    pictures: n => n === 1 ? 'صورة واحدة' : n === 2 ? 'صورتان' : (n >= 3 && n <= 10) ? `${n} صور` : `${n} صورة`, pageFormat: 'حجم الصفحة', fmtFit: 'مثل الصور', fmt169: 'شريحة 16:9', fmt43: 'شريحة 4:3', fmtA4: 'A4 أفقي',
+    fileName: 'اسم الملف', downloadPdf: 'تنزيل PDF', preview: 'معاينة', saveAsLesson: 'حفظ كدرس', forLang: 'اللغة',
+    badImage: n => `تعذّرت قراءة «${n}». استخدم JPG أو PNG.`, tooBig: 'تم التنزيل، لكن حجم الملف أكبر من 50 ميغابايت وقد يكون كبيرًا على الرفع.', pdfReady: 'تم تنزيل ملف PDF',
     videoLink: 'رابط الفيديو', watchVideo: 'شاهد الفيديو', markDone: 'أكملتُ الدرس', markNotDone: 'لم يكتمل بعد',
     doneOf: (d, n) => `${d} من ${n} مكتمل`, lessonN: n => `الدرس ${n}`,
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
@@ -156,6 +168,12 @@ const T = {
     statTopics: 'seikkailua', statLessons: 'oppituntia', statDone: 'tähteä ansaittu',
     continueTitle: 'Jatka matkaasi', continueGo: 'Jatketaan', chooseAdventure: 'Valitse seikkailusi',
     reorder: 'Järjestä', reorderDone: 'Valmis', chooseIcon: 'Kuvake', videosTitle: 'YouTube-videot (vapaaehtoinen)',
+    maker: 'Oppituntien tekijä', makerSub: 'Järjestä kuvat ja tee niistä PDF — ilman PowerPointia.',
+    addPictures: 'Lisää kuvia', sortByName: 'Järjestä A→Ö', clearAll: 'Tyhjennä', confirmClear: 'Poistetaanko kaikki kuvat oppituntien tekijästä?',
+    makerDrop: 'Pudota kuvat tähän tai liitä ne (Ctrl+V)', makerDropSub: 'JPG, PNG tai WebP · ne säilyvät tällä koneella, kunnes tyhjennät',
+    pictures: n => n === 1 ? '1 kuva' : `${n} kuvaa`, pageFormat: 'Sivukoko', fmtFit: 'Kuten kuvat', fmt169: 'Dia 16:9', fmt43: 'Dia 4:3', fmtA4: 'A4 vaaka',
+    fileName: 'PDF:n nimi', downloadPdf: 'Lataa PDF', preview: 'Esikatselu', saveAsLesson: 'Tallenna oppitunniksi', forLang: 'Kieli',
+    badImage: n => `Kuvaa ”${n}” ei voitu lukea. Käytä JPG- tai PNG-kuvaa.`, tooBig: 'PDF ladattu, mutta se on yli 50 Mt — se voi olla liian suuri ladattavaksi.', pdfReady: 'PDF ladattu',
     videoLink: 'Videolinkki', watchVideo: 'Katso video', markDone: 'Merkitse tehdyksi', markNotDone: 'Ei vielä tehty',
     doneOf: (d, n) => `${d}/${n} tehty`, lessonN: n => `Oppitunti ${n}`,
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
@@ -479,6 +497,7 @@ document.querySelectorAll('.lang-switch button').forEach(b => b.addEventListener
 function parseHash() {
   const p = location.hash.replace(/^#\/?/, '').split('/');
   if (p[0] === 't' && p[1]) return { view: 'topic', topicId: p[1] };
+  if (p[0] === 'maker') return { view: 'maker' };
   if (p[0] === 'e' && p[1]) return { view: 'editor', lessonId: p[1], lang: LANGS.includes(p[2]) ? p[2] : state.lang };
   return { view: 'home' };
 }
@@ -510,8 +529,11 @@ function render() {
   $('homeView').hidden = r.view !== 'home';
   $('topicView').hidden = r.view !== 'topic';
   $('editorView').hidden = r.view !== 'editor';
+  $('makerView').hidden = r.view !== 'maker';
+  $('makerBtn').classList.toggle('active', r.view === 'maker');
   if (r.view === 'home') renderHome();
   else if (r.view === 'topic') renderTopic(r.topicId);
+  else if (r.view === 'maker') renderMaker();
   else if (r.view === 'editor') {
     if (!state.isAdmin) { go('#'); return; }
     renderEditor(r.lessonId, r.lang);
@@ -814,13 +836,13 @@ async function deleteTopic(tp) {
 }
 
 let lessonInputs = null, editingLesson = null, pendingPdfs = {}, videoInputs = {};
-function openLessonModal(ls = null, topicId = null) {
+function openLessonModal(ls = null, topicId = null, prefill = null) {
   editingLesson = ls; pendingPdfs = {};
   $('lessonModalTitle').textContent = ls ? t('editLesson') : t('newLesson');
   const sel = $('lessonTopicSelect'); sel.innerHTML = '';
   state.topics.forEach(tp => sel.append(h('option', { value: tp.id, text: nameOf(tp.names) })));
   sel.value = ls ? ls.topic_id : (topicId || state.route.topicId || state.topics[0]?.id || '');
-  lessonInputs = buildTrio($('lessonNames'), ls ? ls.titles : {});
+  lessonInputs = buildTrio($('lessonNames'), ls ? ls.titles : (prefill && prefill.title ? { [prefill.lang]: prefill.title } : {}));
   const vbox = $('lessonVideos'); vbox.innerHTML = ''; videoInputs = {};
   LANGS.forEach(l => {
     const inp = h('input', { type: 'url', id: 'lessonVideo-' + l, placeholder: 'https://youtube.com/watch?v=…', dir: 'ltr', autocomplete: 'off' });
@@ -847,6 +869,7 @@ function openLessonModal(ls = null, topicId = null) {
     ['dragleave', 'drop'].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove('over'); }));
     drop.addEventListener('drop', e => take(e.dataTransfer.files[0]));
     box.append(drop);
+    if (prefill && prefill.lang === l && prefill.file) take(prefill.file);
   }
   openModal('lessonModal');
 }
@@ -1141,6 +1164,8 @@ function pokeUI() {
   const el = $('presenter'); el.classList.add('show-ui');
   clearTimeout(P.uiTimer); P.uiTimer = setTimeout(() => el.classList.remove('show-ui'), 2600);
 }
+window.addEventListener('dragover', e => { if (e.dataTransfer && [...e.dataTransfer.types].includes('Files')) e.preventDefault(); });
+window.addEventListener('drop', e => { if (e.dataTransfer && e.dataTransfer.files.length) e.preventDefault(); });
 const isRtl = () => document.documentElement.dir === 'rtl';
 $('pPrev').onclick = () => showSlide(P.i - 1);
 $('pNext').onclick = () => showSlide(P.i + 1);
@@ -1222,6 +1247,182 @@ async function toggleRecording() {
 function stopRecording() { if (R.rec && R.rec.state !== 'inactive') R.rec.stop(); }
 $('recordBtn').onclick = toggleRecording;
 $('recStop').onclick = stopRecording;
+
+/* ───────────────────────── Lesson maker (pictures → PDF) ───────────────────────── */
+// Pictures are kept in this browser (IndexedDB) until cleared, so a refresh never loses work.
+const M = { items: [], sortable: null, built: null, loaded: false };
+const makerDB = (() => {
+  let p = null;
+  const open = () => p || (p = new Promise((res, rej) => {
+    const r = indexedDB.open('lpt-maker', 1);
+    r.onupgradeneeded = () => { r.result.createObjectStore('images'); r.result.createObjectStore('meta'); };
+    r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error);
+  }));
+  const tx = async (store, mode, fn) => {
+    const d = await open();
+    return new Promise((res, rej) => { const t = d.transaction(store, mode); const q = fn(t.objectStore(store)); t.oncomplete = () => res(q && q.result); t.onerror = () => rej(t.error); });
+  };
+  return {
+    putImage: (id, rec) => tx('images', 'readwrite', s => s.put(rec, id)),
+    getImage: id => tx('images', 'readonly', s => s.get(id)),
+    delImage: id => tx('images', 'readwrite', s => s.delete(id)),
+    saveOrder: ids => tx('meta', 'readwrite', s => s.put(ids, 'order')),
+    getOrder: () => tx('meta', 'readonly', s => s.get('order')),
+    clear: async () => { await tx('images', 'readwrite', s => s.clear()); await tx('meta', 'readwrite', s => s.clear()); }
+  };
+})();
+
+async function makerLoad() {
+  if (M.loaded) return; M.loaded = true;
+  try {
+    const ids = (await makerDB.getOrder()) || [];
+    for (const id of ids) {
+      const rec = await makerDB.getImage(id);
+      if (rec && rec.blob) M.items.push({ id, name: rec.name, blob: rec.blob, url: URL.createObjectURL(rec.blob) });
+    }
+  } catch (e) { console.warn('maker restore failed', e); }
+}
+const makerSaveOrder = () => { M.built = null; makerDB.saveOrder(M.items.map(i => i.id)).catch(() => {}); };
+
+async function makerAdd(files) {
+  const imgs = [...files].filter(f => f && (f.type.startsWith('image/') || /\.(jpe?g|png|webp|gif|bmp)$/i.test(f.name)));
+  if (!imgs.length) return;
+  imgs.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
+  for (const f of imgs) {
+    const id = uid(), name = f.name || 'picture';
+    const blob = f.slice(0, f.size, f.type || 'image/jpeg');
+    M.items.push({ id, name, blob, url: URL.createObjectURL(blob) });
+    await makerDB.putImage(id, { name, blob }).catch(() => {});
+  }
+  makerSaveOrder(); renderMaker();
+}
+
+async function renderMaker() {
+  await makerLoad();
+  if (state.route.view !== 'maker') return;
+  if (!M.langTouched) $('makerLang').value = state.lang;
+  $('makerName').placeholder = t('maker');
+  const grid = $('makerGrid'); grid.innerHTML = '';
+  const n = M.items.length;
+  $('makerDrop').classList.toggle('slim', n > 0);
+  $('makerCount').textContent = n ? t('pictures', n) : '';
+  ['makerSortBtn', 'makerClearBtn', 'makerPreviewBtn', 'makerDownloadBtn', 'makerSaveBtn'].forEach(id => { $(id).disabled = !n; });
+  $('makerFoot').hidden = !n;
+  M.items.forEach((it, i) => {
+    const el = h('div', { class: 'slide', 'data-id': it.id },
+      h('div', { class: 'thumb' }, h('img', { src: it.url, alt: it.name, draggable: 'false', loading: 'lazy' })),
+      h('div', { class: 'num' },
+        h('b', { text: `${i + 1}` }),
+        h('span', { class: 'maker-name', title: it.name, text: it.name }),
+        h('button', { class: 'del', type: 'button', title: t('removeSlide'), onclick: () => makerRemove(it.id) }, '✕')
+      )
+    );
+    grid.append(el);
+  });
+  if (M.sortable) M.sortable.destroy();
+  M.sortable = window.Sortable && n > 1 ? Sortable.create(grid, {
+    animation: 170, ghostClass: 'sortable-ghost', filter: '.del', preventOnFilter: false,
+    onEnd: () => {
+      const map = new Map(M.items.map(x => [x.id, x]));
+      M.items = [...grid.children].map(c => map.get(c.dataset.id)).filter(Boolean);
+      [...grid.children].forEach((c, i) => { c.querySelector('.num b').textContent = i + 1; });
+      makerSaveOrder();
+    }
+  }) : null;
+}
+async function makerRemove(id) {
+  const it = M.items.find(x => x.id === id); if (!it) return;
+  URL.revokeObjectURL(it.url);
+  M.items = M.items.filter(x => x.id !== id);
+  await makerDB.delImage(id).catch(() => {});
+  makerSaveOrder(); renderMaker();
+}
+
+const MAKER_FORMATS = { fit: null, '169': [960, 540], '43': [960, 720], a4: [842, 595] };
+async function makerBuild(quality = 0.9, maxSide = 2400) {
+  const fmt = $('makerFormat').value;
+  const key = M.items.map(i => i.id).join(',') + '|' + fmt + '|' + quality;
+  if (M.built && M.built.key === key) return M.built.bytes;
+  const { PDFDocument } = PDFLib;
+  const out = await PDFDocument.create();
+  const canvas = document.createElement('canvas'); const ctx = canvas.getContext('2d');
+  for (let i = 0; i < M.items.length; i++) {
+    const it = M.items[i];
+    busy(`${t('building')} ${i + 1} / ${M.items.length}`);
+    let bmp;
+    try { bmp = await createImageBitmap(it.blob); }
+    catch (e) { throw new Error(t('badImage', it.name)); }
+    const s = Math.min(1, maxSide / Math.max(bmp.width, bmp.height));
+    canvas.width = Math.round(bmp.width * s); canvas.height = Math.round(bmp.height * s);
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height); bmp.close && bmp.close();
+    const jpg = await new Promise(r => canvas.toBlob(r, 'image/jpeg', quality));
+    const img = await out.embedJpg(await jpg.arrayBuffer());
+    const size = MAKER_FORMATS[fmt];
+    let pw, ph;
+    if (!size) { const k = 960 / Math.max(img.width, img.height); pw = img.width * k; ph = img.height * k; }
+    else [pw, ph] = size;
+    const page = out.addPage([pw, ph]);
+    const k = Math.min(pw / img.width, ph / img.height);
+    const w = img.width * k, hgt = img.height * k;
+    page.drawImage(img, { x: (pw - w) / 2, y: (ph - hgt) / 2, width: w, height: hgt });
+  }
+  let bytes = (await out.save()).buffer;
+  if (bytes.byteLength > 48 * 1024 * 1024 && quality > 0.7) return makerBuild(0.72, 1800); // keep under the 50 MB upload limit
+  M.built = { key, bytes };
+  return bytes;
+}
+const makerFileName = () => safeName($('makerName').value.trim() || t('maker')) + '.pdf';
+
+$('makerBtn').onclick = () => go('#/maker');
+$('makerLang').onchange = () => { M.langTouched = true; };
+try { $('makerName').value = localStorage.getItem('lpt.makerName') || ''; } catch (e) {}
+$('makerName').addEventListener('input', () => { try { localStorage.setItem('lpt.makerName', $('makerName').value); } catch (e) {} });
+$('makerFiles').onchange = e => { makerAdd(e.target.files); e.target.value = ''; };
+$('makerSortBtn').onclick = () => {
+  M.items.sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' }));
+  makerSaveOrder(); renderMaker();
+};
+$('makerClearBtn').onclick = async () => {
+  if (!confirm(t('confirmClear'))) return;
+  M.items.forEach(i => URL.revokeObjectURL(i.url)); M.items = [];
+  await makerDB.clear().catch(() => {}); M.built = null;
+  $('makerName').value = ''; try { localStorage.removeItem('lpt.makerName'); } catch (e) {}
+  renderMaker();
+};
+$('makerFormat').onchange = () => { M.built = null; try { localStorage.setItem('lpt.makerFormat', $('makerFormat').value); } catch (e) {} };
+try { const f = localStorage.getItem('lpt.makerFormat'); if (f && MAKER_FORMATS[f] !== undefined) $('makerFormat').value = f; } catch (e) {}
+$('makerDownloadBtn').onclick = async () => {
+  const bytes = await guard(() => makerBuild(), t('building'));
+  if (!bytes) return;
+  saveBlob(new Blob([bytes], { type: 'application/pdf' }), makerFileName());
+  toast(bytes.byteLength > 50 * 1024 * 1024 ? t('tooBig') : t('pdfReady'), bytes.byteLength > 50 * 1024 * 1024);
+};
+$('makerPreviewBtn').onclick = async () => {
+  const bytes = await guard(() => makerBuild(), t('building'));
+  if (!bytes) return;
+  const doc = await docFromBytes(bytes);
+  openPresenter(); P.lessonId = null;
+  startDeck(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1 })));
+};
+$('makerSaveBtn').onclick = async () => {
+  const bytes = await guard(() => makerBuild(), t('building'));
+  if (!bytes) return;
+  if (!state.topics.length) { toast(t('noTopics'), true); return; }
+  const file = new File([bytes], makerFileName(), { type: 'application/pdf' });
+  openLessonModal(null, null, { lang: $('makerLang').value, file, title: $('makerName').value.trim() });
+};
+// drop or paste pictures anywhere on the maker page
+const makerView = $('makerView');
+['dragenter', 'dragover'].forEach(ev => makerView.addEventListener(ev, e => { if (e.dataTransfer && [...e.dataTransfer.types].includes('Files')) { e.preventDefault(); $('makerDrop').classList.add('over'); } }));
+['dragleave', 'drop'].forEach(ev => makerView.addEventListener(ev, e => { if (ev === 'dragleave' && makerView.contains(e.relatedTarget)) return; $('makerDrop').classList.remove('over'); }));
+makerView.addEventListener('drop', e => { if (e.dataTransfer && e.dataTransfer.files.length) { e.preventDefault(); makerAdd(e.dataTransfer.files); } });
+document.addEventListener('paste', e => {
+  if (state.route.view !== 'maker' || ['INPUT', 'TEXTAREA'].includes(document.activeElement?.tagName)) return;
+  const files = [...(e.clipboardData?.items || [])].filter(i => i.kind === 'file').map(i => i.getAsFile()).filter(Boolean)
+    .map((f, k) => new File([f], f.name && f.name !== 'image.png' ? f.name : `pasted-${Date.now()}-${k}.png`, { type: f.type }));
+  if (files.length) { e.preventDefault(); makerAdd(files); }
+});
 
 /* ───────────────────────── Auth ───────────────────────── */
 $('adminBtn').onclick = async () => {

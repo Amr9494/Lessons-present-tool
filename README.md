@@ -80,6 +80,8 @@ Later, to change the site's code, edit the file on GitHub — Vercel republishes
 | Admin | **New lesson** → name + up to 3 PDFs and 3 YouTube links (one per language). |
 | Admin | In a folder, **⇅ Reorder** changes the order of stops on the journey. |
 | Everyone | Tap a stop on the map → Present, Watch video, Download, or Mark as done. Reaching the last slide marks it done automatically. |
+| Everyone | **🛠 Lesson maker** (top bar) → add or paste pictures, drag them into order, choose a page size → **Download PDF** or **Preview**. Pictures stay on that computer until you press Clear all. |
+| Admin | In the Lesson maker, **Save as lesson** sends the PDF straight into a new lesson — no download/upload needed. |
 | Admin | Tap a stop → **Arrange slides** → pick a language tab → drag slides, remove with ✕, add pages from another PDF, then **Save**. Viewers' downloads use the new order. |
 
 **Presenting keys:** → / Space / Page Down = next · ← / Page Up = back · Home / End · **F** = full screen · **Esc** = end. Presentation clickers work too. Click the right/left side of the screen to move.

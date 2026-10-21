@@ -33,6 +33,7 @@
       <button type="button" data-lang="en" lang="en">English</button>
       <button type="button" data-lang="fi" lang="fi">Suomi</button>
     </div>
+    <button type="button" class="btn ghost maker-nav" id="makerBtn">🛠 <span data-i18n="maker">Lesson maker</span></button>
     <button type="button" class="btn icon-btn" id="themeBtn" aria-label="Dark / light"></button>
     <button type="button" class="btn ghost" id="recordBtn"><span class="rec-dot"></span><span data-i18n="record">Record</span></button>
     <button type="button" class="btn ghost" id="adminBtn"></button>
@@ -138,6 +139,49 @@
       <div class="empty-icon">⬆️</div>
       <p data-i18n="noPdfForLang">No PDF for this language yet.</p>
       <label class="btn primary"><span data-i18n="uploadPdf">Upload PDF</span><input type="file" id="firstPdfInput" accept="application/pdf,.pdf" hidden></label>
+    </div>
+  </section>
+  <!-- LESSON MAKER: pictures -> PDF -->
+  <section id="makerView" class="view" hidden>
+    <nav class="crumbs"><a href="#" data-go="home" data-i18n="allTopics">All topics</a><span>›</span><span data-i18n="maker">Lesson maker</span></nav>
+    <div class="view-head">
+      <div>
+        <h1>🛠 <span data-i18n="maker">Lesson maker</span></h1>
+        <p class="muted" data-i18n="makerSub"></p>
+      </div>
+    </div>
+    <div class="editor-bar maker-bar">
+      <div class="editor-tools">
+        <label class="btn primary small">＋ <span data-i18n="addPictures">Add pictures</span><input type="file" id="makerFiles" accept="image/*" multiple hidden></label>
+        <button type="button" class="btn small" id="makerSortBtn">⇅ <span data-i18n="sortByName">Sort A→Z</span></button>
+        <button type="button" class="btn small danger" id="makerClearBtn">🗑 <span data-i18n="clearAll">Clear all</span></button>
+      </div>
+      <div class="editor-tools maker-opts">
+        <label class="mini-field"><span data-i18n="pageFormat">Page size</span>
+          <select id="makerFormat">
+            <option value="fit" data-i18n="fmtFit">Same as pictures</option>
+            <option value="169" data-i18n="fmt169">Slide 16:9</option>
+            <option value="43" data-i18n="fmt43">Slide 4:3</option>
+            <option value="a4" data-i18n="fmtA4">A4 landscape</option>
+          </select>
+        </label>
+        <label class="mini-field"><span data-i18n="fileName">PDF name</span><input type="text" id="makerName" autocomplete="off"></label>
+      </div>
+    </div>
+    <label class="maker-drop" id="makerDrop" for="makerFiles">
+      <span class="maker-drop-icon">🖼️</span>
+      <strong data-i18n="makerDrop">Drop pictures here, or paste them (Ctrl+V)</strong>
+      <span class="muted" data-i18n="makerDropSub"></span>
+    </label>
+    <p class="editor-status" id="makerCount"></p>
+    <div id="makerGrid" class="slide-grid maker-grid"></div>
+    <div class="maker-foot" id="makerFoot" hidden>
+      <button type="button" class="btn" id="makerPreviewBtn">▶ <span data-i18n="preview">Preview</span></button>
+      <button type="button" class="btn green" id="makerDownloadBtn">⬇ <span data-i18n="downloadPdf">Download PDF</span></button>
+      <span class="admin-only maker-save">
+        <select id="makerLang" aria-label="Language"><option value="ar">العربية</option><option value="en">English</option><option value="fi">Suomi</option></select>
+        <button type="button" class="btn primary" id="makerSaveBtn">✓ <span data-i18n="saveAsLesson">Save as lesson</span></button>
+      </span>
     </div>
   </section>
 </main>
