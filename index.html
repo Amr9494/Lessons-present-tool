@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lesson Present Tool</title>
+<title>Lectures Presenter</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#5b4fe0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Lectures">
+<link rel="icon" type="image/png" sizes="48x48" href="icons/favicon-48.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <script>
   // apply saved theme before paint (no flash)
   (function(){try{var t=localStorage.getItem('lpt.theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();
@@ -21,9 +28,9 @@
 
 <header class="topbar">
   <a class="brand" href="#" id="brandLink">
-    <span class="logo" aria-hidden="true">🎒</span>
+    <span class="logo" aria-hidden="true">🖥️</span>
     <span class="brand-text">
-      <strong id="siteName">Lesson Present Tool</strong>
+      <strong id="siteName">Lectures Presenter</strong>
       <small id="siteTagline"></small>
     </span>
   </a>

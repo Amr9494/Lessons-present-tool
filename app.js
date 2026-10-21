@@ -1,4 +1,4 @@
-/* Lesson Present Tool — shared lesson library
+/* Lectures Presenter — shared lesson library
    Static site: works on Vercel / Netlify / GitHub Pages.
    Data: Supabase (online) or IndexedDB (demo mode, when config.js is empty). */
 (() => {
@@ -9,7 +9,7 @@ const LANGS = ['ar', 'en', 'fi'];
 const LANG_NAMES = { ar: 'العربية', en: 'English', fi: 'Suomi' };
 const BUCKET = 'lessons';
 const BRAND = {
-  name: { ar: 'أداة عرض الدروس', en: 'Lesson Present Tool', fi: 'Oppituntien esitystyökalu' },
+  name: { ar: 'عارض المحاضرات', en: 'Lectures Presenter', fi: 'Luentoesitin' },
   tagline: { ar: 'تعلّم واستكشف وانمُ — درسًا بعد درس', en: 'Learn, explore and grow — one lesson at a time', fi: 'Opi, tutki ja kasva – oppitunti kerrallaan' }
 };
 const TOPIC_COLORS = ['#5b4fe0', '#ff8a3d', '#22b573', '#ff6b9a', '#2aa8e0', '#e0a400', '#9b59d0', '#e2504a'];
@@ -1814,4 +1814,5 @@ async function boot() {
   catch (e) { console.error(e); render(); toast(t('loadFailed'), true); }
 }
 boot();
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 })();

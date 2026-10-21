@@ -1,4 +1,4 @@
-# Lesson Present Tool — shared lesson library
+# Lectures Presenter — shared lesson library
 
 A website where your team keeps all lesson PDFs in one place, in **Arabic, English and Finnish**, sorted into topic folders. Everyone opens the same site, so a change made once shows up on every computer.
 

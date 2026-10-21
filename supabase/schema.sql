@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════════════
---  Lesson Present Tool — database setup
+--  Lectures Presenter — database setup
 --  Paste ALL of this into Supabase → SQL Editor → New query → Run.
 --  Safe to run again: it only creates what is missing.
 -- ═══════════════════════════════════════════════════════════════
