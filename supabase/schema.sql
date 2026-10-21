@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════════════
---  Start the Hijra — database setup
+--  Lesson Present Tool — database setup
 --  Paste ALL of this into Supabase → SQL Editor → New query → Run.
 --  Safe to run again: it only creates what is missing.
 -- ═══════════════════════════════════════════════════════════════
@@ -9,6 +9,7 @@
 create table if not exists public.topics (
   id          uuid primary key default gen_random_uuid(),
   names       jsonb not null default '{}'::jsonb,
+  icon        text,
   sort        int   not null default 0,
   created_at  timestamptz not null default now()
 );
@@ -21,10 +22,14 @@ create table if not exists public.lessons (
   topic_id    uuid not null references public.topics(id) on delete cascade,
   titles      jsonb not null default '{}'::jsonb,
   files       jsonb not null default '{}'::jsonb,
+  videos      jsonb not null default '{}'::jsonb,
   sort        int   not null default 0,
   created_at  timestamptz not null default now(),
   updated_at  timestamptz not null default now()
 );
+-- (older installs: columns added by upgrade-v2.sql)
+alter table public.lessons add column if not exists videos jsonb not null default '{}'::jsonb;
+alter table public.topics  add column if not exists icon text;
 create index if not exists lessons_topic_idx on public.lessons(topic_id);
 
 -- Who is allowed to edit. Add people here (see README step 4).

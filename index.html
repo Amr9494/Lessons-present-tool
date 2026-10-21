@@ -3,9 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Start the Hijra — Lessons</title>
+<title>Lesson Present Tool</title>
+<script>
+  // apply saved theme before paint (no flash)
+  (function(){try{var t=localStorage.getItem('lpt.theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Kufi+Arabic:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script src="config.js"></script>
 <script src="vendor/supabase.js"></script>
@@ -17,9 +21,9 @@
 
 <header class="topbar">
   <a class="brand" href="#" id="brandLink">
-    <span class="logo" aria-hidden="true">📖</span>
+    <span class="logo" aria-hidden="true">🎒</span>
     <span class="brand-text">
-      <strong id="siteName">Start the Hijra</strong>
+      <strong id="siteName">Lesson Present Tool</strong>
       <small id="siteTagline"></small>
     </span>
   </a>
@@ -29,63 +33,91 @@
       <button type="button" data-lang="en" lang="en">English</button>
       <button type="button" data-lang="fi" lang="fi">Suomi</button>
     </div>
-    <button type="button" class="btn ghost" id="recordBtn" title=""><span class="rec-dot"></span><span data-i18n="record">Record</span></button>
+    <button type="button" class="btn icon-btn" id="themeBtn" aria-label="Dark / light"></button>
+    <button type="button" class="btn ghost" id="recordBtn"><span class="rec-dot"></span><span data-i18n="record">Record</span></button>
     <button type="button" class="btn ghost" id="adminBtn"></button>
   </div>
 </header>
 
 <div class="demo-banner" id="demoBanner" hidden>
   <strong data-i18n="demoTitle">Demo mode</strong>
-  <span data-i18n="demoText">Changes are saved only in this browser. Add your Supabase keys in config.js to put the site online.</span>
+  <span data-i18n="demoText"></span>
 </div>
 
 <main class="app">
 
-  <!-- HOME: topic folders -->
+  <!-- HOME -->
   <section id="homeView" class="view">
-    <div class="view-head">
-      <div>
-        <h1 data-i18n="topicsTitle">Lesson topics</h1>
-        <p class="muted" data-i18n="topicsSub">Choose a folder to see its lessons.</p>
+    <div class="hero">
+      <div class="hero-text">
+        <h1 data-i18n="heroTitle">Let’s learn something new today!</h1>
+        <p data-i18n="heroSub">Pick an adventure and follow the path, one lesson at a time.</p>
+        <div class="hero-stats">
+          <div class="hstat"><strong id="statTopics">0</strong><span data-i18n="statTopics">adventures</span></div>
+          <div class="hstat"><strong id="statLessons">0</strong><span data-i18n="statLessons">lessons</span></div>
+          <div class="hstat"><strong id="statDone">0</strong><span data-i18n="statDone">stars earned</span></div>
+        </div>
       </div>
+      <div class="hero-art" aria-hidden="true">
+        <span class="ha sun"></span>
+        <span class="ha cloud c1"></span><span class="ha cloud c2"></span>
+        <span class="ha hill h1"></span><span class="ha hill h2"></span>
+        <span class="ha e e1">🚀</span><span class="ha e e2">📚</span><span class="ha e e3">⭐</span><span class="ha e e4">🌈</span>
+      </div>
+    </div>
+
+    <div class="continue-card" id="continueCard" hidden>
+      <div class="continue-icon">▶</div>
+      <div class="continue-text"><small data-i18n="continueTitle">Continue your journey</small><strong id="continueName"></strong></div>
+      <button type="button" class="btn primary" id="continueBtn" data-i18n="continueGo">Keep going</button>
+    </div>
+
+    <div class="view-head">
+      <h2 class="section-title" data-i18n="chooseAdventure">Choose your adventure</h2>
       <div class="admin-only">
         <button type="button" class="btn primary" id="newTopicBtn">＋ <span data-i18n="newTopic">New topic</span></button>
       </div>
     </div>
     <div id="topicGrid" class="topic-grid"></div>
     <div id="topicEmpty" class="empty" hidden>
-      <div class="empty-icon">🗂️</div>
+      <div class="empty-icon">🗺️</div>
       <p data-i18n="noTopics">No topics yet.</p>
-      <p class="muted admin-only" data-i18n="noTopicsAdmin">Create the first folder, for example “Morals” or “Stories”.</p>
+      <p class="muted admin-only" data-i18n="noTopicsAdmin"></p>
     </div>
   </section>
 
-  <!-- TOPIC: lessons inside a folder -->
+  <!-- TOPIC: journey map -->
   <section id="topicView" class="view" hidden>
     <nav class="crumbs"><a href="#" data-go="home" data-i18n="allTopics">All topics</a><span>›</span><span id="topicCrumb"></span></nav>
-    <div class="view-head">
-      <div>
+    <div class="topic-head">
+      <div class="topic-badge" id="topicBadge"></div>
+      <div class="topic-head-text">
         <h1 id="topicTitle"></h1>
-        <p class="muted" id="topicMeta"></p>
+        <div class="progress-line">
+          <div class="pbar"><div class="pbar-fill" id="topicProgressFill"></div></div>
+          <span id="topicProgressText"></span>
+        </div>
       </div>
-      <div class="admin-only">
+      <div class="admin-only topic-admin">
+        <button type="button" class="btn" id="reorderBtn">⇅ <span data-i18n="reorder">Reorder</span></button>
         <button type="button" class="btn primary" id="newLessonBtn">＋ <span data-i18n="newLesson">New lesson</span></button>
       </div>
     </div>
-    <div id="lessonGrid" class="lesson-grid"></div>
+    <div id="journey" class="journey"></div>
+    <div id="reorderList" class="reorder-list" hidden></div>
     <div id="lessonEmpty" class="empty" hidden>
-      <div class="empty-icon">📄</div>
+      <div class="empty-icon">🧭</div>
       <p data-i18n="noLessons">No lessons in this folder yet.</p>
     </div>
   </section>
 
-  <!-- EDITOR: arrange slides (admins) -->
+  <!-- EDITOR -->
   <section id="editorView" class="view" hidden>
     <nav class="crumbs"><a href="#" data-go="home" data-i18n="allTopics">All topics</a><span>›</span><a href="#" id="editorTopicCrumb"></a><span>›</span><span id="editorLessonCrumb"></span></nav>
     <div class="view-head">
       <div>
         <h1 id="editorTitle"></h1>
-        <p class="muted" data-i18n="editorSub">Drag slides to reorder them. Changes apply to everyone after you press Save.</p>
+        <p class="muted" data-i18n="editorSub"></p>
       </div>
       <div class="editor-actions">
         <button type="button" class="btn" id="editorPresentBtn">▶ <span data-i18n="present">Present</span></button>
@@ -110,12 +142,36 @@
   </section>
 </main>
 
+<!-- Lesson sheet (opens from a map stop) -->
+<div class="modal" id="lessonSheet" hidden>
+  <div class="modal-card sheet">
+    <button type="button" class="sheet-close" data-close aria-label="Close">✕</button>
+    <div class="sheet-cover" id="sheetCover"></div>
+    <div class="sheet-body">
+      <div class="sheet-step" id="sheetStep"></div>
+      <h2 id="sheetTitle"></h2>
+      <div class="langs" id="sheetLangs"></div>
+      <div class="sheet-actions" id="sheetActions"></div>
+      <div class="sheet-admin admin-only" id="sheetAdmin"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Video player -->
+<div class="modal video-modal" id="videoModal" hidden>
+  <div class="video-wrap">
+    <button type="button" class="sheet-close" data-close aria-label="Close">✕</button>
+    <div class="video-frame"><iframe id="videoFrame" title="Video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
+  </div>
+</div>
+
 <!-- Topic modal -->
 <div class="modal" id="topicModal" hidden>
   <form class="modal-card" id="topicForm">
     <h2 id="topicModalTitle" data-i18n="newTopic">New topic</h2>
-    <p class="muted" data-i18n="translateHint">Type the name in any one language and press Translate — the other two fill in automatically. You can correct them.</p>
+    <p class="muted" data-i18n="translateHint"></p>
     <div class="trio" id="topicNames"></div>
+    <div class="field"><span data-i18n="chooseIcon">Icon</span><div class="icon-pick" id="iconPick"></div></div>
     <div class="modal-foot">
       <button type="button" class="btn" data-close data-i18n="cancel">Cancel</button>
       <button type="submit" class="btn primary" data-i18n="save">Save</button>
@@ -128,10 +184,12 @@
   <form class="modal-card wide" id="lessonForm">
     <h2 id="lessonModalTitle" data-i18n="newLesson">New lesson</h2>
     <label class="field"><span data-i18n="topic">Topic</span><select id="lessonTopicSelect"></select></label>
-    <p class="muted" data-i18n="translateHint">Type the name in any one language and press Translate — the other two fill in automatically. You can correct them.</p>
+    <p class="muted" data-i18n="translateHint"></p>
     <div class="trio" id="lessonNames"></div>
     <div class="pdf-trio" id="lessonPdfs"></div>
-    <p class="muted small" data-i18n="pdfOptional">Each language PDF is optional — you can add the others later.</p>
+    <p class="muted small" data-i18n="pdfOptional"></p>
+    <h3 class="sub-h">🎬 <span data-i18n="videosTitle">YouTube videos (optional)</span></h3>
+    <div class="trio" id="lessonVideos"></div>
     <div class="modal-foot">
       <button type="button" class="btn" data-close data-i18n="cancel">Cancel</button>
       <button type="submit" class="btn primary" id="lessonSubmit" data-i18n="save">Save</button>
@@ -167,9 +225,9 @@
     <button type="button" id="pRecord"><span class="rec-dot"></span></button>
     <button type="button" id="pClose" data-i18n-title="close">✕</button>
   </div>
+  <div class="celebrate" id="celebrate" hidden></div>
 </div>
 
-<!-- Recording indicator -->
 <div class="rec-badge" id="recBadge" hidden>
   <span class="rec-dot live"></span><span id="recTime">00:00</span>
   <button type="button" id="recStop" data-i18n="stop">Stop</button>

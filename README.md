@@ -1,4 +1,4 @@
-# Start the Hijra — shared lesson library
+# Lesson Present Tool — shared lesson library
 
 A website where your team keeps all lesson PDFs in one place, in **Arabic, English and Finnish**, sorted into topic folders. Everyone opens the same site, so a change made once shows up on every computer.
 
@@ -6,6 +6,19 @@ A website where your team keeps all lesson PDFs in one place, in **Arabic, Engli
 - **Admins** sign in to add/rename/delete folders and lessons, upload PDFs, and drag slides into a new order.
 - New folder or lesson names are **translated automatically** into the other two languages (you can correct them).
 - **Record** button captures the screen + your microphone and saves a video file.
+- Each folder is a **journey map**: lessons are stops on a winding path that grows as lessons are added. Finished lessons get a ⭐, the next one says *Next!*
+- Each lesson can have a **YouTube video** per language.
+- **Light and dark** themes (🌙 / ☀️ button).
+
+## Updating the site without losing anything
+
+Your folders, lessons and PDFs live in **Supabase**, not in these files — replacing the website files never touches them.
+
+1. **Supabase → SQL Editor → New query**, paste `supabase/upgrade-v2.sql`, **Run**. (Only adds two empty columns for videos and icons. Safe to run more than once.)
+2. On GitHub, open your repository → **Add file → Upload files**. Drag in everything from this update **except `config.js`** (keep yours — it holds your keys). Press **Commit changes**.
+3. Vercel republishes automatically in about a minute.
+
+Kids' progress (stars / done lessons) is saved per computer in the browser, so each classroom computer keeps its own journey.
 
 ## Try it first (no setup)
 
@@ -63,9 +76,11 @@ Later, to change the site's code, edit the file on GitHub — Vercel republishes
 | Everyone | Pick a language at the top (العربية / English / Suomi). The whole site — folder names, lesson names and the PDFs — switches language. |
 | Everyone | Open a folder → **Present** (full screen) or **Download**. The small `AR · EN · FI` chips show which languages exist; click one to present that language. |
 | Admin | **🔐 Admin** (top right) → sign in. Edit buttons appear. |
-| Admin | **New topic** → type the name in one language → the other two fill in. Drag **⠿** to reorder folders. |
-| Admin | **New lesson** → name + up to 3 PDFs (one per language). |
-| Admin | **Arrange slides** → pick a language tab → drag slides, remove with ✕, add pages from another PDF, then **Save**. Viewers' downloads use the new order. |
+| Admin | **New topic** → type the name in one language → the other two fill in, then pick an icon. Drag **⠿** to reorder folders. |
+| Admin | **New lesson** → name + up to 3 PDFs and 3 YouTube links (one per language). |
+| Admin | In a folder, **⇅ Reorder** changes the order of stops on the journey. |
+| Everyone | Tap a stop on the map → Present, Watch video, Download, or Mark as done. Reaching the last slide marks it done automatically. |
+| Admin | Tap a stop → **Arrange slides** → pick a language tab → drag slides, remove with ✕, add pages from another PDF, then **Save**. Viewers' downloads use the new order. |
 
 **Presenting keys:** → / Space / Page Down = next · ← / Page Up = back · Home / End · **F** = full screen · **Esc** = end. Presentation clickers work too. Click the right/left side of the screen to move.
 
