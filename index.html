@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start the Hijra — Lessons</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Noto+Kufi+Arabic:wght@400;600;700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<script src="config.js"></script>
+<script src="vendor/supabase.js"></script>
+<script src="vendor/pdf.min.js"></script>
+<script src="vendor/pdf-lib.min.js"></script>
+<script src="vendor/Sortable.min.js"></script>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="brand" href="#" id="brandLink">
+    <span class="logo" aria-hidden="true">📖</span>
+    <span class="brand-text">
+      <strong id="siteName">Start the Hijra</strong>
+      <small id="siteTagline"></small>
+    </span>
+  </a>
+  <div class="top-actions">
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button type="button" data-lang="ar" lang="ar">العربية</button>
+      <button type="button" data-lang="en" lang="en">English</button>
+      <button type="button" data-lang="fi" lang="fi">Suomi</button>
+    </div>
+    <button type="button" class="btn ghost" id="recordBtn" title=""><span class="rec-dot"></span><span data-i18n="record">Record</span></button>
+    <button type="button" class="btn ghost" id="adminBtn"></button>
+  </div>
+</header>
+
+<div class="demo-banner" id="demoBanner" hidden>
+  <strong data-i18n="demoTitle">Demo mode</strong>
+  <span data-i18n="demoText">Changes are saved only in this browser. Add your Supabase keys in config.js to put the site online.</span>
+</div>
+
+<main class="app">
+
+  <!-- HOME: topic folders -->
+  <section id="homeView" class="view">
+    <div class="view-head">
+      <div>
+        <h1 data-i18n="topicsTitle">Lesson topics</h1>
+        <p class="muted" data-i18n="topicsSub">Choose a folder to see its lessons.</p>
+      </div>
+      <div class="admin-only">
+        <button type="button" class="btn primary" id="newTopicBtn">＋ <span data-i18n="newTopic">New topic</span></button>
+      </div>
+    </div>
+    <div id="topicGrid" class="topic-grid"></div>
+    <div id="topicEmpty" class="empty" hidden>
+      <div class="empty-icon">🗂️</div>
+      <p data-i18n="noTopics">No topics yet.</p>
+      <p class="muted admin-only" data-i18n="noTopicsAdmin">Create the first folder, for example “Morals” or “Stories”.</p>
+    </div>
+  </section>
+
+  <!-- TOPIC: lessons inside a folder -->
+  <section id="topicView" class="view" hidden>
+    <nav class="crumbs"><a href="#" data-go="home" data-i18n="allTopics">All topics</a><span>›</span><span id="topicCrumb"></span></nav>
+    <div class="view-head">
+      <div>
+        <h1 id="topicTitle"></h1>
+        <p class="muted" id="topicMeta"></p>
+      </div>
+      <div class="admin-only">
+        <button type="button" class="btn primary" id="newLessonBtn">＋ <span data-i18n="newLesson">New lesson</span></button>
+      </div>
+    </div>
+    <div id="lessonGrid" class="lesson-grid"></div>
+    <div id="lessonEmpty" class="empty" hidden>
+      <div class="empty-icon">📄</div>
+      <p data-i18n="noLessons">No lessons in this folder yet.</p>
+    </div>
+  </section>
+
+  <!-- EDITOR: arrange slides (admins) -->
+  <section id="editorView" class="view" hidden>
+    <nav class="crumbs"><a href="#" data-go="home" data-i18n="allTopics">All topics</a><span>›</span><a href="#" id="editorTopicCrumb"></a><span>›</span><span id="editorLessonCrumb"></span></nav>
+    <div class="view-head">
+      <div>
+        <h1 id="editorTitle"></h1>
+        <p class="muted" data-i18n="editorSub">Drag slides to reorder them. Changes apply to everyone after you press Save.</p>
+      </div>
+      <div class="editor-actions">
+        <button type="button" class="btn" id="editorPresentBtn">▶ <span data-i18n="present">Present</span></button>
+        <button type="button" class="btn primary" id="saveSlidesBtn" disabled>💾 <span data-i18n="save">Save</span></button>
+      </div>
+    </div>
+    <div class="editor-bar">
+      <div class="tabs" id="editorLangTabs" role="tablist"></div>
+      <div class="editor-tools">
+        <label class="btn small">＋ <span data-i18n="addPages">Add pages from PDF</span><input type="file" id="appendPdfInput" accept="application/pdf,.pdf" hidden></label>
+        <label class="btn small">⟳ <span data-i18n="replacePdf">Replace PDF</span><input type="file" id="replacePdfInput" accept="application/pdf,.pdf" hidden></label>
+        <button type="button" class="btn small danger" id="removePdfBtn">🗑 <span data-i18n="removePdf">Remove this language</span></button>
+      </div>
+    </div>
+    <p class="editor-status" id="editorStatus"></p>
+    <div id="slideGrid" class="slide-grid"></div>
+    <div id="slideEmpty" class="empty" hidden>
+      <div class="empty-icon">⬆️</div>
+      <p data-i18n="noPdfForLang">No PDF for this language yet.</p>
+      <label class="btn primary"><span data-i18n="uploadPdf">Upload PDF</span><input type="file" id="firstPdfInput" accept="application/pdf,.pdf" hidden></label>
+    </div>
+  </section>
+</main>
+
+<!-- Topic modal -->
+<div class="modal" id="topicModal" hidden>
+  <form class="modal-card" id="topicForm">
+    <h2 id="topicModalTitle" data-i18n="newTopic">New topic</h2>
+    <p class="muted" data-i18n="translateHint">Type the name in any one language and press Translate — the other two fill in automatically. You can correct them.</p>
+    <div class="trio" id="topicNames"></div>
+    <div class="modal-foot">
+      <button type="button" class="btn" data-close data-i18n="cancel">Cancel</button>
+      <button type="submit" class="btn primary" data-i18n="save">Save</button>
+    </div>
+  </form>
+</div>
+
+<!-- Lesson modal -->
+<div class="modal" id="lessonModal" hidden>
+  <form class="modal-card wide" id="lessonForm">
+    <h2 id="lessonModalTitle" data-i18n="newLesson">New lesson</h2>
+    <label class="field"><span data-i18n="topic">Topic</span><select id="lessonTopicSelect"></select></label>
+    <p class="muted" data-i18n="translateHint">Type the name in any one language and press Translate — the other two fill in automatically. You can correct them.</p>
+    <div class="trio" id="lessonNames"></div>
+    <div class="pdf-trio" id="lessonPdfs"></div>
+    <p class="muted small" data-i18n="pdfOptional">Each language PDF is optional — you can add the others later.</p>
+    <div class="modal-foot">
+      <button type="button" class="btn" data-close data-i18n="cancel">Cancel</button>
+      <button type="submit" class="btn primary" id="lessonSubmit" data-i18n="save">Save</button>
+    </div>
+  </form>
+</div>
+
+<!-- Login modal -->
+<div class="modal" id="loginModal" hidden>
+  <form class="modal-card narrow" id="loginForm">
+    <h2 data-i18n="adminLogin">Admin sign in</h2>
+    <label class="field"><span data-i18n="email">Email</span><input type="email" id="loginEmail" required autocomplete="username"></label>
+    <label class="field"><span data-i18n="password">Password</span><input type="password" id="loginPassword" required autocomplete="current-password"></label>
+    <p class="form-error" id="loginError" hidden></p>
+    <div class="modal-foot">
+      <button type="button" class="btn" data-close data-i18n="cancel">Cancel</button>
+      <button type="submit" class="btn primary" data-i18n="signIn">Sign in</button>
+    </div>
+  </form>
+</div>
+
+<!-- Presenter -->
+<div class="presenter" id="presenter" hidden>
+  <div class="stage" id="stage"><canvas id="slideCanvas"></canvas></div>
+  <button type="button" class="nav-zone prev" id="prevZone" aria-label="Previous"></button>
+  <button type="button" class="nav-zone next" id="nextZone" aria-label="Next"></button>
+  <div class="p-bar" id="presenterBar">
+    <button type="button" id="pPrev" aria-label="Previous">‹</button>
+    <span class="p-count" id="pCount">1 / 1</span>
+    <button type="button" id="pNext" aria-label="Next">›</button>
+    <span class="p-sep"></span>
+    <button type="button" id="pFull" data-i18n-title="fullscreen">⛶</button>
+    <button type="button" id="pRecord"><span class="rec-dot"></span></button>
+    <button type="button" id="pClose" data-i18n-title="close">✕</button>
+  </div>
+</div>
+
+<!-- Recording indicator -->
+<div class="rec-badge" id="recBadge" hidden>
+  <span class="rec-dot live"></span><span id="recTime">00:00</span>
+  <button type="button" id="recStop" data-i18n="stop">Stop</button>
+</div>
+
+<div class="busy" id="busy" hidden><div class="busy-card"><div class="spinner"></div><p id="busyText"></p></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
