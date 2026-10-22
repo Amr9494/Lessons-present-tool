@@ -16,7 +16,7 @@
   (function(){try{var t=localStorage.getItem('lpt.theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.dataset.theme=t;}catch(e){}})();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Baloo+2:wght@500;600;700;800&family=Baloo+Bhaijaan+2:wght@500;600;700;800&family=Cairo:wght@400;700&family=Nunito:wght@400;600;700;800&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <script src="config.js"></script>
 <script src="vendor/supabase.js"></script>
@@ -41,13 +41,19 @@
       <button type="button" data-lang="fi" lang="fi">Suomi</button>
     </div>
     <button type="button" class="btn ghost maker-nav" id="achBtn">🏆 <span data-i18n="achievements">My achievements</span></button>
-    <button type="button" class="btn ghost admin-only" id="textsBtn">✎ <span data-i18n="editTexts">Edit texts</span></button>
-    <button type="button" class="btn ghost maker-nav" id="makerBtn">🛠 <span data-i18n="maker">Lesson maker</span></button>
+    <button type="button" class="btn ghost maker-nav" id="toolsBtn">🧰 <span data-i18n="tools">Teacher tools</span></button>
+    <button type="button" class="btn ghost admin-only maker-nav" id="textsBtn">✎ <span data-i18n="editMode">Edit mode</span></button>
     <button type="button" class="btn icon-btn" id="themeBtn" aria-label="Dark / light"></button>
     <button type="button" class="btn ghost" id="recordBtn"><span class="rec-dot"></span><span data-i18n="record">Record</span></button>
     <button type="button" class="btn ghost" id="adminBtn"></button>
   </div>
 </header>
+
+<div class="edit-bar" id="editBar" hidden>
+  <span>✎ <span data-i18n="editModeOn">Edit mode — click any text to change it</span></span>
+  <button type="button" class="btn small" id="editAllBtn">☰ <span data-i18n="allTexts">All texts</span></button>
+  <button type="button" class="btn small primary" id="editDoneBtn">✓ <span data-i18n="editDone">Done</span></button>
+</div>
 
 <div class="demo-banner" id="demoBanner" hidden>
   <strong data-i18n="demoTitle">Demo mode</strong>
@@ -139,6 +145,7 @@
       <div class="editor-tools">
         <label class="btn small">＋ <span data-i18n="addPages">Add pages from PDF</span><input type="file" id="appendPdfInput" accept="application/pdf,.pdf" hidden></label>
         <label class="btn small">⟳ <span data-i18n="replacePdf">Replace PDF</span><input type="file" id="replacePdfInput" accept="application/pdf,.pdf" hidden></label>
+        <button type="button" class="btn small gold" id="addQuizSlideBtn">＋ 🧠 <span data-i18n="addQuizSlide">Quiz slide</span></button>
         <button type="button" class="btn small danger" id="removePdfBtn">🗑 <span data-i18n="removePdf">Remove this language</span></button>
       </div>
     </div>
@@ -152,7 +159,7 @@
   </section>
   <!-- LESSON MAKER: pictures -> PDF -->
   <section id="makerView" class="view" hidden>
-    <nav class="crumbs"><a href="#" data-go="home" data-i18n="allTopics">All topics</a><span>›</span><span data-i18n="maker">Lesson maker</span></nav>
+    <nav class="crumbs"><a href="#" data-go="home" data-i18n="allTopics">All topics</a><span>›</span><a href="#/tools" data-i18n="tools">Teacher tools</a><span>›</span><span data-i18n="maker">Lesson maker</span></nav>
     <div class="view-head">
       <div>
         <h1>🛠 <span data-i18n="maker">Lesson maker</span></h1>
@@ -193,6 +200,9 @@
       </span>
     </div>
   </section>
+  <!-- TEACHER TOOLS (built by tools.js) -->
+  <section id="toolsView" class="view" hidden></section>
+
   <!-- MY ACHIEVEMENTS -->
   <section id="achView" class="view" hidden>
     <nav class="crumbs"><a href="#" data-go="home" data-i18n="allTopics">All topics</a><span>›</span><span data-i18n="achievements">My achievements</span></nav>
@@ -248,6 +258,21 @@
       <button type="button" class="btn" id="quizTranslateBtn">⇄ <span data-i18n="translateQuiz">Translate</span></button>
     </div>
     <div class="modal-foot">
+      <button type="button" class="btn" data-close data-i18n="cancel">Cancel</button>
+      <button type="submit" class="btn primary" data-i18n="save">Save</button>
+    </div>
+  </form>
+</div>
+
+<!-- Quiz slide editor -->
+<div class="modal" id="qsModal" hidden>
+  <form class="modal-card" id="qsForm">
+    <h2>🧠 <span data-i18n="quizSlideTitle">Quiz slide</span></h2>
+    <p class="muted" data-i18n="quizSlideHint"></p>
+    <div id="qsBody"></div>
+    <div class="modal-foot">
+      <button type="button" class="btn danger" id="qsDelete">🗑 <span data-i18n="delete">Delete</span></button>
+      <span style="flex:1"></span>
       <button type="button" class="btn" data-close data-i18n="cancel">Cancel</button>
       <button type="submit" class="btn primary" data-i18n="save">Save</button>
     </div>
@@ -351,5 +376,6 @@
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script src="app.js"></script>
+<script src="tools.js"></script>
 </body>
 </html>

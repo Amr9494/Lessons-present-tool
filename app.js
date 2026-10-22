@@ -72,6 +72,11 @@ const T = {
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
 
+    editMode: 'Edit mode', editModeOn: 'Edit mode — click any text to change it', editDone: 'Done', allTexts: 'All texts',
+    textSaved: 'Saved for everyone', quizSlide: 'Quiz slide', addQuizSlide: 'Quiz slide', quizSlideTitle: 'Quiz slide',
+    quizSlideHint: 'This question appears between the slides while you present. Kids answer together, then you continue.',
+    tools: 'Teacher tools', toolsSub: 'Handy makers for printing and preparing lessons. Everything runs in your browser — nothing is uploaded.',
+
     editTexts: 'Edit texts', textsTitle: 'Edit website texts',
     textsHint: 'Fix any wording shown in this language. Changes are published for everyone. Tip: Alt+click any text on the page to jump straight to it.',
     searchTexts: 'Search texts…', originalText: 'Original', textsSaved: 'Texts updated', resetAll: 'Reset all to original', siteNameLabel: 'Site name', taglineLabel: 'Tagline',
@@ -144,6 +149,11 @@ const T = {
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
 
+    editMode: 'وضع التعديل', editModeOn: 'وضع التعديل — اضغط على أي نص لتغييره', editDone: 'تم', allTexts: 'كل النصوص',
+    textSaved: 'تم الحفظ للجميع', quizSlide: 'شريحة اختبار', addQuizSlide: 'شريحة اختبار', quizSlideTitle: 'شريحة اختبار',
+    quizSlideHint: 'يظهر هذا السؤال بين الشرائح أثناء العرض. يجيب الأطفال معًا ثم تكمل.',
+    tools: 'أدوات المعلم', toolsSub: 'أدوات مفيدة للطباعة وتحضير الدروس. كل شيء يعمل داخل متصفحك — لا يُرفع أي شيء.',
+
     editTexts: 'تعديل النصوص', textsTitle: 'تعديل نصوص الموقع',
     textsHint: 'صحّح أي صياغة تظهر بهذه اللغة. التغييرات تُنشر للجميع. نصيحة: اضغط Alt مع النقر على أي نص في الصفحة للوصول إليه مباشرة.',
     searchTexts: 'ابحث في النصوص…', originalText: 'الأصلي', textsSaved: 'تم تحديث النصوص', resetAll: 'إعادة الكل إلى الأصل', siteNameLabel: 'اسم الموقع', taglineLabel: 'الشعار',
@@ -215,6 +225,11 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+
+    editMode: 'Muokkaustila', editModeOn: 'Muokkaustila — napsauta mitä tahansa tekstiä muuttaaksesi sitä', editDone: 'Valmis', allTexts: 'Kaikki tekstit',
+    textSaved: 'Tallennettu kaikille', quizSlide: 'Visadia', addQuizSlide: 'Visadia', quizSlideTitle: 'Visadia',
+    quizSlideHint: 'Kysymys näkyy diojen välissä esityksen aikana. Lapset vastaavat yhdessä, sitten jatkat.',
+    tools: 'Opettajan työkalut', toolsSub: 'Käteviä työkaluja tulostamiseen ja tuntien valmisteluun. Kaikki toimii selaimessasi — mitään ei ladata palvelimelle.',
 
     editTexts: 'Muokkaa tekstejä', textsTitle: 'Muokkaa sivuston tekstejä',
     textsHint: 'Korjaa mikä tahansa tällä kielellä näkyvä teksti. Muutokset julkaistaan kaikille. Vinkki: Alt+napsautus mihin tahansa tekstiin vie suoraan sen kohdalle.',
@@ -295,7 +310,7 @@ function makeSupabaseBackend() {
       if (r.quiz) row.quiz = r.quiz;
       let res = await sb.from('lessons').upsert(row).select().single();
       if (res.error && /quiz/i.test(res.error.message)) {
-        if (Object.values(row.quiz || {}).some(a => a && a.length)) throw new Error(t('needsUpgrade3'));
+        if (quizHasContent(row.quiz)) throw new Error(t('needsUpgrade3'));
         delete row.quiz; res = await sb.from('lessons').upsert(row).select().single();
       }
       if (res.error && /videos/i.test(res.error.message)) {
@@ -384,6 +399,10 @@ function makeLocalBackend() {
   };
 }
 
+function quizHasContent(q) {
+  if (!q) return false;
+  return Object.entries(q).some(([k, v]) => k === 'slides' ? quizHasContent(v) : Array.isArray(v) && v.length > 0);
+}
 const online = !!(CFG.SUPABASE_URL && CFG.SUPABASE_ANON_KEY && window.supabase);
 const api = online ? makeSupabaseBackend() : makeLocalBackend();
 
@@ -576,6 +595,7 @@ function parseHash() {
   if (p[0] === 't' && p[1]) return { view: 'topic', topicId: p[1] };
   if (p[0] === 'maker') return { view: 'maker' };
   if (p[0] === 'achievements') return { view: 'achievements' };
+  if (p[0] === 'tools') return { view: 'tools', tool: p[1] || '' };
   if (p[0] === 'e' && p[1]) return { view: 'editor', lessonId: p[1], lang: LANGS.includes(p[2]) ? p[2] : state.lang };
   return { view: 'home' };
 }
@@ -609,12 +629,14 @@ function render() {
   $('editorView').hidden = r.view !== 'editor';
   $('makerView').hidden = r.view !== 'maker';
   $('achView').hidden = r.view !== 'achievements';
-  $('makerBtn').classList.toggle('active', r.view === 'maker');
+  $('toolsView').hidden = r.view !== 'tools';
+  $('toolsBtn').classList.toggle('active', r.view === 'tools' || r.view === 'maker');
   $('achBtn').classList.toggle('active', r.view === 'achievements');
   if (r.view === 'home') renderHome();
   else if (r.view === 'topic') renderTopic(r.topicId);
   else if (r.view === 'maker') renderMaker();
   else if (r.view === 'achievements') renderAchievements();
+  else if (r.view === 'tools') { if (window.LPT_TOOLS) window.LPT_TOOLS.render($('toolsView'), r.tool); }
   else if (r.view === 'editor') {
     if (!state.isAdmin) { go('#'); return; }
     renderEditor(r.lessonId, r.lang);
@@ -653,7 +675,7 @@ function renderHome() {
         h('div', { class: 'folder-icon', text: topicIcon(tp, i) }),
         ls.length ? h('div', { class: 'ring', style: `--p:${pct}`, title: t('doneOf', d, ls.length) }, h('span', { text: `${d}/${ls.length}` })) : null
       ),
-      h('h3', { text: nameOf(tp.names) }),
+      h('h3', { text: nameOf(tp.names), 'data-edit-name': 'topic:' + tp.id }),
       h('div', { class: 'count', text: t('lessons', ls.length) }),
       h('div', { class: 'stars', text: stars }),
       state.isAdmin && h('div', { class: 'admin-row' },
@@ -696,7 +718,7 @@ function renderTopic(topicId) {
   const lessons = topicLessons(topicId);
   const d = lessons.filter(l => isDone(l.id)).length;
   $('topicView').style.setProperty('--c', color);
-  $('topicTitle').textContent = nameOf(tp.names);
+  $('topicTitle').textContent = nameOf(tp.names); $('topicTitle').dataset.editName = 'topic:' + tp.id;
   $('topicCrumb').textContent = nameOf(tp.names);
   $('topicBadge').textContent = topicIcon(tp, idx);
   $('topicProgressFill').style.width = (lessons.length ? d / lessons.length * 100 : 0) + '%';
@@ -782,7 +804,7 @@ function renderJourney(lessons, color) {
     const stop = h('div', { class: cls, style: `left:${p.x}%;top:${p.y}px` },
       i === nextIdx ? h('span', { class: 'next-flag', text: t('nextUp') }) : null,
       btn,
-      h('div', { class: 'stop-label' }, nameOf(ls.titles), h('small', { text: sub }))
+      h('div', { class: 'stop-label' }, h('span', { text: nameOf(ls.titles), 'data-edit-name': 'lesson:' + ls.id }), h('small', { text: sub }))
     );
     stop.querySelectorAll('.stop-btn,.stop-label').forEach(el => el.addEventListener('click', () => openLessonSheet(ls)));
     const coverFile = file || LANGS.map(l => ls.files[l]).find(Boolean);
@@ -818,7 +840,7 @@ function openLessonSheet(ls) {
   const L = state.lang;
   const file = ls.files[L], video = ls.videos[L];
   $('sheetStep').textContent = t('lessonN', i + 1) + (isDone(ls.id) ? '  ·  ' + t('doneLabel') : '');
-  $('sheetTitle').textContent = nameOf(ls.titles);
+  $('sheetTitle').textContent = nameOf(ls.titles); $('sheetTitle').dataset.editName = 'lesson:' + ls.id;
 
   const cover = $('sheetCover'); cover.innerHTML = '';
   const coverFile = file || LANGS.map(l => ls.files[l]).find(Boolean);
@@ -1041,9 +1063,22 @@ async function renderEditor(lessonId, lang) {
         await addSource(bytes, false);
       } catch (e) { toast(t('error') + e.message, true); }
     }
+    mergeQuizSlides(state.editor, ls);
   }
   drawSlides();
 }
+function mergeQuizSlides(ed, ls) {
+  if (!ed) return;
+  const qs = ((ls.quiz && ls.quiz.slides && ls.quiz.slides[ed.lang]) || []).slice().sort((a, b) => (a.after | 0) - (b.after | 0));
+  if (!qs.length) return;
+  const out = []; let n = 0, k = 0;
+  const flush = () => { while (k < qs.length && (qs[k].after | 0) <= n) out.push(quizItem(qs[k++])); };
+  flush();
+  for (const it of ed.items) { out.push(it); if (!it.quiz) { n++; flush(); } }
+  while (k < qs.length) out.push(quizItem(qs[k++]));
+  ed.items = out;
+}
+const quizItem = q => ({ key: uid(), quiz: { q: q.q || '', a: [...(q.a || ['', ''])], c: q.c | 0 } });
 
 async function addSource(bytes, markNew) {
   const ed = state.editor;
@@ -1059,16 +1094,19 @@ function updateEditorChrome() {
   $('saveSlidesBtn').disabled = !ed.dirty;
   $('removePdfBtn').hidden = !(state.lessons.find(l => l.id === ed.lessonId)?.files?.[ed.lang]);
   $('slideEmpty').hidden = n > 0;
-  setEditorStatus(n ? t('slides', n) + (ed.dirty ? ' · ' + t('unsaved') : '') : '', ed.dirty);
-  [...$('slideGrid').children].forEach((el, i) => { const num = el.querySelector('.num b'); if (num) num.textContent = `${t('slide')} ${i + 1}`; });
+  setEditorStatus(n ? t('slides', ed.items.filter(x => !x.quiz).length) + (ed.items.some(x => x.quiz) ? ` · 🧠 ${ed.items.filter(x => x.quiz).length}` : '') + (ed.dirty ? ' · ' + t('unsaved') : '') : '', ed.dirty);
+  let sn = 0;
+  [...$('slideGrid').children].forEach(el => { const num = el.querySelector('.num b'); if (!num) return; num.textContent = el.classList.contains('is-quiz') ? '🧠 ' + t('quizSlide') : `${t('slide')} ${++sn}`; });
 }
 
 function drawSlides() {
   const ed = state.editor; const grid = $('slideGrid'); grid.innerHTML = '';
   const queue = [];
   ed.items.forEach((it, i) => {
-    const thumb = h('div', { class: 'thumb' });
-    const el = h('div', { class: 'slide' + (it.isNew ? ' new' : ''), 'data-key': it.key },
+    const thumb = it.quiz
+      ? h('div', { class: 'thumb quiz-thumb', onclick: () => openQuizSlideModal(it) }, h('span', { class: 'qt-ic', text: '🧠' }), h('span', { class: 'qt-q', dir: 'auto', text: it.quiz.q || '…' }))
+      : h('div', { class: 'thumb' });
+    const el = h('div', { class: 'slide' + (it.isNew ? ' new' : '') + (it.quiz ? ' is-quiz' : ''), 'data-key': it.key },
       thumb,
       h('div', { class: 'num' },
         h('b', { text: `${t('slide')} ${i + 1}` }),
@@ -1079,7 +1117,7 @@ function drawSlides() {
       )
     );
     grid.append(el);
-    queue.push({ it, thumb });
+    if (!it.quiz) queue.push({ it, thumb });
   });
   if (slideSortable) slideSortable.destroy();
   slideSortable = window.Sortable ? Sortable.create(grid, {
@@ -1124,15 +1162,26 @@ $('saveSlidesBtn').onclick = async () => {
   const ls = state.lessons.find(l => l.id === ed.lessonId); if (!ls) return;
   await guard(async () => {
     const files = { ...(ls.files || {}) };
-    const old = files[ed.lang] && files[ed.lang].path;
-    if (!ed.items.length) {
+    let old = files[ed.lang] && files[ed.lang].path;
+    const pdfItems = ed.items.filter(x => !x.quiz);
+    const slidesQ = []; let cnt = 0;
+    ed.items.forEach(it => {
+      if (!it.quiz) { cnt++; return; }
+      const a = it.quiz.a.map((x, i) => ({ x: String(x).trim(), ok: i === it.quiz.c })).filter(o => o.x);
+      if (!it.quiz.q.trim() || a.length < 2) return;
+      slidesQ.push({ after: cnt, q: it.quiz.q.trim(), a: a.map(o => o.x), c: Math.max(0, a.findIndex(o => o.ok)) });
+    });
+    const unchanged = old && files[ed.lang].pages === pdfItems.length && pdfItems.every((it, i) => it.src === 0 && it.page === i + 1);
+    if (!pdfItems.length) {
       delete files[ed.lang];
+    } else if (unchanged) {
+      old = null;
     } else {
       busy(t('building'));
       const { PDFDocument } = PDFLib;
       const out = await PDFDocument.create();
       const loaded = [];
-      for (const it of ed.items) {
+      for (const it of pdfItems) {
         if (!loaded[it.src]) loaded[it.src] = await PDFDocument.load(ed.sources[it.src].bytes, { ignoreEncryption: true });
         const [pg] = await out.copyPages(loaded[it.src], [it.page - 1]);
         out.addPage(pg);
@@ -1141,10 +1190,13 @@ $('saveSlidesBtn').onclick = async () => {
       busy(t('uploading'));
       const path = await api.uploadPdf(ls.id, ed.lang, bytes);
       bytesCache.set(path, Promise.resolve(bytes));
-      files[ed.lang] = { path, pages: ed.items.length };
+      files[ed.lang] = { path, pages: pdfItems.length };
     }
     busy(t('saving'));
-    await api.saveLesson({ ...ls, files });
+    const quiz = { ...(ls.quiz || {}) };
+    const hadSlides = quiz.slides && quiz.slides[ed.lang] && quiz.slides[ed.lang].length;
+    if (slidesQ.length || hadSlides) quiz.slides = { ...(quiz.slides || {}), [ed.lang]: slidesQ };
+    await api.saveLesson({ ...ls, files, quiz });
     if (old) { await api.removeFiles([old]).catch(() => {}); bytesCache.delete(old); docCache.delete(old); }
     state.editor = null;
     await reload(); toast(t('saved'));
@@ -1161,6 +1213,74 @@ $('removePdfBtn').onclick = async () => {
     state.editor = null; await reload(); toast(t('deleted'));
   }, t('saving'));
 };
+let qsItem = null;
+function openQuizSlideModal(it) {
+  qsItem = it; drawQuizSlideModal(); openModal('qsModal');
+}
+function drawQuizSlideModal() {
+  const q = qsItem.quiz, dir = state.editor && state.editor.lang === 'ar' ? 'rtl' : 'ltr';
+  const box = $('qsBody'); box.innerHTML = '';
+  const qin = h('textarea', { rows: '2', placeholder: t('questionLabel'), dir }); qin.value = q.q; qin.oninput = () => { q.q = qin.value; };
+  const ans = h('div', { class: 'qans' });
+  q.a.forEach((txt, ai) => {
+    const radio = h('input', { type: 'radio', name: 'qs-c' }); radio.checked = q.c === ai; radio.onchange = () => { q.c = ai; };
+    const inp = h('input', { type: 'text', placeholder: t('answerN', ai + 1), dir }); inp.value = txt; inp.oninput = () => { q.a[ai] = inp.value; };
+    ans.append(h('div', { class: 'qans-row' }, radio, inp,
+      h('button', { type: 'button', class: 'btn small', disabled: q.a.length <= 2, onclick: () => { q.a.splice(ai, 1); if (q.c === ai) q.c = 0; else if (q.c > ai) q.c--; drawQuizSlideModal(); } }, '✕')));
+  });
+  box.append(h('div', { class: 'qcard' }, qin, ans,
+    q.a.length < 6 ? h('button', { type: 'button', class: 'btn small', onclick: () => { q.a.push(''); drawQuizSlideModal(); } }, '＋ ', t('addAnswer')) : null));
+}
+$('qsForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const q = qsItem.quiz;
+  if (!q.q.trim() || q.a.filter(x => String(x).trim()).length < 2 || !String(q.a[q.c] || '').trim()) { toast(t('quizInvalid', 1), true); return; }
+  closeModal('qsModal'); state.editor.dirty = true; drawSlides();
+});
+$('qsDelete').onclick = () => {
+  const ed = state.editor; ed.items = ed.items.filter(x => x !== qsItem); ed.dirty = true; closeModal('qsModal'); drawSlides();
+};
+$('addQuizSlideBtn').onclick = () => {
+  const ed = state.editor; if (!ed) return;
+  const it = { key: uid(), isNew: true, quiz: { q: '', a: ['', '', ''], c: 0 } };
+  ed.items.push(it); ed.dirty = true; drawSlides(); openQuizSlideModal(it);
+};
+// interleave quiz slides into a presentation
+function withQuizSlides(pages, slides) {
+  const qs = (slides || []).slice().sort((a, b) => (a.after | 0) - (b.after | 0));
+  if (!qs.length) return pages;
+  const out = []; let k = 0;
+  const flush = n => { while (k < qs.length && (qs[k].after | 0) <= n) out.push({ quiz: qs[k++] }); };
+  flush(0);
+  pages.forEach((p, i) => { out.push(p); flush(i + 1); });
+  while (k < qs.length) out.push({ quiz: qs[k++] });
+  return out;
+}
+function showQuizSlide(q) {
+  const stage = $('stage'); stage.querySelector('.p-quiz')?.remove();
+  $('slideCanvas').style.visibility = 'hidden';
+  const opts = q.a.map((text, i) => ({ text, ok: i === (q.c | 0) })).filter(o => String(o.text).trim());
+  const fb = h('div', { class: 'pq-fb' });
+  const box = h('div', { class: 'p-quiz', dir: 'auto' },
+    h('div', { class: 'pq-badge', text: '🧠' }),
+    h('h2', { class: 'pq-q', text: q.q }),
+    h('div', { class: 'pq-opts' + (opts.length > 4 ? ' many' : '') }, opts.map((o, i) => {
+      const b = h('button', { type: 'button', class: 'pq-opt', 'data-n': i + 1 }, h('span', { class: 'pq-n', text: String.fromCharCode(65 + i) }), h('span', { text: o.text }));
+      b.onclick = ev => {
+        ev.stopPropagation();
+        if (box.classList.contains('answered')) return;
+        if (o.ok) {
+          box.classList.add('answered'); b.classList.add('right');
+          fb.textContent = t('quizRight'); fb.className = 'pq-fb good';
+          const burst = h('div', { class: 'pq-burst' }); for (let k = 0; k < 24; k++) burst.append(h('span', { text: ['⭐', '🎉', '✨', '🌟'][k % 4], style: `left:${Math.random() * 100}%;animation-delay:${Math.random() * .6}s` })); box.append(burst);
+        } else { b.classList.add('wrong'); b.disabled = true; fb.textContent = t('quizWrong').split('—')[0].trim() + ' 🙂'; fb.className = 'pq-fb bad'; }
+      };
+      return b;
+    })),
+    fb);
+  box.addEventListener('click', ev => ev.stopPropagation());
+  stage.append(box);
+}
 $('editorPresentBtn').onclick = () => {
   const ed = state.editor; if (!ed) return;
   const ls = state.lessons.find(l => l.id === ed.lessonId);
@@ -1181,14 +1301,14 @@ async function present(ls, lang) {
   showPresenterMessage(t('loading'));
   try {
     const doc = await getDoc(f.path);
-    startDeck(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1 })));
+    startDeck(withQuizSlides(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1 })), ls.quiz && ls.quiz.slides && ls.quiz.slides[lang]));
   } catch (e) { closePresenter(); toast(t('error') + e.message, true); }
 }
 function presentEditorDraft() {
   const ed = state.editor; if (!ed || !ed.items.length) return;
   openPresenter();
   P.lessonId = null;
-  startDeck(ed.items.map(it => ({ doc: ed.sources[it.src].doc, page: it.page })));
+  startDeck(ed.items.map(it => it.quiz ? { quiz: it.quiz } : { doc: ed.sources[it.src].doc, page: it.page }));
 }
 function openPresenter() {
   const el = $('presenter'); el.hidden = false; document.body.style.overflow = 'hidden';
@@ -1221,6 +1341,13 @@ async function showSlide(i) {
   P.i = i;
   $('pCount').textContent = `${i + 1} / ${P.pages.length}`;
   const token = ++P.token;
+  $('stage').querySelector('.p-quiz')?.remove(); $('slideCanvas').style.visibility = '';
+  if (P.pages[i].quiz) {
+    showPresenterMessage(null); showQuizSlide(P.pages[i].quiz);
+    if (P.lessonId && i === P.pages.length - 1 && !P.celebrated) { P.celebrated = true; setDone(P.lessonId, true); celebrate(); }
+    if (i + 1 < P.pages.length && !P.pages[i + 1].quiz) renderSlideCanvas(i + 1);
+    return;
+  }
   try {
     const src = await renderSlideCanvas(i);
     if (token !== P.token) return;
@@ -1230,8 +1357,8 @@ async function showSlide(i) {
     c.getContext('2d').drawImage(src, 0, 0);
     if (P.lessonId && i === P.pages.length - 1 && !P.celebrated) { P.celebrated = true; setDone(P.lessonId, true); celebrate(); }
     // warm up neighbours
-    if (i + 1 < P.pages.length) renderSlideCanvas(i + 1);
-    if (i > 0) renderSlideCanvas(i - 1);
+    if (i + 1 < P.pages.length && !P.pages[i + 1].quiz) renderSlideCanvas(i + 1);
+    if (i > 0 && !P.pages[i - 1].quiz) renderSlideCanvas(i - 1);
   } catch (e) { showPresenterMessage(t('error') + e.message); }
 }
 function celebrate() {
@@ -1275,6 +1402,8 @@ document.addEventListener('fullscreenchange', () => {
 document.addEventListener('keydown', e => {
   if ($('presenter').hidden) return;
   const k = e.key;
+  const qbox = $('stage').querySelector('.p-quiz');
+  if (qbox && /^[1-6a-fA-F]$/.test(k)) { const n = /\d/.test(k) ? +k : k.toUpperCase().charCodeAt(0) - 64; qbox.querySelector(`.pq-opt[data-n="${n}"]`)?.click(); e.preventDefault(); return; }
   if (['ArrowRight', 'ArrowDown', 'PageDown', ' ', 'Enter', 'n', 'N'].includes(k)) { e.preventDefault(); showSlide(P.i + 1); }
   else if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace', 'p', 'P'].includes(k)) { e.preventDefault(); showSlide(P.i - 1); }
   else if (k === 'Home') { e.preventDefault(); showSlide(0); }
@@ -1481,7 +1610,6 @@ async function makerBuild(quality = 0.9, maxSide = 2400) {
 }
 const makerFileName = () => safeName($('makerName').value.trim() || t('maker')) + '.pdf';
 
-$('makerBtn').onclick = () => go('#/maker');
 $('makerLang').onchange = () => { M.langTouched = true; };
 try { $('makerName').value = localStorage.getItem('lpt.makerName') || ''; } catch (e) {}
 $('makerName').addEventListener('input', () => { try { localStorage.setItem('lpt.makerName', $('makerName').value); } catch (e) {} });
@@ -1568,7 +1696,107 @@ function openTextsModal(focusKey) {
     if (row) { row.scrollIntoView({ block: 'center' }); row.classList.add('flash'); row.querySelector('input,textarea').focus(); }
   }, 60);
 }
-$('textsBtn').onclick = () => openTextsModal();
+$('textsBtn').onclick = () => setEditMode(!state.editMode);
+$('editAllBtn').onclick = () => openTextsModal();
+$('editDoneBtn').onclick = () => setEditMode(false);
+
+/* In-place editing: in edit mode, click any interface text, folder or lesson name and type over it. */
+function setEditMode(on) {
+  state.editMode = !!on && state.isAdmin;
+  document.body.classList.toggle('edit-mode', state.editMode);
+  $('editBar').hidden = !state.editMode;
+  $('textsBtn').classList.toggle('active', state.editMode);
+  if (!state.editMode) document.querySelectorAll('.tx-hover').forEach(e => e.classList.remove('tx-hover'));
+}
+function textIndex() {
+  const L = state.lang, idx = new Map();
+  Object.keys(T.en).forEach(k => {
+    if (typeof T.en[k] !== 'string') return;
+    const v = t(k); if (typeof v !== 'string' || !v.trim()) return;
+    const key = v.trim(); if (!idx.has(key)) idx.set(key, []); idx.get(key).push(k);
+  });
+  const ov = state.ui[L] || {};
+  idx.set($('siteName').textContent.trim(), ['_siteName']);
+  idx.set($('siteTagline').textContent.trim(), ['_tagline']);
+  return idx;
+}
+function findEditable(target) {
+  if (!target || target.closest('#editBar,.modal:not(#lessonSheet),.presenter,.tx-edit')) return null;
+  const nm = target.closest('[data-edit-name]');
+  if (nm) return { kind: 'name', el: nm, ref: nm.dataset.editName };
+  const di = target.closest('[data-i18n]');
+  if (di && !di.children.length) return { kind: 'text', el: di, keys: [di.dataset.i18n] };
+  if (target.closest('#siteName')) return { kind: 'text', el: $('siteName'), keys: ['_siteName'] };
+  if (target.closest('#siteTagline')) return { kind: 'text', el: $('siteTagline'), keys: ['_tagline'] };
+  const idx = textIndex();
+  let el = target;
+  for (let depth = 0; el && depth < 3; depth++, el = el.parentElement) {
+    for (const n of el.childNodes) {
+      if (n.nodeType === 3 && n.textContent.trim() && idx.has(n.textContent.trim())) return { kind: 'text', el, node: n, keys: idx.get(n.textContent.trim()) };
+    }
+  }
+  return null;
+}
+document.addEventListener('mouseover', e => {
+  if (!state.editMode) return;
+  document.querySelectorAll('.tx-hover').forEach(x => x.classList.remove('tx-hover'));
+  const f = findEditable(e.target); if (f) f.el.classList.add('tx-hover');
+});
+document.addEventListener('click', e => {
+  if (!state.editMode || e.target.closest('.tx-edit')) return;
+  const f = findEditable(e.target); if (!f) return;
+  e.preventDefault(); e.stopPropagation(); startInlineEdit(f);
+}, true);
+function startInlineEdit(f) {
+  let span;
+  if (f.node) { span = document.createElement('span'); f.node.replaceWith(span); span.textContent = f.node.textContent.trim(); }
+  else span = f.el;
+  const before = span.textContent;
+  span.classList.add('tx-edit'); span.contentEditable = 'true'; span.spellcheck = false; span.dir = 'auto';
+  span.focus();
+  const r = document.createRange(); r.selectNodeContents(span); const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+  let finished = false;
+  const finish = async save => {
+    if (finished) return; finished = true;
+    span.contentEditable = 'false'; span.classList.remove('tx-edit');
+    span.removeEventListener('keydown', onKey); span.removeEventListener('blur', onBlur);
+    const val = span.textContent.replace(/\s+/g, ' ').trim();
+    if (!save || val === before.trim()) { span.textContent = before; return; }
+    await guard(async () => {
+      if (f.kind === 'name') await saveNameInline(f.ref, val);
+      else await saveTextsInline(f.keys, val);
+      toast(t('textSaved'));
+    });
+    applyLang(); render();
+  };
+  const onKey = ev => {
+    if (ev.key === 'Enter' && !ev.shiftKey) { ev.preventDefault(); finish(true); }
+    else if (ev.key === 'Escape') { ev.preventDefault(); ev.stopPropagation(); finish(false); }
+    ev.stopPropagation();
+  };
+  const onBlur = () => finish(true);
+  span.addEventListener('keydown', onKey); span.addEventListener('blur', onBlur);
+  span.addEventListener('click', ev => ev.stopPropagation());
+}
+async function saveTextsInline(keys, val) {
+  const L = state.lang;
+  const fresh = ((await api.getSettings()).ui_text) || {};
+  const next = { ar: {}, en: {}, fi: {}, ...fresh };
+  next[L] = { ...(next[L] || {}) };
+  keys.forEach(k => {
+    const def = k === '_siteName' ? ((CFG.BRAND_NAME && CFG.BRAND_NAME[L]) || BRAND.name[L]) : k === '_tagline' ? ((CFG.BRAND_TAGLINE && CFG.BRAND_TAGLINE[L]) || BRAND.tagline[L]) : ((T[L] || T.en)[k] ?? T.en[k]);
+    if (!val || val === String(def).trim()) delete next[L][k]; else next[L][k] = val;
+  });
+  await api.saveSetting('ui_text', next);
+  state.ui = next;
+}
+async function saveNameInline(ref, val) {
+  if (!val) return;
+  const [kind, id] = ref.split(':');
+  if (kind === 'topic') { const tp = state.topics.find(x => x.id === id); if (tp) await api.saveTopic({ ...tp, names: { ...tp.names, [state.lang]: val } }); }
+  else { const ls = state.lessons.find(x => x.id === id); if (ls) { await api.saveLesson({ ...ls, titles: { ...ls.titles, [state.lang]: val } }); if (sheetLesson && sheetLesson.id === id) closeModal('lessonSheet'); } }
+  await reload();
+}
 $('textsSearch').addEventListener('input', () => {
   const q = $('textsSearch').value.trim().toLowerCase();
   $('textsList').querySelectorAll('.text-row').forEach(r => {
@@ -1813,6 +2041,8 @@ async function boot() {
   try { await reload(); }
   catch (e) { console.error(e); render(); toast(t('loadFailed'), true); }
 }
+window.LPT = { t, h, T, LANGS, LANG_NAMES, state, toast, busy, done, guard, saveBlob, go, uid, readJSON };
+$('toolsBtn').onclick = () => go('#/tools');
 boot();
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
 })();

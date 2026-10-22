@@ -81,7 +81,9 @@ Later, to change the site's code, edit the file on GitHub — Vercel republishes
 | Admin | In a folder, **⇅ Reorder** changes the order of stops on the journey. |
 | Everyone | Tap a stop on the map → Present, Watch video, Download, or Mark as done. Reaching the last slide marks it done automatically. |
 | Everyone | **🛠 Lesson maker** (top bar) → add or paste pictures, drag them into order, choose a page size → **Download PDF** or **Preview**. Pictures stay on that computer until you press Clear all. |
-| Admin | **✎ Edit texts** (top bar) → fix any wording in the language you are viewing; changes are published for everyone. **Alt+click** any text on the page to jump straight to it. |
+| Admin | **✎ Edit mode** (top bar) → click any text, folder name or lesson name and type over it (Enter saves, Esc cancels). Changes are published for everyone, for the language you are viewing. **☰ All texts** lists everything, including messages that are not on screen. |
+| Admin | **Arrange slides** → **＋ 🧠 Quiz slide** adds a question card; drag it between slides. While presenting it becomes an interactive quiz slide (click an answer, or press 1–4 / A–D). |
+| Everyone | **🧰 Teacher tools** → Lesson maker, Memorization booklet (built-in layout or your own PDF template), Certificates & name slides (from Excel, drag text on your design), Attendance sheets (from Excel). Everything runs in the browser; nothing is uploaded. |
 | Admin | Folder and lesson names: open ✎ Edit — the three language boxes can all be corrected by hand; auto-translation only fills empty boxes. |
 | Admin | On a lesson, **🧠 Quiz** → add multiple-choice questions per language (or write one language and press ⇄ Translate). |
 | Everyone | **🧠 Take the quiz** on a lesson; **🏆 My achievements** (top bar) shows stars, badges and results. They are saved per device. |
