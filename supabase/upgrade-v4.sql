@@ -11,10 +11,14 @@ insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_typ
 values ('media', 'media', true, 20971520, array['audio/*', 'image/*', 'video/webm'])
 on conflict (id) do update set public = true, file_size_limit = 20971520, allowed_mime_types = array['audio/*', 'image/*', 'video/webm'];
 
+drop policy if exists "media read"   on storage.objects;
 drop policy if exists "media insert" on storage.objects;
 drop policy if exists "media update" on storage.objects;
 drop policy if exists "media delete" on storage.objects;
 
+-- uploading with "replace if it exists" needs read + insert + update
+create policy "media read" on storage.objects for select
+  using (bucket_id = 'media');
 create policy "media insert" on storage.objects for insert to authenticated
   with check (bucket_id = 'media' and public.is_admin());
 create policy "media update" on storage.objects for update to authenticated
