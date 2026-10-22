@@ -71,6 +71,8 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    needsUpgrade4: 'To save pictures and sounds, run supabase/upgrade-v4.sql once in Supabase (see README).',
+    ls_big: 'Arabic letters journey', ls_bigSub: 'From the first letters to reading — listen, play and collect stars.', ls_start: 'Start the journey',
     qsShared: 'This quiz slide appears at the same place in all three languages. Empty languages are translated automatically — open their tab to correct them.',
 
     editMode: 'Edit mode', editModeOn: 'Edit mode — click any text to change it', editDone: 'Done', allTexts: 'All texts',
@@ -149,6 +151,8 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    needsUpgrade4: 'لحفظ الصور والأصوات، شغّل الملف supabase/upgrade-v4.sql مرة واحدة في Supabase (انظر README).',
+    ls_big: 'رحلة الحروف العربية', ls_bigSub: 'من الحروف الأولى إلى القراءة — استمع والعب واجمع النجوم.', ls_start: 'ابدأ الرحلة',
     qsShared: 'تظهر شريحة الاختبار هذه في المكان نفسه في اللغات الثلاث. تُترجَم اللغات الفارغة تلقائيًا — افتح تبويبها لتصحيحها.',
 
     editMode: 'وضع التعديل', editModeOn: 'وضع التعديل — اضغط على أي نص لتغييره', editDone: 'تم', allTexts: 'كل النصوص',
@@ -227,6 +231,8 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    needsUpgrade4: 'Kuvien ja äänien tallentamiseksi suorita supabase/upgrade-v4.sql kerran Supabasessa (katso README).',
+    ls_big: 'Arabian kirjainten matka', ls_bigSub: 'Ensimmäisistä kirjaimista lukemiseen — kuuntele, pelaa ja kerää tähtiä.', ls_start: 'Aloita matka',
     qsShared: 'Tämä visadia näkyy samassa kohdassa kaikilla kolmella kielellä. Tyhjät kielet käännetään automaattisesti — avaa niiden välilehti korjataksesi.',
 
     editMode: 'Muokkaustila', editModeOn: 'Muokkaustila — napsauta mitä tahansa tekstiä muuttaaksesi sitä', editDone: 'Valmis', allTexts: 'Kaikki tekstit',
@@ -344,6 +350,14 @@ function makeSupabaseBackend() {
       return res.arrayBuffer();
     },
     async removeFiles(paths) { if (paths.length) await sb.storage.from(BUCKET).remove(paths); },
+    // pictures and sounds (letters journey etc.) live in the public "media" bucket
+    async uploadMedia(path, blob) {
+      const { error } = await sb.storage.from('media').upload(path, blob, { contentType: blob.type || 'application/octet-stream', cacheControl: '31536000', upsert: true });
+      if (error) throw new Error(/bucket|not found/i.test(error.message) ? t('needsUpgrade4') : error.message);
+      return path;
+    },
+    async mediaUrl(path) { return sb.storage.from('media').getPublicUrl(path).data.publicUrl; },
+    async removeMedia(paths) { if (paths.length) await sb.storage.from('media').remove(paths); },
     async session() { const { data } = await sb.auth.getSession(); return data.session?.user || null; },
     async signIn(email, password) { must(await sb.auth.signInWithPassword({ email, password })); return this.session(); },
     async signOut() { await sb.auth.signOut(); },
@@ -355,6 +369,7 @@ function makeSupabaseBackend() {
   };
 }
 
+const mediaUrls = new Map();
 function makeLocalBackend() {
   let dbp = null;
   const open = () => dbp || (dbp = new Promise((res, rej) => {
@@ -395,6 +410,12 @@ function makeLocalBackend() {
       return blob.arrayBuffer();
     },
     async removeFiles(paths) { for (const p of paths) await run('files', 'readwrite', s => s.delete(p)); },
+    async uploadMedia(path, blob) { await run('files', 'readwrite', s => s.put(blob, 'media/' + path)); mediaUrls.delete(path); return path; },
+    async mediaUrl(path) {
+      if (!mediaUrls.has(path)) { const b = await run('files', 'readonly', s => s.get('media/' + path)); mediaUrls.set(path, b ? URL.createObjectURL(b) : ''); }
+      return mediaUrls.get(path);
+    },
+    async removeMedia(paths) { for (const p of paths) { await run('files', 'readwrite', s => s.delete('media/' + p)); mediaUrls.delete(p); } },
     async session() { return { id: 'demo', email: 'demo' }; },
     async signIn() { return this.session(); },
     async signOut() {},
@@ -599,6 +620,7 @@ function parseHash() {
   if (p[0] === 'maker') return { view: 'maker' };
   if (p[0] === 'achievements') return { view: 'achievements' };
   if (p[0] === 'tools') return { view: 'tools', tool: p[1] || '' };
+  if (p[0] === 'letters') return { view: 'letters', stage: p[1] || '' };
   if (p[0] === 'e' && p[1]) return { view: 'editor', lessonId: p[1], lang: LANGS.includes(p[2]) ? p[2] : state.lang };
   return { view: 'home' };
 }
@@ -633,12 +655,14 @@ function render() {
   $('makerView').hidden = r.view !== 'maker';
   $('achView').hidden = r.view !== 'achievements';
   $('toolsView').hidden = r.view !== 'tools';
+  $('lettersView').hidden = r.view !== 'letters';
   $('toolsBtn').classList.toggle('active', r.view === 'tools' || r.view === 'maker');
   $('achBtn').classList.toggle('active', r.view === 'achievements');
   if (r.view === 'home') renderHome();
   else if (r.view === 'topic') renderTopic(r.topicId);
   else if (r.view === 'maker') renderMaker();
   else if (r.view === 'achievements') renderAchievements();
+  else if (r.view === 'letters') { if (window.LPT_LETTERS) window.LPT_LETTERS.render($('lettersView'), r.stage); }
   else if (r.view === 'tools') { if (window.LPT_TOOLS) window.LPT_TOOLS.render($('toolsView'), r.tool); }
   else if (r.view === 'editor') {
     if (!state.isAdmin) { go('#'); return; }
@@ -2083,7 +2107,7 @@ async function boot() {
   try { await reload(); }
   catch (e) { console.error(e); render(); toast(t('loadFailed'), true); }
 }
-window.LPT = { t, h, T, LANGS, LANG_NAMES, state, toast, busy, done, guard, saveBlob, go, uid, readJSON };
+window.LPT = { api, online, openModal, closeModal, translate, t, h, T, LANGS, LANG_NAMES, state, toast, busy, done, guard, saveBlob, go, uid, readJSON };
 $('toolsBtn').onclick = () => go('#/tools');
 boot();
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));

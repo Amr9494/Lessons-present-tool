@@ -248,6 +248,10 @@ function renderHub(root) {
   root.append(
     h('nav', { class: 'crumbs' }, h('a', { href: '#', 'data-go': 'home', text: t('allTopics') }), h('span', { text: '›' }), h('span', { text: t('tools') })),
     h('div', { class: 'view-head' }, h('div', {}, h('h1', {}, '🧰 ', t('tools')), h('p', { class: 'muted', text: t('toolsSub') }))));
+  root.append(h('a', { class: 'letters-banner', href: '#/letters' },
+    h('span', { class: 'lb-glyphs', 'aria-hidden': 'true' }, h('i', { text: 'ا' }), h('i', { text: 'ب' }), h('i', { text: 'ت' })),
+    h('span', { class: 'lb-text' }, h('strong', { text: t('ls_big') }), h('small', { text: t('ls_bigSub') })),
+    h('span', { class: 'btn primary lb-go' }, t('ls_start'), ' →')));
   const cards = [
     ['🛠', 'maker', 'tl_makerDesc', '#/maker', '#5b4fe0'],
     ['📖', 'tl_booklet', 'tl_bookletDesc', '#/tools/booklet', '#22b573'],

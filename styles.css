@@ -510,3 +510,83 @@ body.edit-mode .tx-hover{outline:2px dashed var(--accent);outline-offset:2px;bor
 .fhead{display:flex;gap:8px;align-items:center}
 .flabel{font-weight:800!important}
 .btn.wide{width:100%}
+
+/* ── Arabic letters journey ── */
+.letters-banner{display:flex;align-items:center;gap:18px;padding:18px 22px;margin-bottom:22px;border-radius:26px;text-decoration:none;color:#fff;background:linear-gradient(120deg,#5b4fe0,#9b59d0 55%,#ff6b9a);box-shadow:0 10px 0 color-mix(in srgb,#5b4fe0 55%,#000),var(--shadow);transition:transform .18s}
+.letters-banner:hover{transform:translateY(-3px)}
+.lb-glyphs{display:flex;gap:6px;flex:none}
+.lb-glyphs i{font:700 34px/1 'Amiri','Baloo Bhaijaan 2',serif;font-style:normal;width:58px;height:58px;display:grid;place-items:center;border-radius:18px;background:rgba(255,255,255,.2);transform:rotate(-6deg)}
+.lb-glyphs i:nth-child(2){transform:rotate(5deg) translateY(-4px);background:rgba(255,255,255,.28)}
+.lb-text{flex:1;display:flex;flex-direction:column;gap:2px;min-width:0}
+.lb-text strong{font:800 clamp(20px,2.6vw,28px) var(--display)}
+.lb-text small{font-weight:700;opacity:.9;font-size:14px}
+.lb-go{background:#fff!important;color:#5b4fe0!important;border-color:#fff!important;box-shadow:0 4px 0 rgba(0,0,0,.18)!important;flex:none}
+@media(max-width:640px){.letters-banner{flex-wrap:wrap}.lb-glyphs i{width:46px;height:46px;font-size:26px}.lb-go{width:100%}}
+.ls-glyph{font-family:'Amiri','Baloo Bhaijaan 2',serif!important;font-weight:700}
+.stop-inner.ls-glyph{font-size:30px;color:var(--c)}
+.topic-badge.ls-glyph{font-size:36px}
+.ls-mark{font:700 44px/1 'Amiri',serif;color:var(--c,var(--primary))}
+.ls-tabs{margin-inline-start:auto}
+.ls-credit{text-align:center;margin-top:10px;font-size:12px}
+.ls-body{display:flex;flex-direction:column;gap:12px}
+.ls-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.ls-card{--lc:var(--primary);display:flex;flex-direction:column;align-items:center;gap:2px;padding:16px 10px 12px;border:3px solid color-mix(in srgb,var(--lc) 45%,var(--line));border-radius:24px;background:color-mix(in srgb,var(--lc) 12%,var(--card));color:var(--ink);cursor:pointer;box-shadow:0 5px 0 color-mix(in srgb,var(--lc) 35%,transparent);transition:transform .12s}
+.ls-card:hover{transform:translateY(-3px)}
+.ls-card.pop{animation:lspop .45s}
+@keyframes lspop{40%{transform:scale(1.12) rotate(-3deg)}}
+.ls-big{font:700 64px/1.25 'Amiri','Baloo Bhaijaan 2',serif;color:color-mix(in srgb,var(--lc) 80%,var(--ink))}
+.ls-card b{font:800 17px var(--display)}
+.ls-card small{font:600 14px 'Amiri','Baloo Bhaijaan 2',serif;color:var(--muted);direction:rtl}
+.ls-forms{display:flex;flex-direction:column;gap:8px}
+.lf-row{--lc:var(--primary);display:grid;grid-template-columns:110px repeat(4,1fr);gap:8px;align-items:center;position:relative}
+.lf-head span{text-align:center;font-weight:800;color:var(--muted);font-size:13px}
+.lf-name,.lf-cell{border:2px solid color-mix(in srgb,var(--lc) 40%,var(--line));border-radius:16px;background:color-mix(in srgb,var(--lc) 10%,var(--card));color:var(--ink);cursor:pointer;padding:6px}
+.lf-name{display:flex;flex-direction:column;align-items:center}
+.lf-name b{font:700 34px/1.2 'Amiri',serif}
+.lf-name small{font-weight:700;color:var(--muted)}
+.lf-cell{font:700 40px/1.4 'Amiri',serif}
+.lf-note{grid-column:2/-1;font-size:12px;color:var(--muted);font-style:normal;font-weight:700;margin-top:-4px}
+@media(max-width:600px){.lf-row{grid-template-columns:70px repeat(4,1fr)}.lf-cell{font-size:28px}}
+.ls-quiz{background:var(--card);border:2px solid var(--line);border-radius:26px;padding:22px;display:flex;flex-direction:column;align-items:center;gap:14px;position:relative}
+.ls-qbar{width:100%;max-width:none}
+.ls-count{font-weight:800;color:var(--muted)}
+.ls-prompt{display:flex;flex-direction:column;align-items:center;gap:6px}
+.ls-prompt p{margin:0;font:800 22px var(--display)}
+.ls-speaker{width:110px;height:110px;border-radius:50%;border:0;background:var(--c,var(--primary));color:#fff;font-size:52px;cursor:pointer;box-shadow:0 8px 0 color-mix(in srgb,var(--c,var(--primary)) 55%,#000);animation:lspulse 1.8s infinite}
+@keyframes lspulse{50%{transform:scale(1.06)}}
+.ls-show{font:700 96px/1.3 'Amiri',serif;padding:0 30px;border-radius:24px;background:color-mix(in srgb,var(--c) 14%,var(--card))}
+.ls-prompt small{font-weight:800;color:var(--muted)}
+.ls-opts{display:grid;grid-template-columns:repeat(2,minmax(120px,190px));gap:14px}
+.ls-opt{--lc:var(--primary);font:700 64px/1.35 'Amiri','Baloo Bhaijaan 2',serif;border:3px solid color-mix(in srgb,var(--lc) 45%,var(--line));border-radius:24px;background:var(--card);color:color-mix(in srgb,var(--lc) 75%,var(--ink));cursor:pointer;box-shadow:0 6px 0 color-mix(in srgb,var(--lc) 30%,transparent);transition:transform .12s}
+.ls-opt:hover:not(:disabled){transform:translateY(-3px)}
+.ls-opt.right{background:var(--green);border-color:var(--green);color:#fff;transform:scale(1.06)}
+.ls-opt.wrong{background:color-mix(in srgb,var(--red) 16%,var(--card));border-color:var(--red);opacity:.6;animation:shake .4s}
+.lr-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;padding:14px;border-radius:22px;direction:rtl}
+.lr-green{background:color-mix(in srgb,#22b573 14%,var(--card))}.lr-pink{background:color-mix(in srgb,#ff6b9a 14%,var(--card))}.lr-gray{background:color-mix(in srgb,#7d7a96 12%,var(--card))}
+.lr-group{display:flex;flex-direction:column;gap:6px;padding:8px;border-radius:18px;background:var(--card);border:2px solid var(--line);transition:border-color .2s}
+.lr-group.read{border-color:var(--green)}
+.lr-group.playing{box-shadow:0 0 0 4px color-mix(in srgb,var(--primary) 35%,transparent)}
+.lr-cells{display:flex;gap:4px}
+.lr-cell{font:700 34px/1.5 'Amiri',serif;min-width:54px;border:2px solid var(--line);border-radius:12px;background:var(--bg-2);color:var(--ink);cursor:pointer}
+.lr-cell:hover{border-color:var(--primary)}
+.lr-word{border:0;border-radius:12px;background:var(--primary-soft);color:var(--primary);font:700 22px 'Amiri',serif;cursor:pointer;padding:2px 8px}
+.ls-card{position:relative}
+.ls-card.mute{opacity:.85}
+.ls-img{width:100%;max-height:110px;object-fit:contain;border-radius:14px;margin-bottom:4px}
+.ls-add{border-style:dashed!important;opacity:.8;justify-content:center;min-height:150px}
+.ls-adm{position:absolute;top:6px;inset-inline-end:6px;display:flex;gap:4px;opacity:0;transition:opacity .15s}
+.ls-card:hover .ls-adm,.lf-name:hover .ls-adm,.lr-group:hover .ls-adm{opacity:1}
+@media(hover:none){.ls-adm{opacity:1}}
+.lf-name{position:relative}
+.lr-group{position:relative}
+.ls-ab{border:0;width:30px;height:30px;border-radius:10px;background:var(--card);box-shadow:0 2px 6px rgba(0,0,0,.18);cursor:pointer;font-size:14px;display:grid;place-items:center}
+.ls-ab.danger{color:var(--red)}
+.ls-admin-bar{display:flex;gap:8px;flex-wrap:wrap;margin:-6px 0 14px;padding:8px 10px;border:2px dashed var(--accent);border-radius:14px;background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.lr-adm{display:flex;gap:6px;align-items:center;align-self:center}
+.ls-sound{display:flex;flex-direction:column;gap:8px;margin-bottom:6px}
+.ls-sound .row{display:flex;gap:8px;flex-wrap:wrap}
+.ls-prev{width:100%}
+.ls-pic-prev{max-width:180px;max-height:140px;border-radius:12px;object-fit:contain;background:var(--bg-2)}
+.ls-in-big{font:700 26px 'Amiri',serif!important}
+.btn.small.danger{color:var(--red)}
+.field input[type=color]{height:44px;padding:3px}

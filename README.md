@@ -14,7 +14,7 @@ A website where your team keeps all lesson PDFs in one place, in **Arabic, Engli
 
 Your folders, lessons and PDFs live in **Supabase**, not in these files — replacing the website files never touches them.
 
-1. **Supabase → SQL Editor → New query**, paste `supabase/upgrade-v2.sql`, **Run** (skip if you already did). Then do the same with `supabase/upgrade-v3.sql` (adds quizzes and editable texts). They only add empty columns/tables and are safe to run more than once.
+1. **Supabase → SQL Editor → New query**, paste `supabase/upgrade-v2.sql`, **Run** (skip if you already did). Then do the same with `supabase/upgrade-v3.sql` (adds quizzes and editable texts) and `supabase/upgrade-v4.sql` (storage for pictures and sounds). They only add empty columns/tables and are safe to run more than once.
 2. On GitHub, open your repository → **Add file → Upload files**. Drag in everything from this update **except `config.js`** (keep yours — it holds your keys). Press **Commit changes**.
 3. Vercel republishes automatically in about a minute.
 
@@ -83,6 +83,8 @@ Later, to change the site's code, edit the file on GitHub — Vercel republishes
 | Everyone | **🛠 Lesson maker** (top bar) → add or paste pictures, drag them into order, choose a page size → **Download PDF** or **Preview**. Pictures stay on that computer until you press Clear all. |
 | Admin | **✎ Edit mode** (top bar) → click any text, folder name or lesson name and type over it (Enter saves, Esc cancels). Changes are published for everyone, for the language you are viewing. **☰ All texts** lists everything, including messages that are not on screen. |
 | Admin | **Arrange slides** → **＋ 🧠 Quiz slide** adds a question card; drag it between slides. While presenting it becomes an interactive quiz slide (click an answer, or press 1–4 / A–D). |
+| Everyone | **🔤 Arabic letters journey** (big button on the start page) → stops from the first letters to reading; tap cards to hear them, quiz with stars, reading drills. Progress is saved per device. |
+| Admin | In the letters journey: **📦 Import starter pack** (once), **＋ Add stop**, and on every stop ⚙ settings, move, delete, **＋ Add card / word / row**, and ✎ on any card to change its text, picture or sound (upload a file or 🎙 record it right there). Everything is stored in Supabase (`settings` table + `media` bucket), not in GitHub. Needs `supabase/upgrade-v4.sql`. |
 | Everyone | **🧰 Teacher tools** → Lesson maker, Memorization booklet (built-in layout or your own PDF template), Certificates & name slides (from Excel, drag text on your design), Attendance sheets (from Excel). Everything runs in the browser; nothing is uploaded. |
 | Admin | Folder and lesson names: open ✎ Edit — the three language boxes can all be corrected by hand; auto-translation only fills empty boxes. |
 | Admin | On a lesson, **🧠 Quiz** → add multiple-choice questions per language (or write one language and press ⇄ Translate). |
