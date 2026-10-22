@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    qsShared: 'This quiz slide appears at the same place in all three languages. Empty languages are translated automatically — open their tab to correct them.',
 
     editMode: 'Edit mode', editModeOn: 'Edit mode — click any text to change it', editDone: 'Done', allTexts: 'All texts',
     textSaved: 'Saved for everyone', quizSlide: 'Quiz slide', addQuizSlide: 'Quiz slide', quizSlideTitle: 'Quiz slide',
@@ -148,6 +149,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    qsShared: 'تظهر شريحة الاختبار هذه في المكان نفسه في اللغات الثلاث. تُترجَم اللغات الفارغة تلقائيًا — افتح تبويبها لتصحيحها.',
 
     editMode: 'وضع التعديل', editModeOn: 'وضع التعديل — اضغط على أي نص لتغييره', editDone: 'تم', allTexts: 'كل النصوص',
     textSaved: 'تم الحفظ للجميع', quizSlide: 'شريحة اختبار', addQuizSlide: 'شريحة اختبار', quizSlideTitle: 'شريحة اختبار',
@@ -225,6 +227,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    qsShared: 'Tämä visadia näkyy samassa kohdassa kaikilla kolmella kielellä. Tyhjät kielet käännetään automaattisesti — avaa niiden välilehti korjataksesi.',
 
     editMode: 'Muokkaustila', editModeOn: 'Muokkaustila — napsauta mitä tahansa tekstiä muuttaaksesi sitä', editDone: 'Valmis', allTexts: 'Kaikki tekstit',
     textSaved: 'Tallennettu kaikille', quizSlide: 'Visadia', addQuizSlide: 'Visadia', quizSlideTitle: 'Visadia',
@@ -1067,9 +1070,19 @@ async function renderEditor(lessonId, lang) {
   }
   drawSlides();
 }
+/* Quiz slides are shared by all languages: same position (after slide N), text per language. */
+function sharedSlides(ls) {
+  const qz = (ls && ls.quiz) || {};
+  if (Array.isArray(qz.slideQs)) return qz.slideQs;
+  const out = [];   // older per-language format → convert
+  for (const l of LANGS) for (const s0 of (qz.slides && qz.slides[l]) || []) out.push({ id: uid(), after: s0.after | 0, q: { [l]: s0.q }, a: (s0.a || []).map(x => ({ [l]: x })), c: s0.c | 0 });
+  return out;
+}
+const pick = (o, lang) => (o && (o[lang] || o.en || o.ar || o.fi)) || '';
+const localQuiz = (s0, lang) => ({ q: pick(s0.q, lang), a: s0.a.map(x => pick(x, lang)), c: s0.c | 0 });
 function mergeQuizSlides(ed, ls) {
   if (!ed) return;
-  const qs = ((ls.quiz && ls.quiz.slides && ls.quiz.slides[ed.lang]) || []).slice().sort((a, b) => (a.after | 0) - (b.after | 0));
+  const qs = sharedSlides(ls).slice().sort((a, b) => (a.after | 0) - (b.after | 0));
   if (!qs.length) return;
   const out = []; let n = 0, k = 0;
   const flush = () => { while (k < qs.length && (qs[k].after | 0) <= n) out.push(quizItem(qs[k++])); };
@@ -1078,7 +1091,7 @@ function mergeQuizSlides(ed, ls) {
   while (k < qs.length) out.push(quizItem(qs[k++]));
   ed.items = out;
 }
-const quizItem = q => ({ key: uid(), quiz: { q: q.q || '', a: [...(q.a || ['', ''])], c: q.c | 0 } });
+const quizItem = q => ({ key: uid(), after: q.after | 0, quiz: { id: q.id || uid(), q: { ...q.q }, a: (q.a || []).map(x => ({ ...x })), c: q.c | 0 } });
 
 async function addSource(bytes, markNew) {
   const ed = state.editor;
@@ -1093,7 +1106,7 @@ function updateEditorChrome() {
   const n = ed.items.length;
   $('saveSlidesBtn').disabled = !ed.dirty;
   $('removePdfBtn').hidden = !(state.lessons.find(l => l.id === ed.lessonId)?.files?.[ed.lang]);
-  $('slideEmpty').hidden = n > 0;
+  $('slideEmpty').hidden = ed.items.some(x => !x.quiz);
   setEditorStatus(n ? t('slides', ed.items.filter(x => !x.quiz).length) + (ed.items.some(x => x.quiz) ? ` · 🧠 ${ed.items.filter(x => x.quiz).length}` : '') + (ed.dirty ? ' · ' + t('unsaved') : '') : '', ed.dirty);
   let sn = 0;
   [...$('slideGrid').children].forEach(el => { const num = el.querySelector('.num b'); if (!num) return; num.textContent = el.classList.contains('is-quiz') ? '🧠 ' + t('quizSlide') : `${t('slide')} ${++sn}`; });
@@ -1104,7 +1117,7 @@ function drawSlides() {
   const queue = [];
   ed.items.forEach((it, i) => {
     const thumb = it.quiz
-      ? h('div', { class: 'thumb quiz-thumb', onclick: () => openQuizSlideModal(it) }, h('span', { class: 'qt-ic', text: '🧠' }), h('span', { class: 'qt-q', dir: 'auto', text: it.quiz.q || '…' }))
+      ? h('div', { class: 'thumb quiz-thumb', onclick: () => openQuizSlideModal(it) }, h('span', { class: 'qt-ic', text: '🧠' }), h('span', { class: 'qt-q', dir: 'auto', text: pick(it.quiz.q, ed.lang) || '…' }))
       : h('div', { class: 'thumb' });
     const el = h('div', { class: 'slide' + (it.isNew ? ' new' : '') + (it.quiz ? ' is-quiz' : ''), 'data-key': it.key },
       thumb,
@@ -1147,9 +1160,23 @@ async function loadPdfIntoEditor(file, replace) {
   await guard(async () => {
     const bytes = await file.arrayBuffer();
     const ed = state.editor;
-    if (replace) { ed.items = []; }
+    let keepQuiz = null;
+    if (replace) {
+      // keep quiz slides at their places (after slide N) when the PDF is replaced or first uploaded
+      const hasPdf = ed.items.some(x => !x.quiz); let n = 0;
+      keepQuiz = ed.items.map(x => { if (!x.quiz) { n++; return null; } x.after = hasPdf ? n : (x.after | 0); return x; }).filter(Boolean);
+      ed.items = [];
+    }
     try { await addSource(bytes, !replace && ed.items.length > 0); }
-    catch (e) { throw new Error(t('notPdf')); }
+    catch (e) { if (keepQuiz) ed.items = keepQuiz; throw new Error(t('notPdf')); }
+    if (keepQuiz && keepQuiz.length) {
+      const out = []; let n = 0, k = 0;
+      keepQuiz.sort((a, b) => a.after - b.after);
+      const flush = () => { while (k < keepQuiz.length && keepQuiz[k].after <= n) out.push(keepQuiz[k++]); };
+      flush(); for (const it of ed.items) { out.push(it); n++; flush(); }
+      while (k < keepQuiz.length) out.push(keepQuiz[k++]);
+      ed.items = out;
+    }
     ed.dirty = true; drawSlides();
   }, t('loading'));
 }
@@ -1167,9 +1194,10 @@ $('saveSlidesBtn').onclick = async () => {
     const slidesQ = []; let cnt = 0;
     ed.items.forEach(it => {
       if (!it.quiz) { cnt++; return; }
-      const a = it.quiz.a.map((x, i) => ({ x: String(x).trim(), ok: i === it.quiz.c })).filter(o => o.x);
-      if (!it.quiz.q.trim() || a.length < 2) return;
-      slidesQ.push({ after: cnt, q: it.quiz.q.trim(), a: a.map(o => o.x), c: Math.max(0, a.findIndex(o => o.ok)) });
+      const z = it.quiz;
+      const a = z.a.map((x, i) => ({ x, ok: i === z.c })).filter(o => pick(o.x, ed.lang).trim());
+      if (!pick(z.q, ed.lang).trim() || a.length < 2) return;
+      slidesQ.push({ id: z.id, after: pdfItems.length ? cnt : (it.after | 0), q: z.q, a: a.map(o => o.x), c: Math.max(0, a.findIndex(o => o.ok)) });
     });
     const unchanged = old && files[ed.lang].pages === pdfItems.length && pdfItems.every((it, i) => it.src === 0 && it.page === i + 1);
     if (!pdfItems.length) {
@@ -1194,8 +1222,7 @@ $('saveSlidesBtn').onclick = async () => {
     }
     busy(t('saving'));
     const quiz = { ...(ls.quiz || {}) };
-    const hadSlides = quiz.slides && quiz.slides[ed.lang] && quiz.slides[ed.lang].length;
-    if (slidesQ.length || hadSlides) quiz.slides = { ...(quiz.slides || {}), [ed.lang]: slidesQ };
+    if (slidesQ.length || sharedSlides(ls).length) { quiz.slideQs = slidesQ; delete quiz.slides; }
     await api.saveLesson({ ...ls, files, quiz });
     if (old) { await api.removeFiles([old]).catch(() => {}); bytesCache.delete(old); docCache.delete(old); }
     state.editor = null;
@@ -1218,23 +1245,38 @@ function openQuizSlideModal(it) {
   qsItem = it; drawQuizSlideModal(); openModal('qsModal');
 }
 function drawQuizSlideModal() {
-  const q = qsItem.quiz, dir = state.editor && state.editor.lang === 'ar' ? 'rtl' : 'ltr';
+  const q = qsItem.quiz, L0 = state.editor ? state.editor.lang : state.lang, dir = L0 === 'ar' ? 'rtl' : 'ltr';
   const box = $('qsBody'); box.innerHTML = '';
-  const qin = h('textarea', { rows: '2', placeholder: t('questionLabel'), dir }); qin.value = q.q; qin.oninput = () => { q.q = qin.value; };
+  box.append(h('p', { class: 'muted small', text: `${LANG_NAMES[L0]} · ${t('qsShared')}` }));
+  const qin = h('textarea', { rows: '2', placeholder: pick(q.q, L0) || t('questionLabel'), dir }); qin.value = q.q[L0] || ''; qin.oninput = () => { q.q[L0] = qin.value; };
   const ans = h('div', { class: 'qans' });
   q.a.forEach((txt, ai) => {
     const radio = h('input', { type: 'radio', name: 'qs-c' }); radio.checked = q.c === ai; radio.onchange = () => { q.c = ai; };
-    const inp = h('input', { type: 'text', placeholder: t('answerN', ai + 1), dir }); inp.value = txt; inp.oninput = () => { q.a[ai] = inp.value; };
+    const inp = h('input', { type: 'text', placeholder: pick(txt, L0) || t('answerN', ai + 1), dir }); inp.value = txt[L0] || ''; inp.oninput = () => { txt[L0] = inp.value; };
     ans.append(h('div', { class: 'qans-row' }, radio, inp,
       h('button', { type: 'button', class: 'btn small', disabled: q.a.length <= 2, onclick: () => { q.a.splice(ai, 1); if (q.c === ai) q.c = 0; else if (q.c > ai) q.c--; drawQuizSlideModal(); } }, '✕')));
   });
   box.append(h('div', { class: 'qcard' }, qin, ans,
-    q.a.length < 6 ? h('button', { type: 'button', class: 'btn small', onclick: () => { q.a.push(''); drawQuizSlideModal(); } }, '＋ ', t('addAnswer')) : null));
+    q.a.length < 6 ? h('button', { type: 'button', class: 'btn small', onclick: () => { q.a.push({}); drawQuizSlideModal(); } }, '＋ ', t('addAnswer')) : null));
 }
-$('qsForm').addEventListener('submit', e => {
+$('qsForm').addEventListener('submit', async e => {
   e.preventDefault();
-  const q = qsItem.quiz;
-  if (!q.q.trim() || q.a.filter(x => String(x).trim()).length < 2 || !String(q.a[q.c] || '').trim()) { toast(t('quizInvalid', 1), true); return; }
+  const q = qsItem.quiz, L0 = state.editor.lang;
+  const val = o => String((o && o[L0]) || '').trim();
+  if (!val(q.q) || q.a.filter(x => val(x)).length < 2 || !val(q.a[q.c])) { toast(t('quizInvalid', 1), true); return; }
+  // fill the other languages by translation where they are still empty (they can be corrected in their own tab)
+  const others = LANGS.filter(l => l !== L0);
+  const jobs = [];
+  for (const l of others) {
+    if (!String(q.q[l] || '').trim()) jobs.push(translate(val(q.q), L0, l).then(v => { q.q[l] = v; }));
+    q.a.forEach(x => { if (val(x) && !String(x[l] || '').trim()) jobs.push(translate(val(x), L0, l).then(v => { x[l] = v; })); });
+  }
+  if (jobs.length) {
+    busy(t('translating'));
+    const res = await Promise.allSettled(jobs);
+    done();
+    if (res.some(r => r.status === 'rejected')) toast(t('translateFailed'), true);
+  }
   closeModal('qsModal'); state.editor.dirty = true; drawSlides();
 });
 $('qsDelete').onclick = () => {
@@ -1242,7 +1284,7 @@ $('qsDelete').onclick = () => {
 };
 $('addQuizSlideBtn').onclick = () => {
   const ed = state.editor; if (!ed) return;
-  const it = { key: uid(), isNew: true, quiz: { q: '', a: ['', '', ''], c: 0 } };
+  const it = { key: uid(), isNew: true, quiz: { id: uid(), q: {}, a: [{}, {}, {}], c: 0 } };
   ed.items.push(it); ed.dirty = true; drawSlides(); openQuizSlideModal(it);
 };
 // interleave quiz slides into a presentation
@@ -1301,14 +1343,14 @@ async function present(ls, lang) {
   showPresenterMessage(t('loading'));
   try {
     const doc = await getDoc(f.path);
-    startDeck(withQuizSlides(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1 })), ls.quiz && ls.quiz.slides && ls.quiz.slides[lang]));
+    startDeck(withQuizSlides(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1 })), sharedSlides(ls).map(s0 => ({ after: s0.after, ...localQuiz(s0, lang) }))));
   } catch (e) { closePresenter(); toast(t('error') + e.message, true); }
 }
 function presentEditorDraft() {
   const ed = state.editor; if (!ed || !ed.items.length) return;
   openPresenter();
   P.lessonId = null;
-  startDeck(ed.items.map(it => it.quiz ? { quiz: it.quiz } : { doc: ed.sources[it.src].doc, page: it.page }));
+  startDeck(ed.items.map(it => it.quiz ? { quiz: localQuiz(it.quiz, ed.lang) } : { doc: ed.sources[it.src].doc, page: it.page }));
 }
 function openPresenter() {
   const el = $('presenter'); el.hidden = false; document.body.style.overflow = 'hidden';
