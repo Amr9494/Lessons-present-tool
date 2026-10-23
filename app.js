@@ -623,7 +623,7 @@ function parseHash() {
   if (p[0] === 'maker') return { view: 'maker' };
   if (p[0] === 'achievements') return { view: 'achievements' };
   if (p[0] === 'tools') return { view: 'tools', tool: p[1] || '' };
-  if (p[0] === 'letters') return { view: 'letters', stage: p[1] || '' };
+  if (p[0] === 'letters') return { view: 'letters', stage: p[1] || '', sub: p[2] || '' };
   if (p[0] === 'e' && p[1]) return { view: 'editor', lessonId: p[1], lang: LANGS.includes(p[2]) ? p[2] : state.lang };
   return { view: 'home' };
 }
@@ -665,7 +665,7 @@ function render() {
   else if (r.view === 'topic') renderTopic(r.topicId);
   else if (r.view === 'maker') renderMaker();
   else if (r.view === 'achievements') renderAchievements();
-  else if (r.view === 'letters') { if (window.LPT_LETTERS) window.LPT_LETTERS.render($('lettersView'), r.stage); }
+  else if (r.view === 'letters') { if (window.LPT_LETTERS) window.LPT_LETTERS.render($('lettersView'), r.stage, false, r.sub); }
   else if (r.view === 'tools') { if (window.LPT_TOOLS) window.LPT_TOOLS.render($('toolsView'), r.tool); }
   else if (r.view === 'editor') {
     if (!state.isAdmin) { go('#'); return; }
