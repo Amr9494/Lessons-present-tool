@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    importPack: 'Import lessons pack', packPlan: (a, b, c, d) => `This will add ${a} new folders, ${b} new lessons and ${c} PDFs.` + (d ? ` ${d} PDFs are already on the site and will be kept as they are.` : '') + ' Continue?', packUploading: (i, n) => `Uploading PDF ${i} of ${n}…`, packDone: 'Lessons pack imported',
     needsUpgrade4: 'To save pictures and sounds, run supabase/upgrade-v4.sql once in Supabase (see README).',
     ls_big: 'Arabic letters journey', ls_bigSub: 'From the first letters to reading — listen, play and collect stars.', ls_start: 'Start the journey',
     qsShared: 'This quiz slide appears at the same place in all three languages. Empty languages are translated automatically — open their tab to correct them.',
@@ -151,6 +152,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    importPack: 'استيراد حزمة دروس', packPlan: (a, b, c, d) => `سيُضاف ${a} مجلدات جديدة و${b} دروس جديدة و${c} ملفات PDF.` + (d ? ` ${d} ملفات موجودة على الموقع بالفعل وستبقى كما هي.` : '') + ' المتابعة؟', packUploading: (i, n) => `جارٍ رفع PDF ‏${i} من ${n}…`, packDone: 'تم استيراد حزمة الدروس',
     needsUpgrade4: 'لحفظ الصور والأصوات، شغّل الملف supabase/upgrade-v4.sql مرة واحدة في Supabase (انظر README).',
     ls_big: 'رحلة الحروف العربية', ls_bigSub: 'من الحروف الأولى إلى القراءة — استمع والعب واجمع النجوم.', ls_start: 'ابدأ الرحلة',
     qsShared: 'تظهر شريحة الاختبار هذه في المكان نفسه في اللغات الثلاث. تُترجَم اللغات الفارغة تلقائيًا — افتح تبويبها لتصحيحها.',
@@ -231,6 +233,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    importPack: 'Tuo oppituntipaketti', packPlan: (a, b, c, d) => `Lisätään ${a} uutta kansiota, ${b} uutta oppituntia ja ${c} PDF-tiedostoa.` + (d ? ` ${d} PDF-tiedostoa on jo sivustolla, ja ne säilytetään ennallaan.` : '') + ' Jatketaanko?', packUploading: (i, n) => `Ladataan PDF ${i}/${n}…`, packDone: 'Oppituntipaketti tuotu',
     needsUpgrade4: 'Kuvien ja äänien tallentamiseksi suorita supabase/upgrade-v4.sql kerran Supabasessa (katso README).',
     ls_big: 'Arabian kirjainten matka', ls_bigSub: 'Ensimmäisistä kirjaimista lukemiseen — kuuntele, pelaa ja kerää tähtiä.', ls_start: 'Aloita matka',
     qsShared: 'Tämä visadia näkyy samassa kohdassa kaikilla kolmella kielellä. Tyhjät kielet käännetään automaattisesti — avaa niiden välilehti korjataksesi.',
@@ -950,6 +953,65 @@ function openTopicModal(tp = null) {
   openModal('topicModal');
 }
 $('newTopicBtn').onclick = () => openTopicModal();
+
+/* Import a lessons pack (.zip with manifest.json + PDFs): creates folders and lessons, or fills in
+   missing languages of lessons that already exist. Never overwrites a PDF that is already there. */
+const normName = s => String(s || '').toLowerCase().normalize('NFKC').replace(/[\u064B-\u0652]/g, '').replace(/[^\p{L}\p{N}]+/gu, ' ').trim();
+const sameName = (a, b) => LANGS.some(l => a && b && a[l] && b[l] && normName(a[l]) === normName(b[l]));
+$('importPackBtn').onclick = () => {
+  const inp = h('input', { type: 'file', accept: '.zip,application/zip' });
+  inp.onchange = async () => {
+    const f = inp.files[0]; if (!f) return;
+    try {
+      busy(t('loading'));
+      if (!window.JSZip) await new Promise((res, rej) => { const sc = document.createElement('script'); sc.src = 'vendor/jszip.min.js'; sc.onload = res; sc.onerror = rej; document.head.append(sc); });
+      const zip = await JSZip.loadAsync(f);
+      const mf = zip.file('manifest.json'); if (!mf) throw new Error('manifest.json missing');
+      const pack = JSON.parse(await mf.async('string'));
+      // plan
+      const plan = []; let newTopics = 0, newLessons = 0, newPdfs = 0, skipped = 0;
+      for (const tp of pack.topics || []) {
+        const existing = state.topics.find(x => sameName(x.names, tp.names));
+        if (!existing) newTopics++;
+        const lessons = existing ? topicLessons(existing.id) : [];
+        for (const ls of tp.lessons || []) {
+          const ex = lessons.find(x => sameName(x.titles, ls.titles));
+          if (!ex) newLessons++;
+          const langs = Object.keys(ls.files || {}).filter(l => LANGS.includes(l));
+          const add = langs.filter(l => !(ex && ex.files && ex.files[l]));
+          newPdfs += add.length; skipped += langs.length - add.length;
+          plan.push({ tp, existing, ls, ex, add });
+        }
+      }
+      done();
+      if (!confirm(t('packPlan', newTopics, newLessons, newPdfs, skipped))) return;
+      busy(t('saving'));
+      const topicIds = new Map();
+      let n = 0;
+      for (const p of plan) {
+        let topicId = p.existing ? p.existing.id : topicIds.get(p.tp);
+        if (!topicId) {
+          const row = { id: uid(), names: p.tp.names, icon: p.tp.icon, sort: state.topics.length + topicIds.size };
+          await api.saveTopic(row); topicId = row.id; topicIds.set(p.tp, topicId);
+        }
+        const row = p.ex ? { ...p.ex, files: { ...(p.ex.files || {}) }, videos: { ...(p.ex.videos || {}) } }
+          : { id: uid(), topic_id: topicId, titles: p.ls.titles, files: {}, videos: {}, sort: plan.filter(q => q.tp === p.tp).indexOf(p) };
+        for (const l of p.add) {
+          $('busyText').textContent = t('packUploading', ++n, newPdfs);
+          const bytes = await zip.file(p.ls.files[l]).async('arraybuffer');
+          const doc = await docFromBytes(bytes); const pages = doc.numPages; doc.destroy();
+          const path = await api.uploadPdf(row.id, l, bytes);
+          row.files[l] = { path, pages };
+        }
+        for (const [l, v] of Object.entries(p.ls.videos || {})) if (v && !row.videos[l]) row.videos[l] = v;
+        if (p.add.length || !p.ex) await api.saveLesson(row);
+      }
+      await reload(); toast(t('packDone'));
+    } catch (e) { console.error(e); toast(t('error') + e.message, true); }
+    done();
+  };
+  inp.click();
+};
 $('topicForm').addEventListener('submit', async e => {
   e.preventDefault();
   await guard(async () => {
