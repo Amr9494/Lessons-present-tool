@@ -14,7 +14,7 @@ A website where your team keeps all lesson PDFs in one place, in **Arabic, Engli
 
 Your folders, lessons and PDFs live in **Supabase**, not in these files — replacing the website files never touches them.
 
-1. **Supabase → SQL Editor → New query**, paste `supabase/upgrade-v2.sql`, **Run** (skip if you already did). Then do the same with `supabase/upgrade-v3.sql` (adds quizzes and editable texts) and `supabase/upgrade-v4.sql` (storage for pictures and sounds). They only add empty columns/tables and are safe to run more than once.
+1. **Supabase → SQL Editor → New query**, paste `supabase/upgrade-v2.sql`, **Run** (skip if you already did). Then do the same with `supabase/upgrade-v3.sql` (adds quizzes and editable texts) `supabase/upgrade-v4.sql` (storage for pictures and sounds) and `supabase/upgrade-v5.sql` (drafts). They only add empty columns/tables and are safe to run more than once.
 2. On GitHub, open your repository → **Add file → Upload files**. Drag in everything from this update **except `config.js`** (keep yours — it holds your keys). Press **Commit changes**.
 3. Vercel republishes automatically in about a minute.
 
@@ -81,6 +81,7 @@ Later, to change the site's code, edit the file on GitHub — Vercel republishes
 | Admin | In a folder, **⇅ Reorder** changes the order of stops on the journey. |
 | Everyone | Tap a stop on the map → Present, Watch video, Download, or Mark as done. Reaching the last slide marks it done automatically. |
 | Everyone | **🛠 Lesson maker** (top bar) → add or paste pictures, drag them into order, choose a page size → **Download PDF** or **Preview**. Pictures stay on that computer until you press Clear all. |
+| Admin | **Drafts:** new folders and lessons (and imported ones) start as ✎ Draft — admins can fill and edit them, everyone else sees a grey “Coming soon”. Press **✅ Publish** (on the folder card or in the lesson window) to show it to everyone, or 🙈 to hide it again. |
 | Admin | **✎ Edit mode** (top bar) → click any text, folder name or lesson name and type over it (Enter saves, Esc cancels). Changes are published for everyone, for the language you are viewing. **☰ All texts** lists everything, including messages that are not on screen. |
 | Admin | **Arrange slides** → **＋ 🧠 Quiz slide** adds a question card; drag it between slides. While presenting it becomes an interactive quiz slide (click an answer, or press 1–4 / A–D). |
 | Everyone | **🔤 Arabic letters journey** (big button on the start page) → a sea map of **islands** (units, following the Noor al-Bayan book). Each island has a route of lessons: 👀 learn cards, 📖 reading words, and 🎮 quiz games (🎯 listen & tap, 🦋 catch the running letters, 🎈 pop the balloons, 🧩 build the word, 🔷 letter shapes). Finished lessons get a ✓ and stars; nothing is locked. Progress is saved per device. |

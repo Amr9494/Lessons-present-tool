@@ -31,6 +31,8 @@ create table if not exists public.lessons (
 alter table public.lessons add column if not exists videos jsonb not null default '{}'::jsonb;
 alter table public.topics  add column if not exists icon text;
 alter table public.lessons add column if not exists quiz jsonb not null default '{}'::jsonb;
+alter table public.lessons add column if not exists draft boolean not null default false;
+alter table public.topics  add column if not exists draft boolean not null default false;
 create index if not exists lessons_topic_idx on public.lessons(topic_id);
 
 -- Who is allowed to edit. Add people here (see README step 4).

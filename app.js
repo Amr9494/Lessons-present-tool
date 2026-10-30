@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    draft: 'Draft', publish: 'Publish', unpublish: 'Hide (back to draft)', comingSoon: 'Coming soon', publishedMsg: 'Published — everyone can see it now', unpublishedMsg: 'Hidden — only admins can see it now', needsUpgrade5: 'To keep drafts hidden, run supabase/upgrade-v5.sql once in Supabase (see README).',
     importPack: 'Import lessons pack', packPlan: (a, b, c, d) => `This will add ${a} new folders, ${b} new lessons and ${c} PDFs.` + (d ? ` ${d} PDFs are already on the site and will be kept as they are.` : '') + ' Continue?', packUploading: (i, n) => `Uploading PDF ${i} of ${n}…`, packDone: 'Lessons pack imported',
     needsUpgrade4: 'To save pictures and sounds, run supabase/upgrade-v4.sql once in Supabase (see README).',
     ls_big: 'Arabic letters journey', ls_bigSub: 'From the first letters to reading — listen, play and collect stars.', ls_start: 'Start the journey',
@@ -152,6 +153,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    draft: 'مسودة', publish: 'نشر', unpublish: 'إخفاء (إرجاع إلى مسودة)', comingSoon: 'قريبًا', publishedMsg: 'تم النشر — يمكن للجميع رؤيته الآن', unpublishedMsg: 'تم الإخفاء — يراه المشرفون فقط الآن', needsUpgrade5: 'لإبقاء المسودات مخفية، شغّل الملف supabase/upgrade-v5.sql مرة واحدة في Supabase (انظر README).',
     importPack: 'استيراد حزمة دروس', packPlan: (a, b, c, d) => `سيُضاف ${a} مجلدات جديدة و${b} دروس جديدة و${c} ملفات PDF.` + (d ? ` ${d} ملفات موجودة على الموقع بالفعل وستبقى كما هي.` : '') + ' المتابعة؟', packUploading: (i, n) => `جارٍ رفع PDF ‏${i} من ${n}…`, packDone: 'تم استيراد حزمة الدروس',
     needsUpgrade4: 'لحفظ الصور والأصوات، شغّل الملف supabase/upgrade-v4.sql مرة واحدة في Supabase (انظر README).',
     ls_big: 'رحلة الحروف العربية', ls_bigSub: 'من الحروف الأولى إلى القراءة — استمع والعب واجمع النجوم.', ls_start: 'ابدأ الرحلة',
@@ -233,6 +235,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    draft: 'Luonnos', publish: 'Julkaise', unpublish: 'Piilota (takaisin luonnokseksi)', comingSoon: 'Tulossa', publishedMsg: 'Julkaistu — kaikki näkevät sen nyt', unpublishedMsg: 'Piilotettu — vain ylläpitäjät näkevät sen nyt', needsUpgrade5: 'Luonnosten piilottamiseksi suorita supabase/upgrade-v5.sql kerran Supabasessa (katso README).',
     importPack: 'Tuo oppituntipaketti', packPlan: (a, b, c, d) => `Lisätään ${a} uutta kansiota, ${b} uutta oppituntia ja ${c} PDF-tiedostoa.` + (d ? ` ${d} PDF-tiedostoa on jo sivustolla, ja ne säilytetään ennallaan.` : '') + ' Jatketaanko?', packUploading: (i, n) => `Ladataan PDF ${i}/${n}…`, packDone: 'Oppituntipaketti tuotu',
     needsUpgrade4: 'Kuvien ja äänien tallentamiseksi suorita supabase/upgrade-v4.sql kerran Supabasessa (katso README).',
     ls_big: 'Arabian kirjainten matka', ls_bigSub: 'Ensimmäisistä kirjaimista lukemiseen — kuuntele, pelaa ja kerää tähtiä.', ls_start: 'Aloita matka',
@@ -310,9 +313,10 @@ function makeSupabaseBackend() {
     async listTopics() { return must(await sb.from('topics').select('*').order('sort').order('created_at')); },
     async listLessons() { return must(await sb.from('lessons').select('*').order('sort').order('created_at')); },
     async saveTopic(r) {
-      const row = { id: r.id, names: r.names, sort: r.sort ?? 0 };
+      const row = { id: r.id, names: r.names, sort: r.sort ?? 0, draft: !!r.draft };
       if (r.icon) row.icon = r.icon;
       let res = await sb.from('topics').upsert(row).select().single();
+      if (res.error && /draft/i.test(res.error.message)) { if (row.draft) throw new Error(t('needsUpgrade5')); delete row.draft; res = await sb.from('topics').upsert(row).select().single(); }
       if (res.error && /icon/i.test(res.error.message)) { delete row.icon; res = await sb.from('topics').upsert(row).select().single(); }
       return must(res);
     },
@@ -320,7 +324,9 @@ function makeSupabaseBackend() {
     async saveLesson(r) {
       const row = { id: r.id, topic_id: r.topic_id, titles: r.titles, files: r.files || {}, sort: r.sort ?? 0, videos: r.videos || {}, updated_at: new Date().toISOString() };
       if (r.quiz) row.quiz = r.quiz;
+      row.draft = !!r.draft;
       let res = await sb.from('lessons').upsert(row).select().single();
+      if (res.error && /draft/i.test(res.error.message)) { if (row.draft) throw new Error(t('needsUpgrade5')); delete row.draft; res = await sb.from('lessons').upsert(row).select().single(); }
       if (res.error && /quiz/i.test(res.error.message)) {
         if (quizHasContent(row.quiz)) throw new Error(t('needsUpgrade3'));
         delete row.quiz; res = await sb.from('lessons').upsert(row).select().single();
@@ -677,18 +683,28 @@ let topicSortable = null, reorderSortable = null;
 const topicColor = (tp, i) => tp.color || TOPIC_COLORS[(i < 0 ? 0 : i) % TOPIC_COLORS.length];
 const topicIcon = (tp, i) => tp.icon || TOPIC_ICONS[(i < 0 ? 0 : i) % TOPIC_ICONS.length];
 const topicLessons = id => state.lessons.filter(l => l.topic_id === id);
+// Drafts: admins see and edit them; everyone else sees a grey "coming soon" until the admin presses Publish.
+const topicHidden = tp => !!(tp && tp.draft) && !state.isAdmin;
+const lessonHidden = ls => !state.isAdmin && (!!ls.draft || topicHidden(state.topics.find(x => x.id === ls.topic_id)));
+const draftChip = () => h('span', { class: 'draft-chip', text: '✎ ' + t('draft') });
+async function setPublished(kind, row, pub) {
+  await guard(async () => {
+    if (kind === 'topic') await api.saveTopic({ ...row, draft: !pub }); else await api.saveLesson({ ...row, draft: !pub });
+    await reload(); toast(pub ? t('publishedMsg') : t('unpublishedMsg'));
+  }, t('saving'));
+}
 
 function renderHome() {
   const grid = $('topicGrid'); grid.innerHTML = '';
   $('topicEmpty').hidden = state.topics.length > 0;
   const allDone = state.lessons.filter(l => isDone(l.id)).length;
   $('statTopics').textContent = state.topics.length;
-  $('statLessons').textContent = state.lessons.length;
+  $('statLessons').textContent = state.lessons.filter(l => !lessonHidden(l)).length;
   $('statDone').textContent = allDone;
 
   // continue card
   const last = readLast();
-  const lastLesson = last && state.lessons.find(l => l.id === last.id);
+  const lastLesson = last && state.lessons.find(l => l.id === last.id && !lessonHidden(l));
   $('continueCard').hidden = !lastLesson;
   if (lastLesson) {
     $('continueName').textContent = nameOf(lastLesson.titles);
@@ -696,26 +712,30 @@ function renderHome() {
   }
 
   state.topics.forEach((tp, i) => {
-    const ls = topicLessons(tp.id);
+    const hidden = topicHidden(tp);
+    const ls = topicLessons(tp.id).filter(l => !lessonHidden(l));
     const d = ls.filter(l => isDone(l.id)).length;
     const pct = ls.length ? Math.round(d / ls.length * 100) : 0;
     const stars = ls.length ? '⭐'.repeat(Math.min(d, 8)) + (d > 8 ? ` +${d - 8}` : '') : '';
-    const card = h('div', { class: 'folder', role: 'button', tabindex: '0', 'data-id': tp.id, style: `--c:${topicColor(tp, i)}` },
+    const card = h('div', { class: 'folder' + (tp.draft ? ' is-draft' : '') + (hidden ? ' soon-card' : ''), role: 'button', tabindex: '0', 'data-id': tp.id, style: `--c:${topicColor(tp, i)}` },
+      tp.draft && state.isAdmin ? draftChip() : null,
       h('div', { class: 'folder-top' },
         h('div', { class: 'folder-icon', text: topicIcon(tp, i) }),
         ls.length ? h('div', { class: 'ring', style: `--p:${pct}`, title: t('doneOf', d, ls.length) }, h('span', { text: `${d}/${ls.length}` })) : null
       ),
       h('h3', { text: nameOf(tp.names), 'data-edit-name': 'topic:' + tp.id }),
-      h('div', { class: 'count', text: t('lessons', ls.length) }),
-      h('div', { class: 'stars', text: stars }),
+      h('div', { class: 'count', text: hidden ? '☁ ' + t('comingSoon') : t('lessons', ls.length) }),
+      h('div', { class: 'stars', text: hidden ? '' : stars }),
       state.isAdmin && h('div', { class: 'admin-row' },
+        h('button', { class: 'btn small ' + (tp.draft ? 'green' : ''), type: 'button', title: tp.draft ? t('publish') : t('unpublish'), onclick: e => { e.stopPropagation(); setPublished('topic', tp, !!tp.draft); } }, tp.draft ? '✅ ' + t('publish') : '🙈'),
         h('button', { class: 'btn small', type: 'button', onclick: e => { e.stopPropagation(); openTopicModal(tp); } }, '✎ ', t('edit')),
         h('button', { class: 'btn small danger', type: 'button', onclick: e => { e.stopPropagation(); deleteTopic(tp); } }, '🗑'),
         h('button', { class: 'drag-handle', type: 'button', title: '⇅', onclick: e => e.stopPropagation() }, '⠿')
       )
     );
-    card.addEventListener('click', () => go('#/t/' + tp.id));
-    card.addEventListener('keydown', e => { if (e.key === 'Enter') go('#/t/' + tp.id); });
+    const open = () => { if (hidden) toast(t('comingSoon')); else go('#/t/' + tp.id); };
+    card.addEventListener('click', open);
+    card.addEventListener('keydown', e => { if (e.key === 'Enter') open(); });
     grid.append(card);
   });
   if (topicSortable) { topicSortable.destroy(); topicSortable = null; }
@@ -742,17 +762,18 @@ let pendingSheet = null;
 
 function renderTopic(topicId) {
   const tp = state.topics.find(x => x.id === topicId);
-  if (!tp) { go('#'); return; }
+  if (!tp || topicHidden(tp)) { go('#'); return; }
   const idx = state.topics.indexOf(tp);
   const color = topicColor(tp, idx);
   const lessons = topicLessons(topicId);
-  const d = lessons.filter(l => isDone(l.id)).length;
+  const vis = lessons.filter(l => !lessonHidden(l));
+  const d = vis.filter(l => isDone(l.id)).length;
   $('topicView').style.setProperty('--c', color);
   $('topicTitle').textContent = nameOf(tp.names); $('topicTitle').dataset.editName = 'topic:' + tp.id;
   $('topicCrumb').textContent = nameOf(tp.names);
   $('topicBadge').textContent = topicIcon(tp, idx);
-  $('topicProgressFill').style.width = (lessons.length ? d / lessons.length * 100 : 0) + '%';
-  $('topicProgressText').textContent = lessons.length ? t('doneOf', d, lessons.length) : t('lessons', 0);
+  $('topicProgressFill').style.width = (vis.length ? d / vis.length * 100 : 0) + '%';
+  $('topicProgressText').textContent = vis.length ? t('doneOf', d, vis.length) : t('lessons', 0);
   $('lessonEmpty').hidden = lessons.length > 0;
   $('reorderBtn').hidden = lessons.length < 2;
   $('reorderBtn').querySelector('span').textContent = state.reorderMode ? t('reorderDone') : t('reorder');
@@ -820,8 +841,9 @@ function renderJourney(lessons, color) {
     const doneNow = isDone(ls.id);
     const file = ls.files[state.lang];
     const video = ls.videos[state.lang];
-    const soon = !file && !video;
-    const cls = 'stop' + (doneNow ? ' done' : '') + (i === nextIdx ? ' next' : '') + (soon ? ' soon' : '');
+    const hiddenL = lessonHidden(ls);
+    const soon = hiddenL || (!file && !video);
+    const cls = 'stop' + (doneNow ? ' done' : '') + (i === nextIdx ? ' next' : '') + (soon ? ' soon' : '') + (ls.draft ? ' is-draft' : '');
     const inner = h('div', { class: 'stop-inner', text: String(i + 1) });
     const btn = h('button', { class: 'stop-btn', type: 'button', 'aria-label': `${t('lessonN', i + 1)}: ${nameOf(ls.titles)}` },
       inner,
@@ -829,15 +851,15 @@ function renderJourney(lessons, color) {
       doneNow ? h('span', { class: 'stop-star', text: '★' }) : null
     );
     const qr = quizRes(ls.id, state.lang), hasQuiz = quizOf(ls, state.lang).length > 0;
-    const sub = (doneNow ? t('doneLabel') : soon ? t('soonIn', state.lang) : file ? t('slides', file.pages) + (video ? ' · 🎬' : '') : '🎬')
+    const sub = hiddenL ? '☁ ' + t('comingSoon') : (doneNow ? t('doneLabel') : soon ? t('soonIn', state.lang) : file ? t('slides', file.pages) + (video ? ' · 🎬' : '') : '🎬')
       + (qr ? ' · 🧠 ' + '⭐'.repeat(starsFor(qr.best, qr.total)) : hasQuiz ? ' · 🧠' : '');
     const stop = h('div', { class: cls, style: `left:${p.x}%;top:${p.y}px` },
       i === nextIdx ? h('span', { class: 'next-flag', text: t('nextUp') }) : null,
       btn,
-      h('div', { class: 'stop-label' }, h('span', { text: nameOf(ls.titles), 'data-edit-name': 'lesson:' + ls.id }), h('small', { text: sub }))
+      h('div', { class: 'stop-label' }, ls.draft && state.isAdmin ? draftChip() : null, h('span', { text: nameOf(ls.titles), 'data-edit-name': 'lesson:' + ls.id }), h('small', { text: sub }))
     );
-    stop.querySelectorAll('.stop-btn,.stop-label').forEach(el => el.addEventListener('click', () => openLessonSheet(ls)));
-    const coverFile = file || LANGS.map(l => ls.files[l]).find(Boolean);
+    stop.querySelectorAll('.stop-btn,.stop-label').forEach(el => el.addEventListener('click', () => hiddenL ? toast(t('comingSoon')) : openLessonSheet(ls)));
+    const coverFile = hiddenL ? null : file || LANGS.map(l => ls.files[l]).find(Boolean);
     inner._load = async () => {
       if (!coverFile) return;
       try { const c = await renderPage(await getDoc(coverFile.path), 1, 200, 200); inner.textContent = ''; inner.append(c); } catch (e) {}
@@ -864,12 +886,13 @@ $('reorderBtn').onclick = () => { state.reorderMode = !state.reorderMode; render
 /* ── Lesson sheet ── */
 let sheetLesson = null;
 function openLessonSheet(ls) {
+  if (lessonHidden(ls)) { toast(t('comingSoon')); return; }
   sheetLesson = ls;
   const list = topicLessons(ls.topic_id);
   const i = list.indexOf(ls);
   const L = state.lang;
   const file = ls.files[L], video = ls.videos[L];
-  $('sheetStep').textContent = t('lessonN', i + 1) + (isDone(ls.id) ? '  ·  ' + t('doneLabel') : '');
+  $('sheetStep').textContent = t('lessonN', i + 1) + (isDone(ls.id) ? '  ·  ' + t('doneLabel') : '') + (ls.draft ? '  ·  ✎ ' + t('draft') : '');
   $('sheetTitle').textContent = nameOf(ls.titles); $('sheetTitle').dataset.editName = 'lesson:' + ls.id;
 
   const cover = $('sheetCover'); cover.innerHTML = '';
@@ -905,6 +928,8 @@ function openLessonSheet(ls) {
   const adm = $('sheetAdmin'); adm.innerHTML = '';
   if (state.isAdmin) {
     adm.append(
+      ls.draft ? h('button', { class: 'btn small green', type: 'button', onclick: () => { closeModal('lessonSheet'); setPublished('lesson', ls, true); } }, '✅ ', t('publish'))
+               : h('button', { class: 'btn small', type: 'button', onclick: () => { closeModal('lessonSheet'); setPublished('lesson', ls, false); } }, '🙈 ', t('unpublish')),
       h('button', { class: 'btn small gold', type: 'button', onclick: () => { closeModal('lessonSheet'); go(`#/e/${ls.id}/${L}`); } }, '⇅ ', t('editSlides')),
       h('button', { class: 'btn small', type: 'button', onclick: () => { closeModal('lessonSheet'); openLessonModal(ls); } }, '✎ ', t('edit')),
       h('button', { class: 'btn small', type: 'button', onclick: () => {
@@ -991,11 +1016,11 @@ $('importPackBtn').onclick = () => {
       for (const p of plan) {
         let topicId = p.existing ? p.existing.id : topicIds.get(p.tp);
         if (!topicId) {
-          const row = { id: uid(), names: p.tp.names, icon: p.tp.icon, sort: state.topics.length + topicIds.size };
+          const row = { id: uid(), names: p.tp.names, icon: p.tp.icon, sort: state.topics.length + topicIds.size, draft: true };
           await api.saveTopic(row); topicId = row.id; topicIds.set(p.tp, topicId);
         }
         const row = p.ex ? { ...p.ex, files: { ...(p.ex.files || {}) }, videos: { ...(p.ex.videos || {}) } }
-          : { id: uid(), topic_id: topicId, titles: p.ls.titles, files: {}, videos: {}, sort: plan.filter(q => q.tp === p.tp).indexOf(p) };
+          : { id: uid(), topic_id: topicId, titles: p.ls.titles, files: {}, videos: {}, sort: plan.filter(q => q.tp === p.tp).indexOf(p), draft: true };
         for (const l of p.add) {
           $('busyText').textContent = t('packUploading', ++n, newPdfs);
           const bytes = await zip.file(p.ls.files[l]).async('arraybuffer');
@@ -1017,7 +1042,7 @@ $('topicForm').addEventListener('submit', async e => {
   await guard(async () => {
     const names = await collectNames(topicInputs);
     busy(t('saving'));
-    const row = editingTopic ? { ...editingTopic, names, icon: pickedIcon } : { id: uid(), names, icon: pickedIcon, sort: state.topics.length };
+    const row = editingTopic ? { ...editingTopic, names, icon: pickedIcon } : { id: uid(), names, icon: pickedIcon, sort: state.topics.length, draft: true };
     await api.saveTopic(row);
     closeModal('topicModal'); await reload(); toast(t('saved'));
   });
@@ -1088,7 +1113,7 @@ $('lessonForm').addEventListener('submit', async e => {
     const titles = await collectNames(lessonInputs);
     const row = editingLesson
       ? { ...editingLesson, titles, topic_id, videos, files: { ...(editingLesson.files || {}) } }
-      : { id: uid(), topic_id, titles, videos, files: {}, sort: state.lessons.filter(l => l.topic_id === topic_id).length };
+      : { id: uid(), topic_id, titles, videos, files: {}, sort: state.lessons.filter(l => l.topic_id === topic_id).length, draft: true };
     const old = [];
     for (const l of Object.keys(pendingPdfs)) {
       busy(`${t('uploading')} (${LANG_NAMES[l]})`);

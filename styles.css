@@ -664,3 +664,11 @@ body.edit-mode .tx-hover{outline:2px dashed var(--accent);outline-offset:2px;bor
 .ls-quiz:is(.game-catch,.game-balloons,.game-build) .ls-speaker{width:70px;height:70px;font-size:32px;box-shadow:0 5px 0 color-mix(in srgb,var(--c,var(--primary)) 55%,#000)}
 .ls-quiz:is(.game-catch,.game-balloons,.game-build) .ls-target{font-size:56px}
 .ls-quiz:is(.game-catch,.game-balloons) .ls-prompt p{width:auto}
+
+/* ── drafts / coming soon ── */
+.draft-chip{display:inline-block;align-self:flex-start;font:800 11px var(--font);padding:3px 9px;border-radius:999px;background:color-mix(in srgb,var(--accent) 22%,var(--card));color:var(--accent);border:1.5px dashed var(--accent);margin-bottom:2px}
+.folder.is-draft{border-style:dashed;border-color:var(--accent)}
+.folder.soon-card{filter:grayscale(1);opacity:.6;cursor:default}
+.folder.soon-card:hover{transform:none}
+.stop.is-draft .stop-btn{border-style:dashed}
+.stop-label .draft-chip{display:block;margin:0 auto 2px;width:max-content}
