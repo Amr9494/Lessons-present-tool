@@ -1546,6 +1546,18 @@ $('pFull').onclick = () => {
 };
 $('pRecord').onclick = () => { P.keepOnFsExit = true; toggleRecording(); };
 $('presenter').addEventListener('mousemove', pokeUI);
+// mouse wheel / trackpad: scroll down = next slide, up = previous (one slide per gesture)
+let wheelAcc = 0, wheelLock = 0;
+$('presenter').addEventListener('wheel', e => {
+  if ($('presenter').hidden || !P.pages) return;
+  e.preventDefault();
+  const now = Date.now();
+  if (now < wheelLock) return;
+  wheelAcc += Math.abs(e.deltaY) >= Math.abs(e.deltaX) ? e.deltaY : e.deltaX;
+  if (Math.abs(wheelAcc) < 40) return;
+  showSlide(P.i + (wheelAcc > 0 ? 1 : -1));
+  wheelAcc = 0; wheelLock = now + 450;
+}, { passive: false });
 document.addEventListener('fullscreenchange', () => {
   if (!document.fullscreenElement && !$('presenter').hidden) {
     if (P.keepOnFsExit || R.starting) { P.keepOnFsExit = false; return; }
