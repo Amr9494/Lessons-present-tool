@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    downloadImages: 'Download as pictures', downloadImagesHint: 'Every slide as a PNG picture in a ZIP file — for editing in PowerPoint, Canva, etc.', makingImages: (i, n) => `Making picture ${i} of ${n}…`,
     mediaSlide: 'Video / animation slide', addMediaSlide: 'Video / GIF', mediaHint: 'Upload a video (MP4, WebM) or an animation (GIF), or paste a YouTube link. It plays inside the presentation — click it or press Space to play and pause.', mediaUpload: 'Choose video or GIF', mediaOrYoutube: '…or a YouTube link', mediaRemoveLang: 'Remove for this language', mediaNone: 'No video yet', mediaAllLangs: 'used in all languages unless another language gets its own file', mediaOtherLangs: s => `other languages have their own: ${s}`, mediaSizeNote: 'Up to 50 MB per file. For long videos a YouTube link is lighter.', mediaTooBig: 'That file is over 50 MB — please make it smaller or use a YouTube link.',
     hideSlide: 'Hide this slide (skipped when presenting and in the PDF download)', showSlide: 'Show this slide again', hiddenCount: n => `${n} hidden`,
     draft: 'Draft', publish: 'Publish', unpublish: 'Hide (back to draft)', comingSoon: 'Coming soon', publishedMsg: 'Published — everyone can see it now', unpublishedMsg: 'Hidden — only admins can see it now', needsUpgrade5: 'To keep drafts hidden, run supabase/upgrade-v5.sql once in Supabase (see README).',
@@ -155,6 +156,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    downloadImages: 'تنزيل كصور', downloadImagesHint: 'كل شريحة كصورة PNG داخل ملف ZIP — للتعديل في PowerPoint أو Canva وغيرها.', makingImages: (i, n) => `جارٍ صنع الصورة ${i} من ${n}…`,
     mediaSlide: 'شريحة فيديو / رسوم متحركة', addMediaSlide: 'فيديو / GIF', mediaHint: 'ارفع فيديو (MP4 أو WebM) أو صورة متحركة (GIF)، أو الصق رابط يوتيوب. يعمل داخل العرض — اضغط عليه أو على المسافة للتشغيل والإيقاف.', mediaUpload: 'اختر فيديو أو GIF', mediaOrYoutube: '…أو رابط يوتيوب', mediaRemoveLang: 'حذف لهذه اللغة', mediaNone: 'لا يوجد فيديو بعد', mediaAllLangs: 'يُستخدم في كل اللغات ما لم يكن للغة أخرى ملفها الخاص', mediaOtherLangs: s => `للغات الأخرى ملفاتها الخاصة: ${s}`, mediaSizeNote: 'حتى 50 ميغابايت لكل ملف. للفيديوهات الطويلة رابط يوتيوب أخف.', mediaTooBig: 'الملف أكبر من 50 ميغابايت — صغّره أو استخدم رابط يوتيوب.',
     hideSlide: 'إخفاء هذه الشريحة (تُتخطّى في العرض وفي تنزيل PDF)', showSlide: 'إظهار هذه الشريحة مرة أخرى', hiddenCount: n => `${n} مخفية`,
     draft: 'مسودة', publish: 'نشر', unpublish: 'إخفاء (إرجاع إلى مسودة)', comingSoon: 'قريبًا', publishedMsg: 'تم النشر — يمكن للجميع رؤيته الآن', unpublishedMsg: 'تم الإخفاء — يراه المشرفون فقط الآن', needsUpgrade5: 'لإبقاء المسودات مخفية، شغّل الملف supabase/upgrade-v5.sql مرة واحدة في Supabase (انظر README).',
@@ -239,6 +241,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    downloadImages: 'Lataa kuvina', downloadImagesHint: 'Jokainen dia PNG-kuvana ZIP-tiedostossa — muokattavaksi PowerPointissa, Canvassa ym.', makingImages: (i, n) => `Tehdään kuvaa ${i}/${n}…`,
     mediaSlide: 'Video- / animaatiodia', addMediaSlide: 'Video / GIF', mediaHint: 'Lataa video (MP4, WebM) tai animaatio (GIF), tai liitä YouTube-linkki. Se toistuu esityksessä — napsauta sitä tai paina välilyöntiä toistaaksesi ja pysäyttääksesi.', mediaUpload: 'Valitse video tai GIF', mediaOrYoutube: '…tai YouTube-linkki', mediaRemoveLang: 'Poista tältä kieleltä', mediaNone: 'Ei vielä videota', mediaAllLangs: 'käytetään kaikilla kielillä, ellei toisella kielellä ole omaa tiedostoa', mediaOtherLangs: s => `muilla kielillä on omansa: ${s}`, mediaSizeNote: 'Enintään 50 Mt tiedostoa kohden. Pitkille videoille YouTube-linkki on kevyempi.', mediaTooBig: 'Tiedosto on yli 50 Mt — pienennä sitä tai käytä YouTube-linkkiä.',
     hideSlide: 'Piilota tämä dia (ohitetaan esityksessä ja PDF-latauksessa)', showSlide: 'Näytä tämä dia taas', hiddenCount: n => `${n} piilotettu`,
     draft: 'Luonnos', publish: 'Julkaise', unpublish: 'Piilota (takaisin luonnokseksi)', comingSoon: 'Tulossa', publishedMsg: 'Julkaistu — kaikki näkevät sen nyt', unpublishedMsg: 'Piilotettu — vain ylläpitäjät näkevät sen nyt', needsUpgrade5: 'Luonnosten piilottamiseksi suorita supabase/upgrade-v5.sql kerran Supabasessa (katso README).',
@@ -923,7 +926,8 @@ function openLessonSheet(ls) {
     const qr = quizRes(ls.id, L);
     acts.append(h('button', { class: 'btn gold', type: 'button', onclick: () => openQuiz(ls, L) }, '🧠 ', qr ? t('retakeQuiz') + ' · ' + t('bestScore', qr.best, qr.total) : t('takeQuiz')));
   }
-  if (file) acts.append(h('button', { class: 'btn', type: 'button', onclick: () => downloadLesson(ls, L) }, '⬇ ', t('download')));
+  if (file) acts.append(h('button', { class: 'btn', type: 'button', onclick: () => downloadLesson(ls, L) }, '⬇ ', t('downloadPdf')));
+  if (file) acts.append(h('button', { class: 'btn', type: 'button', title: t('downloadImagesHint'), onclick: () => downloadImages(ls, L) }, '🖼 ', t('downloadImages')));
   const dn = isDone(ls.id);
   acts.append(h('button', { class: 'btn ' + (dn ? '' : 'green'), type: 'button', onclick: () => { setDone(ls.id, !dn); openLessonSheet(ls); render(); } }, dn ? '↺ ' + t('markNotDone') : '✓ ' + t('markDone')));
   if (!file && !video) {
@@ -1162,6 +1166,28 @@ async function downloadLesson(ls, lang) {
       b = await out.save();
     }
     saveBlob(new Blob([b], { type: 'application/pdf' }), `${safeName(nameOf(ls.titles))} (${lang.toUpperCase()}).pdf`);
+  }, t('loading'));
+}
+
+// Every visible slide as a PNG picture (sharp, ~1920 px wide), zipped — handy for editing in PowerPoint, Canva, etc.
+async function downloadImages(ls, lang) {
+  const f = ls.files && ls.files[lang]; if (!f) return;
+  await guard(async () => {
+    if (!window.JSZip) await new Promise((res, rej) => { const sc = document.createElement('script'); sc.src = 'vendor/jszip.min.js'; sc.onload = res; sc.onerror = rej; document.head.append(sc); });
+    const doc = await docFromBytes(await getBytes(f.path)), hid = hiddenPages(f), zip = new JSZip();
+    const name = safeName(nameOf(ls.titles)), pages = [];
+    for (let p = 1; p <= doc.numPages; p++) if (!hid.has(p)) pages.push(p);
+    for (let k = 0; k < pages.length; k++) {
+      $('busyText').textContent = t('makingImages', k + 1, pages.length);
+      const page = await doc.getPage(pages[k]), base = page.getViewport({ scale: 1 });
+      const scale = Math.min(4, Math.max(1, 1920 / base.width));
+      const c = await renderPage(doc, pages[k], base.width * scale, base.height * scale, 1);
+      const blob = await new Promise(r => c.toBlob(r, 'image/png'));
+      zip.file(`${name} ${String(k + 1).padStart(2, '0')}.png`, blob);
+    }
+    doc.destroy();
+    $('busyText').textContent = t('building');
+    saveBlob(await zip.generateAsync({ type: 'blob' }), `${name} (${lang.toUpperCase()}) - images.zip`);
   }, t('loading'));
 }
 
