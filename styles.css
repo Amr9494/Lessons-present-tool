@@ -680,3 +680,18 @@ body.edit-mode .tx-hover{outline:2px dashed var(--accent);outline-offset:2px;bor
 .slide.is-hidden .thumb{opacity:.3;filter:grayscale(1)}
 .slide.is-hidden .eye{background:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)}
 .slide.is-hidden .num b{text-decoration:line-through;color:var(--muted)}
+
+/* ── video / animation slides ── */
+.slide.is-media{border-color:color-mix(in srgb,var(--primary) 60%,var(--line))}
+.media-thumb{position:relative;display:grid;place-items:center;cursor:pointer;background:#111!important;overflow:hidden}
+.media-thumb img,.media-thumb video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.media-thumb .mt-ic{position:relative;z-index:1;font-size:30px;width:52px;height:52px;border-radius:50%;display:grid;place-items:center;background:rgba(0,0,0,.55);color:#fff}
+.media-prev{display:grid;place-items:center;min-height:160px;background:#111;border-radius:14px;overflow:hidden}
+.media-prev img,.media-prev video{max-width:100%;max-height:300px;display:block}
+.p-media{position:absolute;inset:0;z-index:3;display:grid;place-items:center;background:#000;cursor:default}
+.p-media video,.p-media img{max-width:100vw;max-height:100vh;width:auto;height:auto;display:block}
+.p-media video{width:100%;height:100%;object-fit:contain}
+.p-media iframe{width:min(100vw,177.78vh);height:min(56.25vw,100vh);border:0}
+.p-play{position:absolute;width:120px;height:120px;border-radius:50%;border:0;background:rgba(255,255,255,.9);color:#5b4fe0;font-size:54px;cursor:pointer;box-shadow:0 10px 40px rgba(0,0,0,.4);padding-inline-start:10px}
+.p-play:hover{transform:scale(1.06)}
+.p-play[hidden]{display:none}

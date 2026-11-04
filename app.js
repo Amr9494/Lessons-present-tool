@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    mediaSlide: 'Video / animation slide', addMediaSlide: 'Video / GIF', mediaHint: 'Upload a video (MP4, WebM) or an animation (GIF), or paste a YouTube link. It plays inside the presentation — click it or press Space to play and pause.', mediaUpload: 'Choose video or GIF', mediaOrYoutube: '…or a YouTube link', mediaRemoveLang: 'Remove for this language', mediaNone: 'No video yet', mediaAllLangs: 'used in all languages unless another language gets its own file', mediaOtherLangs: s => `other languages have their own: ${s}`, mediaSizeNote: 'Up to 50 MB per file. For long videos a YouTube link is lighter.', mediaTooBig: 'That file is over 50 MB — please make it smaller or use a YouTube link.',
     hideSlide: 'Hide this slide (skipped when presenting and in the PDF download)', showSlide: 'Show this slide again', hiddenCount: n => `${n} hidden`,
     draft: 'Draft', publish: 'Publish', unpublish: 'Hide (back to draft)', comingSoon: 'Coming soon', publishedMsg: 'Published — everyone can see it now', unpublishedMsg: 'Hidden — only admins can see it now', needsUpgrade5: 'To keep drafts hidden, run supabase/upgrade-v5.sql once in Supabase (see README).',
     importPack: 'Import lessons pack', packPlan: (a, b, c, d) => `This will add ${a} new folders, ${b} new lessons and ${c} PDFs.` + (d ? ` ${d} PDFs are already on the site and will be kept as they are.` : '') + ' Continue?', packUploading: (i, n) => `Uploading PDF ${i} of ${n}…`, packDone: 'Lessons pack imported',
@@ -154,6 +155,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    mediaSlide: 'شريحة فيديو / رسوم متحركة', addMediaSlide: 'فيديو / GIF', mediaHint: 'ارفع فيديو (MP4 أو WebM) أو صورة متحركة (GIF)، أو الصق رابط يوتيوب. يعمل داخل العرض — اضغط عليه أو على المسافة للتشغيل والإيقاف.', mediaUpload: 'اختر فيديو أو GIF', mediaOrYoutube: '…أو رابط يوتيوب', mediaRemoveLang: 'حذف لهذه اللغة', mediaNone: 'لا يوجد فيديو بعد', mediaAllLangs: 'يُستخدم في كل اللغات ما لم يكن للغة أخرى ملفها الخاص', mediaOtherLangs: s => `للغات الأخرى ملفاتها الخاصة: ${s}`, mediaSizeNote: 'حتى 50 ميغابايت لكل ملف. للفيديوهات الطويلة رابط يوتيوب أخف.', mediaTooBig: 'الملف أكبر من 50 ميغابايت — صغّره أو استخدم رابط يوتيوب.',
     hideSlide: 'إخفاء هذه الشريحة (تُتخطّى في العرض وفي تنزيل PDF)', showSlide: 'إظهار هذه الشريحة مرة أخرى', hiddenCount: n => `${n} مخفية`,
     draft: 'مسودة', publish: 'نشر', unpublish: 'إخفاء (إرجاع إلى مسودة)', comingSoon: 'قريبًا', publishedMsg: 'تم النشر — يمكن للجميع رؤيته الآن', unpublishedMsg: 'تم الإخفاء — يراه المشرفون فقط الآن', needsUpgrade5: 'لإبقاء المسودات مخفية، شغّل الملف supabase/upgrade-v5.sql مرة واحدة في Supabase (انظر README).',
     importPack: 'استيراد حزمة دروس', packPlan: (a, b, c, d) => `سيُضاف ${a} مجلدات جديدة و${b} دروس جديدة و${c} ملفات PDF.` + (d ? ` ${d} ملفات موجودة على الموقع بالفعل وستبقى كما هي.` : '') + ' المتابعة؟', packUploading: (i, n) => `جارٍ رفع PDF ‏${i} من ${n}…`, packDone: 'تم استيراد حزمة الدروس',
@@ -237,6 +239,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    mediaSlide: 'Video- / animaatiodia', addMediaSlide: 'Video / GIF', mediaHint: 'Lataa video (MP4, WebM) tai animaatio (GIF), tai liitä YouTube-linkki. Se toistuu esityksessä — napsauta sitä tai paina välilyöntiä toistaaksesi ja pysäyttääksesi.', mediaUpload: 'Valitse video tai GIF', mediaOrYoutube: '…tai YouTube-linkki', mediaRemoveLang: 'Poista tältä kieleltä', mediaNone: 'Ei vielä videota', mediaAllLangs: 'käytetään kaikilla kielillä, ellei toisella kielellä ole omaa tiedostoa', mediaOtherLangs: s => `muilla kielillä on omansa: ${s}`, mediaSizeNote: 'Enintään 50 Mt tiedostoa kohden. Pitkille videoille YouTube-linkki on kevyempi.', mediaTooBig: 'Tiedosto on yli 50 Mt — pienennä sitä tai käytä YouTube-linkkiä.',
     hideSlide: 'Piilota tämä dia (ohitetaan esityksessä ja PDF-latauksessa)', showSlide: 'Näytä tämä dia taas', hiddenCount: n => `${n} piilotettu`,
     draft: 'Luonnos', publish: 'Julkaise', unpublish: 'Piilota (takaisin luonnokseksi)', comingSoon: 'Tulossa', publishedMsg: 'Julkaistu — kaikki näkevät sen nyt', unpublishedMsg: 'Piilotettu — vain ylläpitäjät näkevät sen nyt', needsUpgrade5: 'Luonnosten piilottamiseksi suorita supabase/upgrade-v5.sql kerran Supabasessa (katso README).',
     importPack: 'Tuo oppituntipaketti', packPlan: (a, b, c, d) => `Lisätään ${a} uutta kansiota, ${b} uutta oppituntia ja ${c} PDF-tiedostoa.` + (d ? ` ${d} PDF-tiedostoa on jo sivustolla, ja ne säilytetään ennallaan.` : '') + ' Jatketaanko?', packUploading: (i, n) => `Ladataan PDF ${i}/${n}…`, packDone: 'Oppituntipaketti tuotu',
@@ -1190,7 +1193,7 @@ async function renderEditor(lessonId, lang) {
         if (!state.editor || state.editor.token !== token) return;
         await addSource(bytes, false);
         const hid = hiddenPages(f);
-        state.editor.items.forEach(it => { if (!it.quiz && hid.has(it.page)) it.hidden = true; });
+        state.editor.items.forEach(it => { if (!isSpecial(it) && hid.has(it.page)) it.hidden = true; });
       } catch (e) { toast(t('error') + e.message, true); }
     }
     mergeQuizSlides(state.editor, ls);
@@ -1206,16 +1209,20 @@ function sharedSlides(ls) {
   return out;
 }
 const pick = (o, lang) => (o && (o[lang] || o.en || o.ar || o.fi)) || '';
+const isSpecial = it => !!(it.quiz || it.media);
+const sharedMedia = ls => ((ls && ls.quiz && Array.isArray(ls.quiz.slideMedia)) ? ls.quiz.slideMedia : []);
+const mediaItem = m => ({ key: uid(), after: m.after | 0, ord: m.ord | 0, hidden: !!m.hidden, media: { id: m.id || uid(), type: m.type || 'video', src: { ...(m.src || {}) }, yt: { ...(m.yt || {}) } } });
 const localQuiz = (s0, lang) => ({ q: pick(s0.q, lang), a: s0.a.map(x => pick(x, lang)), c: s0.c | 0 });
 function mergeQuizSlides(ed, ls) {
   if (!ed) return;
-  const qs = sharedSlides(ls).slice().sort((a, b) => (a.after | 0) - (b.after | 0));
+  const qs = [...sharedSlides(ls).map(q => ({ ...quizItem(q), ord: q.ord | 0 })), ...sharedMedia(ls).map(mediaItem)]
+    .sort((a, b) => (a.after - b.after) || (a.ord - b.ord));
   if (!qs.length) return;
   const out = []; let n = 0, k = 0;
-  const flush = () => { while (k < qs.length && (qs[k].after | 0) <= n) out.push(quizItem(qs[k++])); };
+  const flush = () => { while (k < qs.length && qs[k].after <= n) out.push(qs[k++]); };
   flush();
-  for (const it of ed.items) { out.push(it); if (!it.quiz) { n++; flush(); } }
-  while (k < qs.length) out.push(quizItem(qs[k++]));
+  for (const it of ed.items) { out.push(it); if (!isSpecial(it)) { n++; flush(); } }
+  while (k < qs.length) out.push(qs[k++]);
   ed.items = out;
 }
 const quizItem = q => ({ key: uid(), after: q.after | 0, quiz: { id: q.id || uid(), q: { ...q.q }, a: (q.a || []).map(x => ({ ...x })), c: q.c | 0 } });
@@ -1233,10 +1240,10 @@ function updateEditorChrome() {
   const n = ed.items.length;
   $('saveSlidesBtn').disabled = !ed.dirty;
   $('removePdfBtn').hidden = !(state.lessons.find(l => l.id === ed.lessonId)?.files?.[ed.lang]);
-  $('slideEmpty').hidden = ed.items.some(x => !x.quiz);
-  setEditorStatus(n ? t('slides', ed.items.filter(x => !x.quiz).length) + (ed.items.some(x => x.quiz) ? ` · 🧠 ${ed.items.filter(x => x.quiz).length}` : '') + (ed.items.some(x => x.hidden) ? ' · 🙈 ' + t('hiddenCount', ed.items.filter(x => x.hidden).length) : '') + (ed.dirty ? ' · ' + t('unsaved') : '') : '', ed.dirty);
+  $('slideEmpty').hidden = ed.items.some(x => !isSpecial(x));
+  setEditorStatus(n ? t('slides', ed.items.filter(x => !isSpecial(x)).length) + (ed.items.some(x => x.quiz) ? ` · 🧠 ${ed.items.filter(x => x.quiz).length}` : '') + (ed.items.some(x => x.media) ? ` · 🎬 ${ed.items.filter(x => x.media).length}` : '') + (ed.items.some(x => x.hidden) ? ' · 🙈 ' + t('hiddenCount', ed.items.filter(x => x.hidden).length) : '') + (ed.dirty ? ' · ' + t('unsaved') : '') : '', ed.dirty);
   let sn = 0;
-  [...$('slideGrid').children].forEach(el => { const num = el.querySelector('.num b'); if (!num) return; num.textContent = el.classList.contains('is-quiz') ? '🧠 ' + t('quizSlide') : `${t('slide')} ${++sn}`; });
+  [...$('slideGrid').children].forEach(el => { const num = el.querySelector('.num b'); if (!num) return; num.textContent = el.classList.contains('is-quiz') ? '🧠 ' + t('quizSlide') : el.classList.contains('is-media') ? '🎬 ' + t('mediaSlide') : `${t('slide')} ${++sn}`; });
 }
 
 function drawSlides() {
@@ -1245,12 +1252,13 @@ function drawSlides() {
   ed.items.forEach((it, i) => {
     const thumb = it.quiz
       ? h('div', { class: 'thumb quiz-thumb', onclick: () => openQuizSlideModal(it) }, h('span', { class: 'qt-ic', text: '🧠' }), h('span', { class: 'qt-q', dir: 'auto', text: pick(it.quiz.q, ed.lang) || '…' }))
+      : it.media ? mediaThumb(it, ed.lang)
       : h('div', { class: 'thumb' });
     const eye = it.quiz ? null : h('button', { class: 'eye', type: 'button', title: it.hidden ? t('showSlide') : t('hideSlide'), onclick: e => {
       e.stopPropagation(); it.hidden = !it.hidden; ed.dirty = true;
       el.classList.toggle('is-hidden', !!it.hidden); eye.textContent = it.hidden ? '🙈' : '👁'; eye.title = it.hidden ? t('showSlide') : t('hideSlide'); updateEditorChrome();
     } }, it.hidden ? '🙈' : '👁');
-    const el = h('div', { class: 'slide' + (it.isNew ? ' new' : '') + (it.quiz ? ' is-quiz' : '') + (it.hidden ? ' is-hidden' : ''), 'data-key': it.key },
+    const el = h('div', { class: 'slide' + (it.isNew ? ' new' : '') + (it.quiz ? ' is-quiz' : '') + (it.media ? ' is-media' : '') + (it.hidden ? ' is-hidden' : ''), 'data-key': it.key },
       thumb, eye,
       h('div', { class: 'num' },
         h('b', { text: `${t('slide')} ${i + 1}` }),
@@ -1261,7 +1269,7 @@ function drawSlides() {
       )
     );
     grid.append(el);
-    if (!it.quiz) queue.push({ it, thumb });
+    if (!isSpecial(it)) queue.push({ it, thumb });
   });
   if (slideSortable) slideSortable.destroy();
   slideSortable = window.Sortable ? Sortable.create(grid, {
@@ -1294,8 +1302,8 @@ async function loadPdfIntoEditor(file, replace) {
     let keepQuiz = null;
     if (replace) {
       // keep quiz slides at their places (after slide N) when the PDF is replaced or first uploaded
-      const hasPdf = ed.items.some(x => !x.quiz); let n = 0;
-      keepQuiz = ed.items.map(x => { if (!x.quiz) { n++; return null; } x.after = hasPdf ? n : (x.after | 0); return x; }).filter(Boolean);
+      const hasPdf = ed.items.some(x => !isSpecial(x)); let n = 0;
+      keepQuiz = ed.items.map(x => { if (!isSpecial(x)) { n++; return null; } x.after = hasPdf ? n : (x.after | 0); return x; }).filter(Boolean);
       ed.items = [];
     }
     try { await addSource(bytes, !replace && ed.items.length > 0); }
@@ -1321,14 +1329,20 @@ $('saveSlidesBtn').onclick = async () => {
   await guard(async () => {
     const files = { ...(ls.files || {}) };
     let old = files[ed.lang] && files[ed.lang].path;
-    const pdfItems = ed.items.filter(x => !x.quiz);
-    const slidesQ = []; let cnt = 0;
-    ed.items.forEach(it => {
-      if (!it.quiz) { cnt++; return; }
+    const pdfItems = ed.items.filter(x => !isSpecial(x));
+    const slidesQ = [], slidesM = []; let cnt = 0;
+    ed.items.forEach((it, ord) => {
+      if (!isSpecial(it)) { cnt++; return; }
+      if (it.media) {
+        const m = it.media;
+        if (Object.values(m.src).some(Boolean) || Object.values(m.yt).some(Boolean))
+          slidesM.push({ id: m.id, after: pdfItems.length ? cnt : (it.after | 0), ord, type: m.type, src: m.src, yt: m.yt, hidden: !!it.hidden });
+        return;
+      }
       const z = it.quiz;
       const a = z.a.map((x, i) => ({ x, ok: i === z.c })).filter(o => pick(o.x, ed.lang).trim());
       if (!pick(z.q, ed.lang).trim() || a.length < 2) return;
-      slidesQ.push({ id: z.id, after: pdfItems.length ? cnt : (it.after | 0), q: z.q, a: a.map(o => o.x), c: Math.max(0, a.findIndex(o => o.ok)) });
+      slidesQ.push({ id: z.id, after: pdfItems.length ? cnt : (it.after | 0), ord, q: z.q, a: a.map(o => o.x), c: Math.max(0, a.findIndex(o => o.ok)) });
     });
     const unchanged = old && files[ed.lang].pages === pdfItems.length && pdfItems.every((it, i) => it.src === 0 && it.page === i + 1);
     if (!pdfItems.length) {
@@ -1359,6 +1373,7 @@ $('saveSlidesBtn').onclick = async () => {
     busy(t('saving'));
     const quiz = { ...(ls.quiz || {}) };
     if (slidesQ.length || sharedSlides(ls).length) { quiz.slideQs = slidesQ; delete quiz.slides; }
+    if (slidesM.length || sharedMedia(ls).length) quiz.slideMedia = slidesM;
     await api.saveLesson({ ...ls, files, quiz });
     if (old) { await api.removeFiles([old]).catch(() => {}); bytesCache.delete(old); docCache.delete(old); }
     state.editor = null;
@@ -1418,21 +1433,127 @@ $('qsForm').addEventListener('submit', async e => {
 $('qsDelete').onclick = () => {
   const ed = state.editor; ed.items = ed.items.filter(x => x !== qsItem); ed.dirty = true; closeModal('qsModal'); drawSlides();
 };
+const mediaPick = (o, lang) => (o && (o[lang] || o.en || o.ar || o.fi)) || '';
+const MEDIA_MAX = 50 * 1024 * 1024;
+function mediaThumb(it, lang) {
+  const m = it.media, src = mediaPick(m.src, lang), yt = mediaPick(m.yt, lang);
+  const box = h('div', { class: 'thumb media-thumb', onclick: () => openMediaSlideModal(it) }, h('span', { class: 'mt-ic', text: m.type === 'image' ? '🖼' : '🎬' }));
+  if (yt && ytId(yt)) box.append(h('img', { src: `https://img.youtube.com/vi/${ytId(yt)}/mqdefault.jpg`, alt: '' }));
+  else if (src) api.mediaUrl(src).then(u => {
+    if (!u) return;
+    box.append(m.type === 'image' ? h('img', { src: u, alt: '' }) : Object.assign(h('video', { muted: true, preload: 'metadata', playsinline: true }), { src: u + '#t=0.5' }));
+  });
+  return box;
+}
+let mediaDlg = null;
+function openMediaSlideModal(it) {
+  const ed = state.editor; if (!ed) return;
+  const L0 = ed.lang, m = it.media;
+  if (!mediaDlg) {
+    mediaDlg = h('div', { class: 'modal', hidden: true });
+    mediaDlg.addEventListener('click', e => { if (e.target === mediaDlg || e.target.closest('[data-x]')) mediaDlg.hidden = true; });
+    document.body.append(mediaDlg);
+  }
+  let file = null;
+  const prev = h('div', { class: 'media-prev' });
+  const showPrev = async () => {
+    prev.innerHTML = '';
+    const yt = ytIn.value.trim();
+    if (yt && ytId(yt)) { prev.append(h('img', { src: `https://img.youtube.com/vi/${ytId(yt)}/hqdefault.jpg`, alt: '' })); return; }
+    const u = file ? URL.createObjectURL(file) : (m.src[L0] ? await api.mediaUrl(m.src[L0]) : '');
+    if (!u) { prev.append(h('span', { class: 'muted', text: t('mediaNone') })); return; }
+    const type = file ? (file.type.startsWith('video') ? 'video' : 'image') : m.type;
+    prev.append(type === 'image' ? h('img', { src: u, alt: '' }) : Object.assign(h('video', { controls: true, preload: 'metadata', playsinline: true }), { src: u }));
+  };
+  const fileIn = h('input', { type: 'file', accept: 'video/mp4,video/webm,video/quicktime,video/*,image/gif,image/png,image/jpeg,image/webp', hidden: true });
+  fileIn.onchange = () => {
+    const f = fileIn.files[0]; if (!f) return;
+    if (f.size > MEDIA_MAX) { toast(t('mediaTooBig'), true); return; }
+    file = f; ytIn.value = ''; showPrev();
+  };
+  const ytIn = h('input', { type: 'url', placeholder: 'https://youtube.com/watch?v=…', dir: 'ltr' }); ytIn.value = m.yt[L0] || '';
+  ytIn.oninput = () => { if (ytIn.value.trim()) file = null; showPrev(); };
+  const others = LANGS.filter(l => l !== L0 && (m.src[l] || m.yt[l]));
+  const form = h('form', { class: 'modal-card' },
+    h('h2', {}, '🎬 ', t('mediaSlide')),
+    h('p', { class: 'muted', text: t('mediaHint') }),
+    h('p', { class: 'muted small', text: `${LANG_NAMES[L0]}` + (others.length ? ' · ' + t('mediaOtherLangs', others.map(l => LANG_NAMES[l]).join(', ')) : ' · ' + t('mediaAllLangs')) }),
+    prev,
+    h('div', { class: 'row', style: 'display:flex;gap:8px;flex-wrap:wrap;margin:10px 0' },
+      h('label', { class: 'btn' }, '⬆ ', t('mediaUpload'), fileIn),
+      m.src[L0] || m.yt[L0] ? h('button', { type: 'button', class: 'btn danger', onclick: () => { file = null; ytIn.value = ''; delete m.src[L0]; delete m.yt[L0]; showPrev(); } }, '🗑 ', t('mediaRemoveLang')) : null),
+    h('label', { class: 'field' }, h('span', { text: t('mediaOrYoutube') }), ytIn),
+    h('p', { class: 'muted small', text: t('mediaSizeNote') }),
+    h('div', { class: 'modal-foot' },
+      h('button', { type: 'button', class: 'btn danger', onclick: () => { ed.items = ed.items.filter(x => x !== it); ed.dirty = true; mediaDlg.hidden = true; drawSlides(); } }, '🗑 ', t('delete')),
+      h('span', { style: 'flex:1' }),
+      h('button', { type: 'button', class: 'btn', 'data-x': '' }, t('cancel')),
+      h('button', { type: 'submit', class: 'btn primary' }, t('save'))));
+  form.onsubmit = async e => {
+    e.preventDefault();
+    const yt = ytIn.value.trim();
+    if (yt && !ytId(yt)) { toast(t('ytInvalid'), true); return; }
+    await guard(async () => {
+      if (file) {
+        const ext = (file.name.match(/\.(\w+)$/) || [, file.type.split('/')[1] || 'bin'])[1].toLowerCase();
+        const path = `slides/${ed.lessonId}/${uid()}.${ext}`;
+        await api.uploadMedia(path, file);
+        m.src[L0] = path; m.type = file.type.startsWith('video') ? 'video' : 'image'; delete m.yt[L0];
+      } else if (yt) { m.yt[L0] = yt; delete m.src[L0]; m.type = 'video'; }
+      if (!Object.values(m.src).some(Boolean) && !Object.values(m.yt).some(Boolean)) { ed.items = ed.items.filter(x => x !== it); }
+      ed.dirty = true; mediaDlg.hidden = true; drawSlides();
+    }, t('uploading'));
+  };
+  mediaDlg.innerHTML = ''; mediaDlg.append(form); mediaDlg.hidden = false; showPrev();
+}
+$('addMediaSlideBtn').onclick = () => {
+  const ed = state.editor; if (!ed) return;
+  const it = { key: uid(), isNew: true, media: { id: uid(), type: 'video', src: {}, yt: {} } };
+  ed.items.push(it); drawSlides(); openMediaSlideModal(it);
+};
+async function showMediaSlide(m) {
+  const stage = $('stage'); stage.querySelector('.p-media')?.remove();
+  $('slideCanvas').style.visibility = 'hidden';
+  const lang = P.lang || state.lang, yt = mediaPick(m.yt, lang), src = mediaPick(m.src, lang);
+  const box = h('div', { class: 'p-media' });
+  box.addEventListener('click', ev => ev.stopPropagation());
+  stage.append(box);
+  if (yt && ytId(yt) && !(m.src && m.src[lang])) {
+    box.append(h('iframe', { src: `https://www.youtube-nocookie.com/embed/${encodeURIComponent(ytId(yt))}?rel=0&modestbranding=1&playsinline=1`, allow: 'autoplay; encrypted-media; picture-in-picture; fullscreen', allowfullscreen: true, title: 'Video' }));
+    return;
+  }
+  const u = src ? await api.mediaUrl(src) : '';
+  if (!u || !box.isConnected) { box.append(h('div', { class: 'p-msg', text: t('mediaNone') })); return; }
+  if (m.type === 'image') { box.append(h('img', { src: u, alt: '' })); return; }
+  const v = h('video', { controls: true, preload: 'auto', playsinline: true });
+  v.src = u;
+  const big = h('button', { type: 'button', class: 'p-play', 'aria-label': 'Play' }, '▶');
+  big.onclick = () => v.play();
+  v.addEventListener('play', () => { big.hidden = true; });
+  v.addEventListener('pause', () => { big.hidden = false; });
+  v.addEventListener('click', () => { v.paused ? v.play() : v.pause(); });
+  box.append(v, big);
+}
 $('addQuizSlideBtn').onclick = () => {
   const ed = state.editor; if (!ed) return;
   const it = { key: uid(), isNew: true, quiz: { id: uid(), q: {}, a: [{}, {}, {}], c: 0 } };
   ed.items.push(it); ed.dirty = true; drawSlides(); openQuizSlideModal(it);
 };
 // interleave quiz slides into a presentation
-function withQuizSlides(pages, slides) {
-  const qs = (slides || []).slice().sort((a, b) => (a.after | 0) - (b.after | 0));
+function withQuizSlides(pages, slides) {   // slides: [{ after, ord, quiz | media }]
+  const qs = (slides || []).slice().sort((a, b) => ((a.after | 0) - (b.after | 0)) || ((a.ord | 0) - (b.ord | 0)));
   if (!qs.length) return pages;
   const out = []; let k = 0;
-  const flush = n => { while (k < qs.length && (qs[k].after | 0) <= n) out.push({ quiz: qs[k++] }); };
+  const wrap = x => x.media ? { media: x.media } : { quiz: x.quiz || x };
+  const flush = n => { while (k < qs.length && (qs[k].after | 0) <= n) out.push(wrap(qs[k++])); };
   flush(0);
   pages.forEach((p, i) => { out.push(p); flush(i + 1); });
-  while (k < qs.length) out.push({ quiz: qs[k++] });
+  while (k < qs.length) out.push(wrap(qs[k++]));
   return out;
+}
+function specialsFor(ls, lang) {
+  return [...sharedSlides(ls).map(s0 => ({ after: s0.after, ord: s0.ord, quiz: localQuiz(s0, lang) })),
+          ...sharedMedia(ls).filter(m => !m.hidden).map(m => ({ after: m.after, ord: m.ord, media: m }))];
 }
 function showQuizSlide(q) {
   const stage = $('stage'); stage.querySelector('.p-quiz')?.remove();
@@ -1480,14 +1601,16 @@ async function present(ls, lang) {
   try {
     const doc = await getDoc(f.path);
     const hid = hiddenPages(f);
-    startDeck(withQuizSlides(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1 })), sharedSlides(ls).map(s0 => ({ after: s0.after, ...localQuiz(s0, lang) }))).filter(p => p.quiz || !hid.has(p.page)));
+    startDeck(withQuizSlides(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1 })), specialsFor(ls, lang)).filter(p => p.quiz || p.media || !hid.has(p.page)));
+    P.lang = lang;
   } catch (e) { closePresenter(); toast(t('error') + e.message, true); }
 }
 function presentEditorDraft() {
   const ed = state.editor; if (!ed || !ed.items.length) return;
   openPresenter();
   P.lessonId = null;
-  startDeck(ed.items.filter(it => !it.hidden).map(it => it.quiz ? { quiz: localQuiz(it.quiz, ed.lang) } : { doc: ed.sources[it.src].doc, page: it.page }));
+  P.lang = ed.lang;
+  startDeck(ed.items.filter(it => !it.hidden).map(it => it.quiz ? { quiz: localQuiz(it.quiz, ed.lang) } : it.media ? { media: it.media } : { doc: ed.sources[it.src].doc, page: it.page }));
 }
 function openPresenter() {
   const el = $('presenter'); el.hidden = false; document.body.style.overflow = 'hidden';
@@ -1520,11 +1643,17 @@ async function showSlide(i) {
   P.i = i;
   $('pCount').textContent = `${i + 1} / ${P.pages.length}`;
   const token = ++P.token;
-  $('stage').querySelector('.p-quiz')?.remove(); $('slideCanvas').style.visibility = '';
+  $('stage').querySelector('.p-quiz')?.remove(); $('stage').querySelector('.p-media')?.remove(); $('slideCanvas').style.visibility = '';
+  if (P.pages[i].media) {
+    showPresenterMessage(null); showMediaSlide(P.pages[i].media);
+    if (P.lessonId && i === P.pages.length - 1 && !P.celebrated) { P.celebrated = true; setDone(P.lessonId, true); celebrate(); }
+    if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
+    return;
+  }
   if (P.pages[i].quiz) {
     showPresenterMessage(null); showQuizSlide(P.pages[i].quiz);
     if (P.lessonId && i === P.pages.length - 1 && !P.celebrated) { P.celebrated = true; setDone(P.lessonId, true); celebrate(); }
-    if (i + 1 < P.pages.length && !P.pages[i + 1].quiz) renderSlideCanvas(i + 1);
+    if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
     return;
   }
   try {
@@ -1536,8 +1665,8 @@ async function showSlide(i) {
     c.getContext('2d').drawImage(src, 0, 0);
     if (P.lessonId && i === P.pages.length - 1 && !P.celebrated) { P.celebrated = true; setDone(P.lessonId, true); celebrate(); }
     // warm up neighbours
-    if (i + 1 < P.pages.length && !P.pages[i + 1].quiz) renderSlideCanvas(i + 1);
-    if (i > 0 && !P.pages[i - 1].quiz) renderSlideCanvas(i - 1);
+    if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
+    if (i > 0 && P.pages[i - 1].doc) renderSlideCanvas(i - 1);
   } catch (e) { showPresenterMessage(t('error') + e.message); }
 }
 function celebrate() {
@@ -1548,6 +1677,7 @@ function celebrate() {
   clearTimeout(celebrate.t); celebrate.t = setTimeout(() => { box.hidden = true; box.innerHTML = ''; }, 3200);
 }
 function closePresenter() {
+  $('stage').querySelector('.p-media')?.remove();
   $('celebrate').hidden = true;
   const wasLesson = P.lessonId; P.lessonId = null;
   if (wasLesson && !$('presenter').hidden) setTimeout(render, 0);
@@ -1594,6 +1724,8 @@ document.addEventListener('keydown', e => {
   if ($('presenter').hidden) return;
   const k = e.key;
   const qbox = $('stage').querySelector('.p-quiz');
+  const vid = $('stage').querySelector('.p-media video');
+  if (vid && (k === ' ' || k === 'k' || k === 'K')) { e.preventDefault(); vid.paused ? vid.play() : vid.pause(); return; }
   if (qbox && /^[1-6a-fA-F]$/.test(k)) { const n = /\d/.test(k) ? +k : k.toUpperCase().charCodeAt(0) - 64; qbox.querySelector(`.pq-opt[data-n="${n}"]`)?.click(); e.preventDefault(); return; }
   if (['ArrowRight', 'ArrowDown', 'PageDown', ' ', 'Enter', 'n', 'N'].includes(k)) { e.preventDefault(); showSlide(P.i + 1); }
   else if (['ArrowLeft', 'ArrowUp', 'PageUp', 'Backspace', 'p', 'P'].includes(k)) { e.preventDefault(); showSlide(P.i - 1); }
