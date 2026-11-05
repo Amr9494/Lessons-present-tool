@@ -1381,6 +1381,26 @@ async function addPicturesToEditor(files) {
   });
   done();
 }
+// drag & drop pictures (or a PDF) anywhere on the Arrange slides page — they are added at the end
+(() => {
+  const view = $('editorView');
+  const hasFiles = e => e.dataTransfer && [...e.dataTransfer.types].includes('Files');
+  ['dragenter', 'dragover'].forEach(ev => view.addEventListener(ev, e => { if (!hasFiles(e) || !state.editor) return; e.preventDefault(); view.classList.add('drop-over'); }));
+  view.addEventListener('dragleave', e => { if (!view.contains(e.relatedTarget)) view.classList.remove('drop-over'); });
+  view.addEventListener('drop', e => {
+    view.classList.remove('drop-over');
+    if (!hasFiles(e) || !state.editor) return;
+    e.preventDefault();
+    const files = [...e.dataTransfer.files];
+    const pics = files.filter(f => f.type.startsWith('image/')), pdf = files.find(f => /pdf$/i.test(f.type) || /\.pdf$/i.test(f.name));
+    const hasSlides = state.editor.items.some(x => !isSpecial(x));
+    (async () => {
+      if (pdf) await loadPdfIntoEditor(pdf, !hasSlides);
+      if (pics.length) await addPicturesToEditor(pics);
+      const g = $('slideGrid'); g.lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    })();
+  });
+})();
 $('appendPicsInput').onchange = e => { const f = [...e.target.files]; e.target.value = ''; addPicturesToEditor(f); };
 $('replacePdfInput').onchange = e => { loadPdfIntoEditor(e.target.files[0], true); e.target.value = ''; };
 $('firstPdfInput').onchange = e => { const f = [...e.target.files]; if (f[0] && f[0].type.startsWith('image/')) addPicturesToEditor(f); else loadPdfIntoEditor(f[0], true); e.target.value = ''; };
