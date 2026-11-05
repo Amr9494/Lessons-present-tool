@@ -256,7 +256,8 @@ function renderHub(root) {
     ['🛠', 'maker', 'tl_makerDesc', '#/maker', '#5b4fe0'],
     ['📖', 'tl_booklet', 'tl_bookletDesc', '#/tools/booklet', '#22b573'],
     ['🏅', 'tl_cert', 'tl_certDesc', '#/tools/certificates', '#ff8a3d'],
-    ['📋', 'tl_att', 'tl_attDesc', '#/tools/attendance', '#2aa8e0']
+    ['📋', 'tl_att', 'tl_attDesc', '#/tools/attendance', '#2aa8e0'],
+    ['🎞', 'vm_title', 'vm_desc', '#/tools/video', '#e2504a']
   ];
   root.append(h('div', { class: 'tool-grid' }, cards.map(([ic, tk, dk, href, c]) =>
     h('a', { class: 'tool-card', href, style: `--c:${c}` }, h('span', { class: 'tc-ic', text: ic }), h('b', { text: t(tk) }), h('small', { text: t(dk) }), h('span', { class: 'tc-go', text: t('tl_open') + ' →' })))));
@@ -831,6 +832,7 @@ window.LPT_TOOLS = {
     if (tool === 'booklet') renderBooklet(root);
     else if (tool === 'certificates') renderCert(root);
     else if (tool === 'attendance') renderAtt(root);
+    else if (tool === 'video' && window.LPT_VIDEO) window.LPT_VIDEO.render(root);
     else renderHub(root);
   }
 };

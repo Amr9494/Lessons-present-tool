@@ -928,6 +928,7 @@ function openLessonSheet(ls) {
   }
   if (file) acts.append(h('button', { class: 'btn', type: 'button', onclick: () => downloadLesson(ls, L) }, '⬇ ', t('downloadPdf')));
   if (file) acts.append(h('button', { class: 'btn', type: 'button', title: t('downloadImagesHint'), onclick: () => downloadImages(ls, L) }, '🖼 ', t('downloadImages')));
+  if (file && window.LPT_VIDEO) acts.append(h('button', { class: 'btn', type: 'button', title: t('vm_fromLessonHint'), onclick: () => { closeModal('lessonSheet'); window.LPT_VIDEO.fromLesson(ls, L); } }, '🎞 ', t('vm_fromLesson')));
   const dn = isDone(ls.id);
   acts.append(h('button', { class: 'btn ' + (dn ? '' : 'green'), type: 'button', onclick: () => { setDone(ls.id, !dn); openLessonSheet(ls); render(); } }, dn ? '↺ ' + t('markNotDone') : '✓ ' + t('markDone')));
   if (!file && !video) {
@@ -2390,7 +2391,7 @@ async function boot() {
   try { await reload(); }
   catch (e) { console.error(e); render(); toast(t('loadFailed'), true); }
 }
-window.LPT = { api, online, openModal, closeModal, translate, t, h, T, LANGS, LANG_NAMES, state, toast, busy, done, guard, saveBlob, go, uid, readJSON };
+window.LPT = { pdf: { getBytes, docFromBytes, hiddenPages, nameOf, safeName, renderPage }, api, online, openModal, closeModal, translate, t, h, T, LANGS, LANG_NAMES, state, toast, busy, done, guard, saveBlob, go, uid, readJSON };
 $('toolsBtn').onclick = () => go('#/tools');
 boot();
 if ('serviceWorker' in navigator && location.protocol.startsWith('http')) window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(() => {}));
