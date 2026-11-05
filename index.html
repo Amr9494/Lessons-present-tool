@@ -151,6 +151,7 @@
       <div class="tabs" id="editorLangTabs" role="tablist"></div>
       <div class="editor-tools">
         <label class="btn small">＋ <span data-i18n="addPages">Add pages from PDF</span><input type="file" id="appendPdfInput" accept="application/pdf,.pdf" hidden></label>
+        <label class="btn small">＋ 🖼 <span data-i18n="addPics">Add pictures</span><input type="file" id="appendPicsInput" accept="image/*" multiple hidden></label>
         <label class="btn small">⟳ <span data-i18n="replacePdf">Replace PDF</span><input type="file" id="replacePdfInput" accept="application/pdf,.pdf" hidden></label>
         <button type="button" class="btn small gold" id="addMediaSlideBtn">＋ 🎬 <span data-i18n="addMediaSlide">Video / GIF</span></button>
         <button type="button" class="btn small gold" id="addQuizSlideBtn">＋ 🧠 <span data-i18n="addQuizSlide">Quiz slide</span></button>
@@ -162,7 +163,7 @@
     <div id="slideEmpty" class="empty" hidden>
       <div class="empty-icon">⬆️</div>
       <p data-i18n="noPdfForLang">No PDF for this language yet.</p>
-      <label class="btn primary"><span data-i18n="uploadPdf">Upload PDF</span><input type="file" id="firstPdfInput" accept="application/pdf,.pdf" hidden></label>
+      <label class="btn primary"><span data-i18n="uploadPdf">Upload PDF</span><input type="file" id="firstPdfInput" accept="application/pdf,.pdf,image/*" multiple hidden></label>
     </div>
   </section>
   <!-- LESSON MAKER: pictures -> PDF -->

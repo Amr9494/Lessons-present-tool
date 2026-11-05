@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    addPics: 'Add pictures', 
     downloadImages: 'Download as pictures', downloadImagesHint: 'Every slide as a PNG picture in a ZIP file — for editing in PowerPoint, Canva, etc.', makingImages: (i, n) => `Making picture ${i} of ${n}…`,
     mediaSlide: 'Video / animation slide', addMediaSlide: 'Video / GIF', mediaHint: 'Upload a video (MP4, WebM) or an animation (GIF), or paste a YouTube link. It plays inside the presentation — click it or press Space to play and pause.', mediaUpload: 'Choose video or GIF', mediaOrYoutube: '…or a YouTube link', mediaRemoveLang: 'Remove for this language', mediaNone: 'No video yet', mediaAllLangs: 'used in all languages unless another language gets its own file', mediaOtherLangs: s => `other languages have their own: ${s}`, mediaSizeNote: 'Up to 50 MB per file. For long videos a YouTube link is lighter.', mediaTooBig: 'That file is over 50 MB — please make it smaller or use a YouTube link.',
     hideSlide: 'Hide this slide (skipped when presenting and in the PDF download)', showSlide: 'Show this slide again', hiddenCount: n => `${n} hidden`,
@@ -156,6 +157,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    addPics: 'إضافة صور', 
     downloadImages: 'تنزيل كصور', downloadImagesHint: 'كل شريحة كصورة PNG داخل ملف ZIP — للتعديل في PowerPoint أو Canva وغيرها.', makingImages: (i, n) => `جارٍ صنع الصورة ${i} من ${n}…`,
     mediaSlide: 'شريحة فيديو / رسوم متحركة', addMediaSlide: 'فيديو / GIF', mediaHint: 'ارفع فيديو (MP4 أو WebM) أو صورة متحركة (GIF)، أو الصق رابط يوتيوب. يعمل داخل العرض — اضغط عليه أو على المسافة للتشغيل والإيقاف.', mediaUpload: 'اختر فيديو أو GIF', mediaOrYoutube: '…أو رابط يوتيوب', mediaRemoveLang: 'حذف لهذه اللغة', mediaNone: 'لا يوجد فيديو بعد', mediaAllLangs: 'يُستخدم في كل اللغات ما لم يكن للغة أخرى ملفها الخاص', mediaOtherLangs: s => `للغات الأخرى ملفاتها الخاصة: ${s}`, mediaSizeNote: 'حتى 50 ميغابايت لكل ملف. للفيديوهات الطويلة رابط يوتيوب أخف.', mediaTooBig: 'الملف أكبر من 50 ميغابايت — صغّره أو استخدم رابط يوتيوب.',
     hideSlide: 'إخفاء هذه الشريحة (تُتخطّى في العرض وفي تنزيل PDF)', showSlide: 'إظهار هذه الشريحة مرة أخرى', hiddenCount: n => `${n} مخفية`,
@@ -241,6 +243,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    addPics: 'Lisää kuvia', 
     downloadImages: 'Lataa kuvina', downloadImagesHint: 'Jokainen dia PNG-kuvana ZIP-tiedostossa — muokattavaksi PowerPointissa, Canvassa ym.', makingImages: (i, n) => `Tehdään kuvaa ${i}/${n}…`,
     mediaSlide: 'Video- / animaatiodia', addMediaSlide: 'Video / GIF', mediaHint: 'Lataa video (MP4, WebM) tai animaatio (GIF), tai liitä YouTube-linkki. Se toistuu esityksessä — napsauta sitä tai paina välilyöntiä toistaaksesi ja pysäyttääksesi.', mediaUpload: 'Valitse video tai GIF', mediaOrYoutube: '…tai YouTube-linkki', mediaRemoveLang: 'Poista tältä kieleltä', mediaNone: 'Ei vielä videota', mediaAllLangs: 'käytetään kaikilla kielillä, ellei toisella kielellä ole omaa tiedostoa', mediaOtherLangs: s => `muilla kielillä on omansa: ${s}`, mediaSizeNote: 'Enintään 50 Mt tiedostoa kohden. Pitkille videoille YouTube-linkki on kevyempi.', mediaTooBig: 'Tiedosto on yli 50 Mt — pienennä sitä tai käytä YouTube-linkkiä.',
     hideSlide: 'Piilota tämä dia (ohitetaan esityksessä ja PDF-latauksessa)', showSlide: 'Näytä tämä dia taas', hiddenCount: n => `${n} piilotettu`,
@@ -1347,8 +1350,40 @@ async function loadPdfIntoEditor(file, replace) {
   }, t('loading'));
 }
 $('appendPdfInput').onchange = e => { loadPdfIntoEditor(e.target.files[0], false); e.target.value = ''; };
+// pictures → slides: each picture becomes one page, fitted onto the same page size as the lesson's slides
+async function picturesToPdf(files, pageSize) {
+  const { PDFDocument } = PDFLib, out = await PDFDocument.create();
+  const canvas = document.createElement('canvas'), ctx = canvas.getContext('2d');
+  const imgs = [...files].filter(f => f.type.startsWith('image/')).sort((a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }));
+  for (let i = 0; i < imgs.length; i++) {
+    busy(`${t('building')} ${i + 1} / ${imgs.length}`);
+    let bmp; try { bmp = await createImageBitmap(imgs[i]); } catch (e) { throw new Error(t('badImage', imgs[i].name)); }
+    const k0 = Math.min(1, 2400 / Math.max(bmp.width, bmp.height));
+    canvas.width = Math.round(bmp.width * k0); canvas.height = Math.round(bmp.height * k0);
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, canvas.width, canvas.height); ctx.drawImage(bmp, 0, 0, canvas.width, canvas.height);
+    const img = await out.embedJpg(await (await new Promise(r => canvas.toBlob(r, 'image/jpeg', .9))).arrayBuffer());
+    const [pw, ph] = pageSize || (() => { const k = 960 / Math.max(img.width, img.height); return [img.width * k, img.height * k]; })();
+    const page = out.addPage([pw, ph]), k = Math.min(pw / img.width, ph / img.height);
+    page.drawImage(img, { x: (pw - img.width * k) / 2, y: (ph - img.height * k) / 2, width: img.width * k, height: img.height * k });
+  }
+  if (!imgs.length) throw new Error(t('badImage', '…'));
+  return (await out.save()).buffer;
+}
+async function addPicturesToEditor(files) {
+  const ed = state.editor; if (!ed || !files || !files.length) return;
+  await guard(async () => {
+    let size = null;
+    const first = ed.items.find(x => !isSpecial(x));
+    if (first) { const vp = (await ed.sources[first.src].doc.getPage(first.page)).getViewport({ scale: 1 }); size = [vp.width, vp.height]; }
+    const bytes = await picturesToPdf(files, size);
+    await addSource(bytes, ed.items.length > 0);
+    ed.dirty = true; drawSlides();
+  });
+  done();
+}
+$('appendPicsInput').onchange = e => { const f = [...e.target.files]; e.target.value = ''; addPicturesToEditor(f); };
 $('replacePdfInput').onchange = e => { loadPdfIntoEditor(e.target.files[0], true); e.target.value = ''; };
-$('firstPdfInput').onchange = e => { loadPdfIntoEditor(e.target.files[0], true); e.target.value = ''; };
+$('firstPdfInput').onchange = e => { const f = [...e.target.files]; if (f[0] && f[0].type.startsWith('image/')) addPicturesToEditor(f); else loadPdfIntoEditor(f[0], true); e.target.value = ''; };
 
 $('saveSlidesBtn').onclick = async () => {
   const ed = state.editor; if (!ed || !ed.dirty) return;
