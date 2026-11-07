@@ -1733,6 +1733,7 @@ async function showSlide(i) {
     showPresenterMessage(null); $('slideCanvas').style.visibility = 'hidden';
     const fin = h('div', { class: 'p-finish' },
       h('div', { class: 'pf-stars' }, [1, 2, 3].map(k => h('span', { style: `animation-delay:${k * .2}s`, text: '★' }))),
+      h('div', { class: 'pf-hamd', lang: 'ar', dir: 'rtl', text: 'الحمد لله' }),
       h('h2', { text: t('lessonComplete') }),
       h('p', { text: t('finishSub') }));
     fin.addEventListener('click', ev => ev.stopPropagation());

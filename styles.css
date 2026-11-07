@@ -718,3 +718,4 @@ body.edit-mode .tx-hover{outline:2px dashed var(--accent);outline-offset:2px;bor
 .pf-stars{font-size:clamp(70px,16vh,180px);letter-spacing:2vw;line-height:1}
 .pf-stars span{display:inline-block;color:#ffc93c;text-shadow:0 8px 0 rgba(0,0,0,.2);animation:pop .6s ease-out both}
 .p-finish ~ .celebrate .msg,.celebrate .msg{display:none}
+.pf-hamd{font:700 clamp(36px,7vh,84px)/1.3 'Amiri','Baloo Bhaijaan 2',serif;color:#ffe08a;text-shadow:0 4px 0 rgba(0,0,0,.18);animation:pop .6s .7s ease-out both}
