@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    finishSub: 'You finished the lesson!',
     addPics: 'Add pictures', 
     downloadImages: 'Download as pictures', downloadImagesHint: 'Every slide as a PNG picture in a ZIP file — for editing in PowerPoint, Canva, etc.', makingImages: (i, n) => `Making picture ${i} of ${n}…`,
     mediaSlide: 'Video / animation slide', addMediaSlide: 'Video / GIF', mediaHint: 'Upload a video (MP4, WebM) or an animation (GIF), or paste a YouTube link. It plays inside the presentation — click it or press Space to play and pause.', mediaUpload: 'Choose video or GIF', mediaOrYoutube: '…or a YouTube link', mediaRemoveLang: 'Remove for this language', mediaNone: 'No video yet', mediaAllLangs: 'used in all languages unless another language gets its own file', mediaOtherLangs: s => `other languages have their own: ${s}`, mediaSizeNote: 'Up to 50 MB per file. For long videos a YouTube link is lighter.', mediaTooBig: 'That file is over 50 MB — please make it smaller or use a YouTube link.',
@@ -157,6 +158,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    finishSub: 'أنهيت الدرس!',
     addPics: 'إضافة صور', 
     downloadImages: 'تنزيل كصور', downloadImagesHint: 'كل شريحة كصورة PNG داخل ملف ZIP — للتعديل في PowerPoint أو Canva وغيرها.', makingImages: (i, n) => `جارٍ صنع الصورة ${i} من ${n}…`,
     mediaSlide: 'شريحة فيديو / رسوم متحركة', addMediaSlide: 'فيديو / GIF', mediaHint: 'ارفع فيديو (MP4 أو WebM) أو صورة متحركة (GIF)، أو الصق رابط يوتيوب. يعمل داخل العرض — اضغط عليه أو على المسافة للتشغيل والإيقاف.', mediaUpload: 'اختر فيديو أو GIF', mediaOrYoutube: '…أو رابط يوتيوب', mediaRemoveLang: 'حذف لهذه اللغة', mediaNone: 'لا يوجد فيديو بعد', mediaAllLangs: 'يُستخدم في كل اللغات ما لم يكن للغة أخرى ملفها الخاص', mediaOtherLangs: s => `للغات الأخرى ملفاتها الخاصة: ${s}`, mediaSizeNote: 'حتى 50 ميغابايت لكل ملف. للفيديوهات الطويلة رابط يوتيوب أخف.', mediaTooBig: 'الملف أكبر من 50 ميغابايت — صغّره أو استخدم رابط يوتيوب.',
@@ -243,6 +245,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    finishSub: 'Suoritit oppitunnin!',
     addPics: 'Lisää kuvia', 
     downloadImages: 'Lataa kuvina', downloadImagesHint: 'Jokainen dia PNG-kuvana ZIP-tiedostossa — muokattavaksi PowerPointissa, Canvassa ym.', makingImages: (i, n) => `Tehdään kuvaa ${i}/${n}…`,
     mediaSlide: 'Video- / animaatiodia', addMediaSlide: 'Video / GIF', mediaHint: 'Lataa video (MP4, WebM) tai animaatio (GIF), tai liitä YouTube-linkki. Se toistuu esityksessä — napsauta sitä tai paina välilyöntiä toistaaksesi ja pysäyttääksesi.', mediaUpload: 'Valitse video tai GIF', mediaOrYoutube: '…tai YouTube-linkki', mediaRemoveLang: 'Poista tältä kieleltä', mediaNone: 'Ei vielä videota', mediaAllLangs: 'käytetään kaikilla kielillä, ellei toisella kielellä ole omaa tiedostoa', mediaOtherLangs: s => `muilla kielillä on omansa: ${s}`, mediaSizeNote: 'Enintään 50 Mt tiedostoa kohden. Pitkille videoille YouTube-linkki on kevyempi.', mediaTooBig: 'Tiedosto on yli 50 Mt — pienennä sitä tai käytä YouTube-linkkiä.',
@@ -1683,7 +1686,7 @@ async function present(ls, lang) {
   try {
     const doc = await getDoc(f.path);
     const hid = hiddenPages(f);
-    startDeck(withQuizSlides(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1 })), specialsFor(ls, lang)).filter(p => p.quiz || p.media || !hid.has(p.page)));
+    startDeck(withQuizSlides(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1 })), specialsFor(ls, lang)).filter(p => p.quiz || p.media || !hid.has(p.page)).concat([{ finish: true }]));
     P.lang = lang;
   } catch (e) { closePresenter(); toast(t('error') + e.message, true); }
 }
@@ -1725,16 +1728,26 @@ async function showSlide(i) {
   P.i = i;
   $('pCount').textContent = `${i + 1} / ${P.pages.length}`;
   const token = ++P.token;
-  $('stage').querySelector('.p-quiz')?.remove(); $('stage').querySelector('.p-media')?.remove(); $('slideCanvas').style.visibility = '';
+  $('stage').querySelector('.p-quiz')?.remove(); $('stage').querySelector('.p-media')?.remove(); $('stage').querySelector('.p-finish')?.remove(); $('slideCanvas').style.visibility = '';
+  if (P.pages[i].finish) {   // closing slide added after the last real slide (never part of the PDF)
+    showPresenterMessage(null); $('slideCanvas').style.visibility = 'hidden';
+    const fin = h('div', { class: 'p-finish' },
+      h('div', { class: 'pf-stars' }, [1, 2, 3].map(k => h('span', { style: `animation-delay:${k * .2}s`, text: '★' }))),
+      h('h2', { text: t('lessonComplete') }),
+      h('p', { text: t('finishSub') }));
+    fin.addEventListener('click', ev => ev.stopPropagation());
+    $('stage').append(fin);
+    if (P.lessonId && !P.celebrated) { P.celebrated = true; setDone(P.lessonId, true); }
+    celebrate();
+    return;
+  }
   if (P.pages[i].media) {
     showPresenterMessage(null); showMediaSlide(P.pages[i].media);
-    if (P.lessonId && i === P.pages.length - 1 && !P.celebrated) { P.celebrated = true; setDone(P.lessonId, true); celebrate(); }
     if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
     return;
   }
   if (P.pages[i].quiz) {
     showPresenterMessage(null); showQuizSlide(P.pages[i].quiz);
-    if (P.lessonId && i === P.pages.length - 1 && !P.celebrated) { P.celebrated = true; setDone(P.lessonId, true); celebrate(); }
     if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
     return;
   }
@@ -1745,7 +1758,6 @@ async function showSlide(i) {
     const c = $('slideCanvas');
     c.width = src.width; c.height = src.height; c.style.width = src.style.width; c.style.height = src.style.height;
     c.getContext('2d').drawImage(src, 0, 0);
-    if (P.lessonId && i === P.pages.length - 1 && !P.celebrated) { P.celebrated = true; setDone(P.lessonId, true); celebrate(); }
     // warm up neighbours
     if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
     if (i > 0 && P.pages[i - 1].doc) renderSlideCanvas(i - 1);
