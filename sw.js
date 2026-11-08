@@ -1,5 +1,5 @@
 /* Lectures Presenter — service worker: network first, so updates always arrive; cache is only an offline fallback. */
-const CACHE = 'lectures-presenter-v1';
+const CACHE = 'lectures-presenter-v2';
 self.addEventListener('install', e => { self.skipWaiting(); });
 self.addEventListener('activate', e => {
   e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== CACHE).map(k => caches.delete(k)))).then(() => self.clients.claim()));
