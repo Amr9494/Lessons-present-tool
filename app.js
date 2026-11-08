@@ -1251,8 +1251,14 @@ function mergeQuizSlides(ed, ls) {
   const qs = [...sharedSlides(ls).map(q => ({ ...quizItem(q), ord: q.ord | 0 })), ...sharedMedia(ls).map(mediaItem)]
     .sort((a, b) => (a.after - b.after) || (a.ord - b.ord));
   if (!qs.length) return;
+  // no slides in this language yet: keep the quiz / video slides aside, and put them in place once slides are added
+  if (!ed.items.some(x => !isSpecial(x))) { ed.pending = qs; return; }
+  placeSpecials(ed, qs);
+}
+function placeSpecials(ed, qs) {
+  qs = qs.slice().sort((a, b) => ((a.after | 0) - (b.after | 0)) || ((a.ord | 0) - (b.ord | 0)));
   const out = []; let n = 0, k = 0;
-  const flush = () => { while (k < qs.length && qs[k].after <= n) out.push(qs[k++]); };
+  const flush = () => { while (k < qs.length && (qs[k].after | 0) <= n) out.push(qs[k++]); };
   flush();
   for (const it of ed.items) { out.push(it); if (!isSpecial(it)) { n++; flush(); } }
   while (k < qs.length) out.push(qs[k++]);
@@ -1265,6 +1271,11 @@ async function addSource(bytes, markNew) {
   const doc = await docFromBytes(bytes);
   const srcIndex = ed.sources.push({ bytes, doc }) - 1;
   for (let p = 1; p <= doc.numPages; p++) ed.items.push({ key: uid(), src: srcIndex, page: p, isNew: markNew });
+  if (ed.pending && ed.pending.length) {   // first slides of this language → same places as in the main language
+    const own = ed.items.filter(isSpecial);  // specials added while the language was still empty
+    ed.items = ed.items.filter(x => !isSpecial(x));
+    placeSpecials(ed, [...ed.pending, ...own]); ed.pending = null;
+  }
 }
 
 function setEditorStatus(msg, dirty = false) { const s = $('editorStatus'); s.textContent = msg; s.classList.toggle('dirty', dirty); }
@@ -1416,7 +1427,7 @@ $('saveSlidesBtn').onclick = async () => {
     let old = files[ed.lang] && files[ed.lang].path;
     const pdfItems = ed.items.filter(x => !isSpecial(x));
     const slidesQ = [], slidesM = []; let cnt = 0;
-    ed.items.forEach((it, ord) => {
+    [...ed.items, ...(ed.pending || [])].forEach((it, ord) => {
       if (!isSpecial(it)) { cnt++; return; }
       if (it.media) {
         const m = it.media;
