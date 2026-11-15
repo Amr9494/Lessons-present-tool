@@ -15,7 +15,7 @@ const STR = {
     vm_random: 'Random', vm_randomHint: 'Pick nice motions and transitions for every slide automatically',
     vm_all: 'For all slides', vm_apply: 'Apply', vm_dur: 'Seconds', vm_motion: 'Motion', vm_trans: 'Transition to next', vm_tdur: 'Transition length',
     vm_caption: 'Caption (optional)', vm_size: 'Video size', vm_bg: 'Background', vm_black: 'Black', vm_white: 'White',
-    vm_fadeIn: 'Fade in at the start and out at the end', vm_music: 'Background music (optional)', vm_volume: 'Music volume',
+    vm_fadeIn: 'Fade in at the start and out at the end', vm_music: 'Song / nasheed / music (optional)', vm_volume: 'Music volume', vm_trim: 'Which part of the song? Drag the coloured box left or right.', vm_from: (a, b) => `Uses ${a} → ${b} of the song`, vm_listenPart: 'Listen to this part', vm_stopListen: 'Stop', vm_loopNote: 'The song is shorter than the video, so it repeats.',
     vm_play: 'Play preview', vm_pause: 'Pause', vm_export: 'Make the video', vm_exporting: (a, b) => `Recording the video… ${a} / ${b}`,
     vm_exportNote: 'The video is recorded in real time — keep this tab open and in front until it finishes.', vm_ready: 'Video ready — downloaded',
     vm_unsupported: 'This browser cannot record video. Please use Chrome, Edge or Firefox on a computer.', vm_total: s => `Total length: ${s}`,
@@ -31,7 +31,7 @@ const STR = {
     vm_random: 'عشوائي', vm_randomHint: 'اختيار حركات وانتقالات جميلة لكل شريحة تلقائيًا',
     vm_all: 'لكل الشرائح', vm_apply: 'تطبيق', vm_dur: 'ثوانٍ', vm_motion: 'الحركة', vm_trans: 'الانتقال إلى التالية', vm_tdur: 'مدة الانتقال',
     vm_caption: 'تعليق (اختياري)', vm_size: 'حجم الفيديو', vm_bg: 'الخلفية', vm_black: 'أسود', vm_white: 'أبيض',
-    vm_fadeIn: 'ظهور تدريجي في البداية واختفاء في النهاية', vm_music: 'موسيقى/صوت خلفية (اختياري)', vm_volume: 'مستوى الصوت',
+    vm_fadeIn: 'ظهور تدريجي في البداية واختفاء في النهاية', vm_music: 'أنشودة / أغنية / صوت خلفية (اختياري)', vm_volume: 'مستوى الصوت', vm_trim: 'أي جزء من الأنشودة؟ اسحب المربع الملوّن يمينًا أو يسارًا.', vm_from: (a, b) => `يستخدم من ${a} إلى ${b} من الأنشودة`, vm_listenPart: 'استمع لهذا الجزء', vm_stopListen: 'إيقاف', vm_loopNote: 'الأنشودة أقصر من الفيديو، لذلك ستتكرر.',
     vm_play: 'تشغيل المعاينة', vm_pause: 'إيقاف مؤقت', vm_export: 'اصنع الفيديو', vm_exporting: (a, b) => `جارٍ تسجيل الفيديو… ${a} / ${b}`,
     vm_exportNote: 'يُسجَّل الفيديو في الوقت الحقيقي — أبقِ هذا التبويب مفتوحًا وفي المقدمة حتى ينتهي.', vm_ready: 'الفيديو جاهز — تم التنزيل',
     vm_unsupported: 'هذا المتصفح لا يستطيع تسجيل الفيديو. استخدم Chrome أو Edge أو Firefox على الحاسوب.', vm_total: s => `المدة الكلية: ${s}`,
@@ -47,7 +47,7 @@ const STR = {
     vm_random: 'Satunnainen', vm_randomHint: 'Valitse kauniit liikkeet ja siirtymät jokaiselle dialle automaattisesti',
     vm_all: 'Kaikille dioille', vm_apply: 'Käytä', vm_dur: 'Sekuntia', vm_motion: 'Liike', vm_trans: 'Siirtymä seuraavaan', vm_tdur: 'Siirtymän pituus',
     vm_caption: 'Teksti (valinnainen)', vm_size: 'Videon koko', vm_bg: 'Tausta', vm_black: 'Musta', vm_white: 'Valkoinen',
-    vm_fadeIn: 'Häivytys alussa ja lopussa', vm_music: 'Taustamusiikki (valinnainen)', vm_volume: 'Musiikin voimakkuus',
+    vm_fadeIn: 'Häivytys alussa ja lopussa', vm_music: 'Taustamusiikki (valinnainen)', vm_volume: 'Musiikin voimakkuus', vm_trim: 'Mikä osa kappaleesta? Vedä värillistä laatikkoa vasemmalle tai oikealle.', vm_from: (a, b) => `Käyttää kohdan ${a} → ${b} kappaleesta`, vm_listenPart: 'Kuuntele tämä osa', vm_stopListen: 'Pysäytä', vm_loopNote: 'Kappale on videota lyhyempi, joten se toistuu.',
     vm_play: 'Toista esikatselu', vm_pause: 'Tauko', vm_export: 'Tee video', vm_exporting: (a, b) => `Tallennetaan videota… ${a} / ${b}`,
     vm_exportNote: 'Video tallennetaan reaaliajassa — pidä tämä välilehti auki ja edessä, kunnes se valmistuu.', vm_ready: 'Video valmis — ladattu',
     vm_unsupported: 'Tämä selain ei voi tallentaa videota. Käytä Chromea, Edgeä tai Firefoxia tietokoneella.', vm_total: s => `Kokonaispituus: ${s}`,
@@ -68,7 +68,7 @@ const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 const fmt = s => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
 
-const V = { slides: [], size: 720, bg: '#000000', fades: true, music: null, musicName: '', volume: 0.6, all: { dur: 4, motion: 'zoomIn', trans: 'dipBlack', tdur: 0.8 }, title: 'video' };
+const V = { slides: [], size: 720, bg: '#000000', fades: true, music: null, musicName: '', musicStart: 0, peaks: null, volume: 0.6, all: { dur: 4, motion: 'zoomIn', trans: 'dipBlack', tdur: 0.8 }, title: 'video' };
 let seq = 0;
 const newSlide = (img, name) => ({ id: ++seq, img, name: name || '', dur: V.all.dur, motion: V.all.motion, trans: V.all.trans, tdur: V.all.tdur, caption: '', fx: .3 + Math.random() * .4, fy: .3 + Math.random() * .4 });
 
@@ -195,6 +195,30 @@ function randomize() {
   for (let i = 1; i < V.slides.length; i++) if (V.slides[i].trans === V.slides[i - 1].trans) V.slides[i].trans = pickR(NICE_TRANS.filter(x => x !== V.slides[i - 1].trans));
 }
 
+/* ── song: plays the chosen part [musicStart …], repeats if the song is shorter than the video ── */
+function musicSource(ac, out, offset, total) {
+  const m = V.music, st = clamp(V.musicStart, 0, Math.max(0, m.duration - .5));
+  const src = ac.createBufferSource(); src.buffer = m;
+  if (m.duration - st < total) { src.loop = true; src.loopStart = st; src.loopEnd = m.duration; }
+  const g = ac.createGain(), now = ac.currentTime, left = Math.max(0, total - offset);
+  g.gain.setValueAtTime(offset < .4 ? 0 : V.volume, now);
+  if (offset < .4) g.gain.linearRampToValueAtTime(V.volume, now + .4);
+  if (left > 1.5) g.gain.setValueAtTime(V.volume, now + left - 1.5);
+  g.gain.linearRampToValueAtTime(0, now + left);
+  src.connect(g).connect(out);
+  const pos = st + offset, span = m.duration - st;
+  src.start(0, pos < m.duration ? pos : st + (offset % span));
+  return src;
+}
+function computePeaks(buf, n = 600) {
+  const d = buf.getChannelData(0), step = Math.max(1, Math.floor(d.length / n)), p = new Float32Array(n);
+  for (let i = 0; i < n; i++) { let mx = 0; for (let k = i * step, e = Math.min(d.length, k + step); k < e; k += 4) { const v = Math.abs(d[k]); if (v > mx) mx = v; } p[i] = mx; }
+  let mx = 0; for (const v of p) if (v > mx) mx = v;
+  if (mx > 0) for (let i = 0; i < n; i++) p[i] /= mx;
+  return p;
+}
+let waveRedraw = null;
+
 /* ── UI ── */
 let player = null;
 function render(root) {
@@ -254,11 +278,54 @@ function render(root) {
     });
     form.append(list);
     // video settings
-    const music = h('input', { type: 'file', accept: 'audio/*', hidden: true });
+    const trimBox = () => {
+      const wv = h('canvas', { class: 'vm-wave', width: 1200, height: 120 });
+      const info = h('small', { class: 'muted' }), note = h('small', { class: 'muted' });
+      let pv = null;
+      const listen = h('button', { type: 'button', class: 'btn small' }, '▶ ', t('vm_listenPart'));
+      const stopPv = () => { if (pv) { try { pv.src.stop(); pv.ac.close(); } catch (e) {} pv = null; } listen.textContent = '▶ ' + t('vm_listenPart'); };
+      listen.onclick = () => {
+        if (pv) { stopPv(); return; }
+        stopPreview();
+        const ac = new AudioContext(), tot = Math.max(1, timeline().total);
+        pv = { ac, src: musicSource(ac, ac.destination, 0, tot) };
+        pv.src.onended = stopPv; listen.textContent = '⏹ ' + t('vm_stopListen');
+        setTimeout(() => { if (pv && pv.ac === ac) stopPv(); }, tot * 1000 + 300);
+      };
+      const draw = () => {
+        if (!wv.isConnected && waveRedraw === draw && !document.body.contains(wv)) return;
+        const c = wv.getContext('2d'), W = wv.width, Hh = wv.height, d = V.music.duration, tot = timeline().total;
+        V.musicStart = clamp(V.musicStart, 0, Math.max(0, d - Math.min(tot, d)));
+        const x0 = V.musicStart / d * W, x1 = Math.min(W, (V.musicStart + tot) / d * W);
+        c.clearRect(0, 0, W, Hh);
+        const css = getComputedStyle(document.documentElement);
+        const pri = css.getPropertyValue('--primary').trim() || '#5b4fe0';
+        c.fillStyle = 'rgba(128,128,128,.12)'; c.fillRect(0, 0, W, Hh);
+        c.fillStyle = pri; c.globalAlpha = .18; c.fillRect(x0, 0, x1 - x0, Hh); c.globalAlpha = 1;
+        const p = V.peaks, bw = W / p.length;
+        for (let i = 0; i < p.length; i++) { const x = i * bw, hh = Math.max(2, p[i] * Hh * .9); c.fillStyle = x >= x0 && x <= x1 ? pri : 'rgba(128,128,128,.55)'; c.fillRect(x, (Hh - hh) / 2, Math.max(1, bw - 1), hh); }
+        c.strokeStyle = pri; c.lineWidth = 4; c.strokeRect(x0 + 2, 2, Math.max(4, x1 - x0 - 4), Hh - 4);
+        info.textContent = t('vm_from', fmt(V.musicStart), fmt(Math.min(d, V.musicStart + tot)));
+        note.textContent = d - V.musicStart < tot ? t('vm_loopNote') : '';
+      };
+      waveRedraw = draw;
+      let drag = null;
+      wv.addEventListener('pointerdown', e => {
+        const r = wv.getBoundingClientRect(), d = V.music.duration, sec = (e.clientX - r.left) / r.width * d;
+        const tot = timeline().total;
+        drag = { off: sec >= V.musicStart && sec <= V.musicStart + tot ? sec - V.musicStart : Math.min(tot, d) / 2 };
+        V.musicStart = sec - drag.off; draw(); stopPv(); wv.setPointerCapture(e.pointerId);
+      });
+      wv.addEventListener('pointermove', e => { if (!drag) return; const r = wv.getBoundingClientRect(); V.musicStart = (e.clientX - r.left) / r.width * V.music.duration - drag.off; draw(); });
+      wv.addEventListener('pointerup', () => { drag = null; });
+      setTimeout(draw, 0);
+      return h('div', { class: 'vm-trim' }, h('small', { class: 'muted', text: '✂ ' + t('vm_trim') }), wv, h('div', { class: 'vm-trim-row' }, info, listen), note);
+    };
+    const music = h('input', { type: 'file', accept: 'audio/*,video/*', hidden: true });
     music.onchange = async () => {
       const f = music.files[0]; if (!f) return;
-      try { const ac = new (window.AudioContext || window.webkitAudioContext)(); V.music = await ac.decodeAudioData(await f.arrayBuffer()); ac.close(); V.musicName = f.name; redraw(); }
-      catch (e) { toast(t('error') + e.message, true); }
+      try { const ac = new (window.AudioContext || window.webkitAudioContext)(); busy(t('loading')); V.music = await ac.decodeAudioData(await f.arrayBuffer()); ac.close(); V.musicName = f.name; V.musicStart = 0; V.peaks = computePeaks(V.music); done(); redraw(); }
+      catch (e) { done(); toast(t('error') + e.message, true); }
     };
     const fades = h('input', { type: 'checkbox' }); fades.checked = V.fades; fades.onchange = () => { V.fades = fades.checked; };
     const vol = h('input', { type: 'range', min: 0, max: 1, step: .05 }); vol.value = V.volume; vol.oninput = () => { V.volume = +vol.value; };
@@ -269,8 +336,9 @@ function render(root) {
       h('label', { class: 'tcheck' }, fades, t('vm_fadeIn')),
       h('div', { class: 'tf-row' },
         h('div', { class: 'tdrop-wrap' }, h('label', { class: 'tdrop' + (V.music ? ' has' : '') }, h('b', { text: '🎵 ' + t('vm_music') }), h('span', { text: V.music ? '✓ ' + V.musicName : t('tl_choose') }), music),
-          V.music ? h('button', { type: 'button', class: 'btn small danger', onclick: () => { V.music = null; V.musicName = ''; redraw(); } }, '✕') : null),
-        V.music ? h('label', { class: 'tf' }, h('span', { text: t('vm_volume') }), vol) : h('span')));
+          V.music ? h('button', { type: 'button', class: 'btn small danger', onclick: () => { V.music = null; V.musicName = ''; V.peaks = null; redraw(); } }, '✕') : null),
+        V.music ? h('label', { class: 'tf' }, h('span', { text: t('vm_volume') }), vol) : h('span')),
+      V.music ? trimBox() : null);
   }
   // preview
   const cv = h('canvas', { class: 'vm-canvas', width: 1280, height: 720 });
@@ -281,7 +349,7 @@ function render(root) {
   side.append(totalEl, h('div', { class: 'tool-canvas' }, cv), scrub, h('div', { class: 'pager' }, playBtn, time), exp, h('p', { class: 'muted small', text: t('vm_exportNote') }));
   const ctx = cv.getContext('2d');
   let cur = 0;
-  const updTotal = () => { const { total } = timeline(); totalEl.textContent = t('vm_total', fmt(total)); time.textContent = `${fmt(cur)} / ${fmt(total)}`; };
+  const updTotal = () => { if (waveRedraw && V.music) waveRedraw(); const { total } = timeline(); totalEl.textContent = t('vm_total', fmt(total)); time.textContent = `${fmt(cur)} / ${fmt(total)}`; };
   const drawStill = () => { drawFrame(ctx, cur, 1280, 720); updTotal(); scrub.value = timeline().total ? cur / timeline().total * 1000 : 0; };
   const seekTo = s => { cur = s; drawStill(); };
   scrub.oninput = () => { stopPreview(); cur = scrub.value / 1000 * timeline().total; drawStill(); };
@@ -291,7 +359,7 @@ function render(root) {
     if (cur >= total - .05) cur = 0;
     const t0 = performance.now() - cur * 1000;
     let src = null, ac = null;
-    if (V.music) { ac = new AudioContext(); src = ac.createBufferSource(); src.buffer = V.music; const g = ac.createGain(); g.gain.value = V.volume; src.connect(g).connect(ac.destination); src.start(0, cur % V.music.duration); }
+    if (V.music) { ac = new AudioContext(); src = musicSource(ac, ac.destination, cur, total); }
     playBtn.textContent = '⏸ ' + t('vm_pause');
     const step = () => {
       cur = (performance.now() - t0) / 1000;
@@ -317,10 +385,8 @@ async function exportVideo() {
   const stream = cv.captureStream(30);
   let ac = null, src = null;
   if (V.music) {
-    ac = new AudioContext(); const dest = ac.createMediaStreamDestination();
-    src = ac.createBufferSource(); src.buffer = V.music; src.loop = V.music.duration < total;
-    const g = ac.createGain(); g.gain.setValueAtTime(V.volume, ac.currentTime); g.gain.setValueAtTime(V.volume, ac.currentTime + Math.max(0, total - 1.5)); g.gain.linearRampToValueAtTime(0, ac.currentTime + total);
-    src.connect(g).connect(dest); dest.stream.getAudioTracks().forEach(tr => stream.addTrack(tr));
+    ac = new AudioContext(); const dest = ac.createMediaStreamDestination(); ac._dest = dest;
+    dest.stream.getAudioTracks().forEach(tr => stream.addTrack(tr));
   }
   const mime = ['video/mp4;codecs=avc1,mp4a', 'video/mp4;codecs=avc1', 'video/webm;codecs=vp9,opus', 'video/webm;codecs=vp8,opus', 'video/webm', 'video/mp4'].find(m => MediaRecorder.isTypeSupported(m)) || '';
   const rec = new MediaRecorder(stream, mime ? { mimeType: mime, videoBitsPerSecond: H >= 1080 ? 8_000_000 : 5_000_000 } : undefined);
@@ -341,7 +407,7 @@ async function exportVideo() {
     toast(t('vm_ready'));
   };
   rec.start(500);
-  if (src) src.start();
+  if (ac) src = musicSource(ac, ac._dest, 0, total);
   t0 = performance.now();
   const step = () => {
     const T = (performance.now() - t0) / 1000;
