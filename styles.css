@@ -750,3 +750,8 @@ body.edit-mode .tx-hover{outline:2px dashed var(--accent);outline-offset:2px;bor
 .story-ic{font-size:40px}
 .story-img{width:100%;max-height:340px;object-fit:contain;border-radius:16px;margin-bottom:12px;background:var(--bg-2)}
 .story-text{white-space:pre-wrap;font:600 19px/1.8 var(--font);max-height:60vh;overflow:auto}
+.slide .snd{position:absolute;top:8px;inset-inline-start:48px;z-index:2;width:34px;height:34px;border-radius:10px;border:0;background:rgba(255,255,255,.92);box-shadow:0 2px 8px rgba(0,0,0,.2);font-size:16px;cursor:pointer;display:grid;place-items:center;opacity:.55}
+.slide:hover .snd,.slide .snd.on{opacity:1}
+.slide .snd.on{background:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 35%,transparent)}
+.aud-opts{display:flex;flex-direction:column;gap:6px;margin:6px 0 12px}
+#pAudio.playing{background:var(--primary);color:#fff;border-radius:999px}

@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    slideAudio: 'Slide audio', slideAudioHint: 'Record or upload a sound for this slide (an explanation, a nasheed, a sound effect). It plays in the presentation of this language.', audPlayQ: 'When does it play?', audAuto: 'Automatically when the slide opens', audManual: 'Only when I press 🔊', audAfterQ: 'When the audio ends:', audStay: 'Stay on this slide (I press next)', audNext: 'Go to the next slide automatically',
     extrasTitle: 'More about this lesson', extrasManage: 'Add / edit moons', extrasHint: 'Moons float around the lesson on the map: extra videos, stories or websites about the same lesson. Choose a language to show one only in that language.', extra_video: 'Video', extra_story: 'Story', extra_link: 'Website', extraAllLangs: 'All languages', extraTitle: 'Title', extraTitlePh: 'e.g. The story of the ark', extraLang: 'Show in', extraYoutube: 'YouTube link', extraUrl: 'Website address', extraText: 'Story text', extraTextPh: 'Write or paste the story here…', extraPic: 'Picture (optional)', extraUploaded: 'video uploaded', extraNeedUrl: 'Please paste a web address starting with https://', extraNeedVideo: 'Paste a YouTube link or upload a video.', extraNeedText: 'Write the story text.', confirmDelete: 'Delete this?',
     finishSub: 'You finished the lesson!',
     addPics: 'Add pictures', 
@@ -159,6 +160,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    slideAudio: 'صوت الشريحة', slideAudioHint: 'سجّل أو ارفع صوتًا لهذه الشريحة (شرح، أنشودة، مؤثر صوتي). يعمل في عرض هذه اللغة.', audPlayQ: 'متى يعمل الصوت؟', audAuto: 'تلقائيًا عند فتح الشريحة', audManual: 'فقط عندما أضغط 🔊', audAfterQ: 'عند انتهاء الصوت:', audStay: 'ابقَ على الشريحة (أضغط التالي بنفسي)', audNext: 'انتقل إلى الشريحة التالية تلقائيًا',
     extrasTitle: 'المزيد عن هذا الدرس', extrasManage: 'إضافة / تعديل الأقمار', extrasHint: 'الأقمار تدور حول الدرس على الخريطة: فيديوهات أو قصص أو مواقع إضافية عن نفس الدرس. اختر لغة لإظهار القمر في تلك اللغة فقط.', extra_video: 'فيديو', extra_story: 'قصة', extra_link: 'موقع', extraAllLangs: 'كل اللغات', extraTitle: 'العنوان', extraTitlePh: 'مثلًا: قصة السفينة', extraLang: 'يظهر في', extraYoutube: 'رابط يوتيوب', extraUrl: 'عنوان الموقع', extraText: 'نص القصة', extraTextPh: 'اكتب القصة أو الصقها هنا…', extraPic: 'صورة (اختياري)', extraUploaded: 'تم رفع الفيديو', extraNeedUrl: 'الصق عنوانًا يبدأ بـ https://', extraNeedVideo: 'الصق رابط يوتيوب أو ارفع فيديو.', extraNeedText: 'اكتب نص القصة.', confirmDelete: 'حذف هذا؟',
     finishSub: 'أنهيت الدرس!',
     addPics: 'إضافة صور', 
@@ -247,6 +249,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    slideAudio: 'Dian ääni', slideAudioHint: 'Äänitä tai lataa ääni tälle dialle (selitys, nasheed, ääniefekti). Se soi tämän kielen esityksessä.', audPlayQ: 'Milloin ääni soi?', audAuto: 'Automaattisesti, kun dia avautuu', audManual: 'Vain kun painan 🔊', audAfterQ: 'Kun ääni loppuu:', audStay: 'Pysy tällä dialla (painan itse seuraava)', audNext: 'Siirry seuraavaan diaan automaattisesti',
     extrasTitle: 'Lisää tästä oppitunnista', extrasManage: 'Lisää / muokkaa kuita', extrasHint: 'Kuut kiertävät oppituntia kartalla: lisävideoita, tarinoita tai verkkosivuja samasta aiheesta. Valitse kieli, jos kuu näkyy vain sillä kielellä.', extra_video: 'Video', extra_story: 'Tarina', extra_link: 'Verkkosivu', extraAllLangs: 'Kaikki kielet', extraTitle: 'Otsikko', extraTitlePh: 'esim. Arkin tarina', extraLang: 'Näytä', extraYoutube: 'YouTube-linkki', extraUrl: 'Verkkosivun osoite', extraText: 'Tarinan teksti', extraTextPh: 'Kirjoita tai liitä tarina tähän…', extraPic: 'Kuva (valinnainen)', extraUploaded: 'video ladattu', extraNeedUrl: 'Liitä osoite, joka alkaa https://', extraNeedVideo: 'Liitä YouTube-linkki tai lataa video.', extraNeedText: 'Kirjoita tarinan teksti.', confirmDelete: 'Poistetaanko?',
     finishSub: 'Suoritit oppitunnin!',
     addPics: 'Lisää kuvia', 
@@ -1364,7 +1367,7 @@ async function renderEditor(lessonId, lang) {
         if (!state.editor || state.editor.token !== token) return;
         await addSource(bytes, false);
         const hid = hiddenPages(f);
-        state.editor.items.forEach(it => { if (!isSpecial(it) && hid.has(it.page)) it.hidden = true; });
+        state.editor.items.forEach(it => { if (!isSpecial(it) && hid.has(it.page)) it.hidden = true; if (!isSpecial(it) && f.audio && f.audio[it.page]) it.audio = { ...f.audio[it.page] }; });
       } catch (e) { toast(t('error') + e.message, true); }
     }
     mergeQuizSlides(state.editor, ls);
@@ -1442,6 +1445,7 @@ function drawSlides() {
     } }, it.hidden ? '🙈' : '👁');
     const el = h('div', { class: 'slide' + (it.isNew ? ' new' : '') + (it.quiz ? ' is-quiz' : '') + (it.media ? ' is-media' : '') + (it.hidden ? ' is-hidden' : ''), 'data-key': it.key },
       thumb, eye,
+      isSpecial(it) ? null : h('button', { class: 'snd' + (it.audio ? ' on' : ''), type: 'button', title: t('slideAudio'), onclick: e => { e.stopPropagation(); openSlideAudio(it); } }, it.audio ? (it.audio.play === 'auto' ? '🔊' : '🔈') : '🎵'),
       h('div', { class: 'num' },
         h('b', { text: `${t('slide')} ${i + 1}` }),
         it.isNew ? h('span', { class: 'chip', text: t('added') }) : null,
@@ -1455,7 +1459,7 @@ function drawSlides() {
   });
   if (slideSortable) slideSortable.destroy();
   slideSortable = window.Sortable ? Sortable.create(grid, {
-    animation: 170, ghostClass: 'sortable-ghost', filter: '.del,.eye', preventOnFilter: false,
+    animation: 170, ghostClass: 'sortable-ghost', filter: '.del,.eye,.snd', preventOnFilter: false,
     onEnd: () => {
       const keys = [...grid.children].map(c => c.dataset.key);
       const map = new Map(ed.items.map(x => [x.key, x]));
@@ -1603,6 +1607,8 @@ $('saveSlidesBtn').onclick = async () => {
     if (files[ed.lang]) {
       const hid = pdfItems.map((it, k) => it.hidden ? k + 1 : 0).filter(Boolean);
       if (hid.length) files[ed.lang].hidden = hid; else delete files[ed.lang].hidden;
+      const au = {}; pdfItems.forEach((it, k) => { if (it.audio && it.audio.path) au[k + 1] = it.audio; });
+      if (Object.keys(au).length) files[ed.lang].audio = au; else delete files[ed.lang].audio;
     }
     busy(t('saving'));
     const quiz = { ...(ls.quiz || {}) };
@@ -1835,7 +1841,7 @@ async function present(ls, lang) {
   try {
     const doc = await getDoc(f.path);
     const hid = hiddenPages(f);
-    startDeck(withQuizSlides(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1 })), specialsFor(ls, lang)).filter(p => p.quiz || p.media || !hid.has(p.page)).concat([{ finish: true }]));
+    startDeck(withQuizSlides(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1, audio: f.audio && f.audio[k + 1] })), specialsFor(ls, lang)).filter(p => p.quiz || p.media || !hid.has(p.page)).concat([{ finish: true }]));
     P.lang = lang;
   } catch (e) { closePresenter(); toast(t('error') + e.message, true); }
 }
@@ -1844,7 +1850,7 @@ function presentEditorDraft() {
   openPresenter();
   P.lessonId = null;
   P.lang = ed.lang;
-  startDeck(ed.items.filter(it => !it.hidden).map(it => it.quiz ? { quiz: localQuiz(it.quiz, ed.lang) } : it.media ? { media: it.media } : { doc: ed.sources[it.src].doc, page: it.page }));
+  startDeck(ed.items.filter(it => !it.hidden).map(it => it.quiz ? { quiz: localQuiz(it.quiz, ed.lang) } : it.media ? { media: it.media } : { doc: ed.sources[it.src].doc, page: it.page, audio: it.audio }));
 }
 function openPresenter() {
   const el = $('presenter'); el.hidden = false; document.body.style.overflow = 'hidden';
@@ -1853,6 +1859,74 @@ function openPresenter() {
     el.requestFullscreen({ navigationUI: 'hide' }).then(() => { P.fs = true; }).catch(() => { P.fs = false; });
   }
   pokeUI();
+}
+/* ── per-slide audio ── */
+const slideAudio = new Audio();
+function setAudioBtn(a) { const b = $('pAudio'); if (!b) return; b.hidden = !a; b.textContent = '🔊'; b.classList.remove('playing'); }
+function slideAudioStop() { try { slideAudio.pause(); } catch (e) {} slideAudio.onended = null; const b = $('pAudio'); if (b) { b.classList.remove('playing'); b.textContent = '🔊'; } }
+async function slideAudioPlay(a, token) {
+  const u = await api.mediaUrl(a.path); if (!u || (token && token !== P.token)) return;
+  slideAudio.src = u; slideAudio.currentTime = 0;
+  slideAudio.onended = () => { const b = $('pAudio'); if (b) { b.classList.remove('playing'); b.textContent = '🔊'; } if (a.after === 'next' && P.pages && P.token === (token || P.token)) showSlide(P.i + 1); };
+  try { await slideAudio.play(); const b = $('pAudio'); if (b) { b.classList.add('playing'); b.textContent = '⏸'; } } catch (e) { /* autoplay blocked: the 🔊 button still works */ }
+}
+$('pAudio').onclick = e => {
+  e.stopPropagation(); const a = P.pages && P.pages[P.i] && P.pages[P.i].audio; if (!a) return;
+  if (!slideAudio.paused) { slideAudio.pause(); $('pAudio').classList.remove('playing'); $('pAudio').textContent = '▶'; }
+  else if (slideAudio.src && slideAudio.currentTime > 0 && !slideAudio.ended) { slideAudio.play(); $('pAudio').classList.add('playing'); $('pAudio').textContent = '⏸'; }
+  else slideAudioPlay(a, P.token);
+};
+let audDlg = null;
+function openSlideAudio(it) {
+  const ed = state.editor; if (!ed) return;
+  if (!audDlg) { audDlg = h('div', { class: 'modal', hidden: true }); audDlg.addEventListener('click', e => { if (e.target === audDlg || e.target.closest('[data-x]')) { stopRec(); audDlg.hidden = true; } }); document.body.append(audDlg); }
+  const cur = it.audio || { play: 'auto', after: 'stay' };
+  let blob = null, removed = false, rec = null;
+  const stopRec = () => { if (rec && rec.state !== 'inactive') rec.stop(); };
+  const prev = h('audio', { controls: true, style: 'width:100%', hidden: !cur.path });
+  if (cur.path) api.mediaUrl(cur.path).then(u => { prev.src = u; });
+  const status = h('small', { class: 'muted', text: cur.path ? '' : t('ls_noSound') });
+  const fIn = h('input', { type: 'file', accept: 'audio/*', hidden: true });
+  fIn.onchange = () => { const f = fIn.files[0]; if (!f) return; if (f.size > 50 * 1024 * 1024) { toast(t('mediaTooBig'), true); return; } blob = f; removed = false; prev.src = URL.createObjectURL(f); prev.hidden = false; status.textContent = '✓ ' + f.name; };
+  const recBtn = h('button', { type: 'button', class: 'btn' }, '🎙 ', t('ls_record'));
+  recBtn.onclick = async () => {
+    if (rec && rec.state === 'recording') { stopRec(); return; }
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } });
+      const chunks = []; rec = new MediaRecorder(stream);
+      rec.ondataavailable = ev => ev.data.size && chunks.push(ev.data);
+      rec.onstop = () => { stream.getTracks().forEach(tr => tr.stop()); blob = new Blob(chunks, { type: rec.mimeType || 'audio/webm' }); removed = false; prev.src = URL.createObjectURL(blob); prev.hidden = false; status.textContent = t('ls_newSound'); recBtn.textContent = '🎙 ' + t('ls_record'); recBtn.classList.remove('danger'); };
+      rec.start(); recBtn.textContent = '⏹ ' + t('ls_stopRec'); recBtn.classList.add('danger'); status.textContent = '● REC';
+    } catch (err) { toast(t('micDenied'), true); }
+  };
+  const radio = (name, val, label, checked) => { const r = h('input', { type: 'radio', name, value: val }); r.checked = checked; return h('label', { class: 'tcheck' }, r, label); };
+  const form = h('form', { class: 'modal-card' },
+    h('h2', {}, '🎵 ', t('slideAudio')),
+    h('p', { class: 'muted', text: t('slideAudioHint') }),
+    prev, status,
+    h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;margin:10px 0' }, recBtn, h('label', { class: 'btn' }, '⬆ ', t('ls_upload'), fIn),
+      cur.path ? h('button', { type: 'button', class: 'btn danger', onclick: () => { removed = true; blob = null; prev.hidden = true; status.textContent = t('ls_noSound'); } }, '🗑 ', t('ls_removeSound')) : null),
+    h('b', { text: t('audPlayQ') }),
+    h('div', { class: 'aud-opts' }, radio('play', 'auto', '▶ ' + t('audAuto'), cur.play !== 'manual'), radio('play', 'manual', '🔊 ' + t('audManual'), cur.play === 'manual')),
+    h('b', { text: t('audAfterQ') }),
+    h('div', { class: 'aud-opts' }, radio('after', 'stay', '✋ ' + t('audStay'), cur.after !== 'next'), radio('after', 'next', '⏭ ' + t('audNext'), cur.after === 'next')),
+    h('div', { class: 'modal-foot' }, h('button', { type: 'button', class: 'btn', 'data-x': '' }, t('cancel')), h('button', { type: 'submit', class: 'btn primary' }, t('save'))));
+  form.onsubmit = async e => {
+    e.preventDefault(); stopRec();
+    const play = form.querySelector('input[name=play]:checked').value, after = form.querySelector('input[name=after]:checked').value;
+    await guard(async () => {
+      if (removed) { if (cur.path) api.removeMedia([cur.path]).catch(() => {}); delete it.audio; }
+      else if (blob) {
+        const ext = (blob.name && /\.(\w+)$/.test(blob.name)) ? RegExp.$1.toLowerCase() : ((blob.type.split('/')[1] || 'webm').split(';')[0]);
+        const path = `audio/${ed.lessonId}/${uid()}.${ext}`;
+        await api.uploadMedia(path, blob);
+        it.audio = { path, play, after };
+      } else if (it.audio) { it.audio = { ...it.audio, play, after }; }
+      else { toast(t('ls_noSound'), true); return; }
+      ed.dirty = true; audDlg.hidden = true; drawSlides();
+    }, t('uploading'));
+  };
+  audDlg.innerHTML = ''; audDlg.append(form); audDlg.hidden = false;
 }
 function startDeck(pages) { P.pages = pages; P.i = 0; P.cache.clear(); P.token++; showSlide(0); }
 function showPresenterMessage(msg) {
@@ -1877,6 +1951,7 @@ async function showSlide(i) {
   P.i = i;
   $('pCount').textContent = `${i + 1} / ${P.pages.length}`;
   const token = ++P.token;
+  slideAudioStop(); setAudioBtn(P.pages[i].audio);
   $('stage').querySelector('.p-quiz')?.remove(); $('stage').querySelector('.p-media')?.remove(); $('stage').querySelector('.p-finish')?.remove(); $('slideCanvas').style.visibility = '';
   if (P.pages[i].finish) {   // closing slide added after the last real slide (never part of the PDF)
     showPresenterMessage(null); $('slideCanvas').style.visibility = 'hidden';
@@ -1908,6 +1983,7 @@ async function showSlide(i) {
     const c = $('slideCanvas');
     c.width = src.width; c.height = src.height; c.style.width = src.style.width; c.style.height = src.style.height;
     c.getContext('2d').drawImage(src, 0, 0);
+    if (P.pages[i].audio && P.pages[i].audio.play === 'auto') slideAudioPlay(P.pages[i].audio, token);
     // warm up neighbours
     if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
     if (i > 0 && P.pages[i - 1].doc) renderSlideCanvas(i - 1);
@@ -1921,6 +1997,7 @@ function celebrate() {
   clearTimeout(celebrate.t); celebrate.t = setTimeout(() => { box.hidden = true; box.innerHTML = ''; }, 3200);
 }
 function closePresenter() {
+  slideAudioStop();
   $('stage').querySelector('.p-media')?.remove();
   $('celebrate').hidden = true;
   const wasLesson = P.lessonId; P.lessonId = null;
