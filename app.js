@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    libMore: 'More results', libBusy: 'Too many searches in a short time — wait a minute and try again.',
     transSlide: 'Transition into this slide', transSlideTitle: 'Transition into this slide', transDefault: d => `Lesson default (${d})`, transSlideNote: 'The lesson default is set with ✨ in the presenter bar. Press Save to keep.',
     transTitle: 'Slide transition', tr_none: 'None', tr_fade: 'Fade', tr_slide: 'Slide', tr_zoom: 'Zoom', tr_flip: 'Flip', tr_dip: 'Dip to black', tr_cover: 'Cover', tr_random: 'Random', transSavedLesson: 'Transition saved for this lesson ✓', transSavedMe: 'Transition saved on this device ✓', transNoteAdmin: 'Saved for this lesson — everyone sees it.', transNoteMe: 'Saved on this device only.',
     libOpen: 'Sound library', libTitle: 'Sound library', libSearchTab: 'Search free sounds', libMineTab: 'My sounds', libSearchPh: 'e.g. applause, bell, rain, camel, door…', libSearchBtn: 'Search', libCatFx: 'Sound effects', libCatMusic: 'Music', libCatAll: 'Everything', libSearchHint: 'Type a word in English and press Search.', libSearchNote: 'Free sounds from Openverse / Freesound. Search in English. CC0 ✓ = free to use with no credit; other licences ask you to credit the author (shown under the sound).', libNoResults: 'Nothing found — try another (English) word.', libSearchFail: 'Search is not reachable right now. Check the internet connection and try again.', libAdd: 'Add', libFilterPh: 'Filter by name…', libEmpty: 'No sounds yet. Sounds you upload, record or add from the search are kept here for every lesson.', libRename: 'Name of this sound:', libRemove: 'Remove from the library', libRemoveQ: 'Remove this sound from the library? Slides that already use it keep working.',
@@ -164,6 +165,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    libMore: 'نتائج أكثر', libBusy: 'عمليات بحث كثيرة في وقت قصير — انتظر دقيقة وحاول مرة أخرى.',
     transSlide: 'الانتقال إلى هذه الشريحة', transSlideTitle: 'الانتقال إلى هذه الشريحة', transDefault: d => `افتراضي الدرس (${d})`, transSlideNote: 'افتراضي الدرس يُضبط من ✨ في شريط العرض. اضغط حفظ للاحتفاظ بالتغيير.',
     transTitle: 'الانتقال بين الشرائح', tr_none: 'بدون', tr_fade: 'تلاشي', tr_slide: 'انزلاق', tr_zoom: 'تكبير', tr_flip: 'قلب', tr_dip: 'تلاشي للأسود', tr_cover: 'تغطية', tr_random: 'عشوائي', transSavedLesson: 'حُفظ الانتقال لهذا الدرس ✓', transSavedMe: 'حُفظ الانتقال على هذا الجهاز ✓', transNoteAdmin: 'يُحفظ لهذا الدرس — يراه الجميع.', transNoteMe: 'يُحفظ على هذا الجهاز فقط.',
     libOpen: 'مكتبة الأصوات', libTitle: 'مكتبة الأصوات', libSearchTab: 'ابحث في أصوات مجانية', libMineTab: 'أصواتي', libSearchPh: 'مثلًا: applause، bell، rain، camel، door…', libSearchBtn: 'بحث', libCatFx: 'مؤثرات صوتية', libCatMusic: 'موسيقى', libCatAll: 'الكل', libSearchHint: 'اكتب كلمة بالإنجليزية واضغط بحث.', libSearchNote: 'أصوات مجانية من Openverse / Freesound. ابحث بالإنجليزية. CC0 ✓ = مجاني بدون ذكر المصدر؛ التراخيص الأخرى تطلب ذكر صاحب الصوت (يظهر تحت الصوت).', libNoResults: 'لم يُعثر على شيء — جرّب كلمة إنجليزية أخرى.', libSearchFail: 'البحث غير متاح الآن. تحقق من الإنترنت وحاول مرة أخرى.', libAdd: 'إضافة', libFilterPh: 'تصفية بالاسم…', libEmpty: 'لا توجد أصوات بعد. الأصوات التي ترفعها أو تسجلها أو تضيفها من البحث تُحفظ هنا لكل الدروس.', libRename: 'اسم هذا الصوت:', libRemove: 'إزالة من المكتبة', libRemoveQ: 'إزالة هذا الصوت من المكتبة؟ الشرائح التي تستخدمه ستظل تعمل.',
@@ -257,6 +259,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    libMore: 'Lisää tuloksia', libBusy: 'Liian monta hakua lyhyessä ajassa — odota hetki ja yritä uudelleen.',
     transSlide: 'Siirtymä tähän diaan', transSlideTitle: 'Siirtymä tähän diaan', transDefault: d => `Oppitunnin oletus (${d})`, transSlideNote: 'Oppitunnin oletus valitaan ✨-painikkeesta esityspalkissa. Tallenna painamalla Tallenna.',
     transTitle: 'Diasiirtymä', tr_none: 'Ei mitään', tr_fade: 'Häivytys', tr_slide: 'Liu’utus', tr_zoom: 'Zoomaus', tr_flip: 'Käännös', tr_dip: 'Häivytys mustaan', tr_cover: 'Peitto', tr_random: 'Satunnainen', transSavedLesson: 'Siirtymä tallennettu tälle oppitunnille ✓', transSavedMe: 'Siirtymä tallennettu tälle laitteelle ✓', transNoteAdmin: 'Tallentuu tälle oppitunnille — kaikki näkevät sen.', transNoteMe: 'Tallentuu vain tälle laitteelle.',
     libOpen: 'Äänikirjasto', libTitle: 'Äänikirjasto', libSearchTab: 'Hae ilmaisia ääniä', libMineTab: 'Omat äänet', libSearchPh: 'esim. applause, bell, rain, camel, door…', libSearchBtn: 'Hae', libCatFx: 'Ääniefektit', libCatMusic: 'Musiikki', libCatAll: 'Kaikki', libSearchHint: 'Kirjoita sana englanniksi ja paina Hae.', libSearchNote: 'Ilmaisia ääniä Openversesta / Freesoundista. Hae englanniksi. CC0 ✓ = vapaa käyttää ilman mainintaa; muut lisenssit pyytävät mainitsemaan tekijän (näkyy äänen alla).', libNoResults: 'Ei tuloksia — kokeile toista englanninkielistä sanaa.', libSearchFail: 'Haku ei ole juuri nyt saatavilla. Tarkista internetyhteys ja yritä uudelleen.', libAdd: 'Lisää', libFilterPh: 'Suodata nimellä…', libEmpty: 'Ei vielä ääniä. Lataamasi, äänittämäsi tai hausta lisäämäsi äänet säilyvät täällä kaikille oppitunneille.', libRename: 'Äänen nimi:', libRemove: 'Poista kirjastosta', libRemoveQ: 'Poistetaanko ääni kirjastosta? Sitä jo käyttävät diat toimivat edelleen.',
@@ -1949,20 +1952,28 @@ function openSoundPicker(onAdd) {
         h('button', { type: 'button', class: tab === 'mine' ? 'active' : '', onclick: () => { tab = 'mine'; draw(); } }, '🎵 ', t('libMineTab'))));
     if (tab === 'search') drawSearch(); else drawMine();
   };
-  let lastQ = '', lastCat = 'sound_effect', lastRes = null;
+  let lastQ = '', lastCat = 'sound_effect', lastRes = null, lastPage = 1, lastMore = false;
   const drawSearch = () => {
     const q = h('input', { type: 'search', dir: 'ltr', placeholder: t('libSearchPh') }); q.value = lastQ;
     const cat = h('select', {}, [['sound_effect', t('libCatFx')], ['music', t('libCatMusic')], ['', t('libCatAll')]].map(([v, n]) => h('option', { value: v, text: n }))); cat.value = lastCat;
     const res = h('div', { class: 'lib-list' });
-    const go = async () => {
-      lastQ = q.value.trim(); lastCat = cat.value; if (!lastQ) return;
-      res.innerHTML = ''; res.append(h('div', { class: 'spinner' }));
+    const go = async more => {
+      if (!more) { lastQ = q.value.trim(); lastCat = cat.value; lastPage = 1; lastRes = null; } else lastPage++;
+      if (!lastQ) return;
+      if (!more) { res.innerHTML = ''; res.append(h('div', { class: 'spinner' })); }
       try {
-        const u = new URL('https://api.openverse.org/v1/audio/'); u.searchParams.set('q', lastQ); u.searchParams.set('page_size', '30');
-        if (lastCat) u.searchParams.set('category', lastCat);
-        const r = await fetch(u); if (!r.ok) throw new Error(r.status);
-        lastRes = (await r.json()).results || []; showRes();
-      } catch (e) { res.innerHTML = ''; res.append(h('p', { class: 'muted', text: t('libSearchFail') })); }
+        // anonymous Openverse requests: max 20 results per page
+        const u = new URL('https://api.openverse.org/v1/audio/'); u.searchParams.set('q', lastQ); u.searchParams.set('page_size', '20'); u.searchParams.set('page', String(lastPage));
+        if (lastCat === 'sound_effect') u.searchParams.set('source', 'freesound');   // Openverse's own "sound effect" category is almost empty; Freesound is all effects
+        else if (lastCat === 'music') u.searchParams.set('category', 'music');
+        const r = await fetch(u);
+        if (r.status === 429) throw new Error('busy');
+        if (!r.ok) { if (more) { lastMore = false; showRes(); return; } throw new Error(r.status); }
+        const d = await r.json();
+        lastRes = (more ? lastRes || [] : []).concat(d.results || []);
+        lastMore = lastPage < (d.page_count || 1);
+        showRes();
+      } catch (e) { if (more) lastPage--; res.innerHTML = ''; res.append(h('p', { class: 'muted', text: e.message === 'busy' ? t('libBusy') : t('libSearchFail') })); }
     };
     const showRes = () => {
       res.innerHTML = '';
@@ -1985,9 +1996,10 @@ function openSoundPicker(onAdd) {
           h('div', { class: 'lib-t' }, h('b', { text: r.title }), h('small', { text: [fmtD((r.duration || 0) / 1000), r.creator, (r.license || '').toUpperCase() + (r.license === 'cc0' ? ' ✓' : ''), r.source].filter(Boolean).join(' · ') })),
           add));
       });
+      if (lastMore) res.append(h('button', { type: 'button', class: 'btn', style: 'align-self:center;margin:6px 0', onclick: ev => { ev.currentTarget.disabled = true; go(true); } }, '⬇ ', t('libMore')));
     };
-    q.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); go(); } };
-    card.append(h('div', { class: 'lib-bar' }, q, cat, h('button', { type: 'button', class: 'btn primary', onclick: go }, '🔎 ', t('libSearchBtn'))),
+    q.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); go(false); } };
+    card.append(h('div', { class: 'lib-bar' }, q, cat, h('button', { type: 'button', class: 'btn primary', onclick: () => go(false) }, '🔎 ', t('libSearchBtn'))),
       h('p', { class: 'muted small', text: t('libSearchNote') }), res);
     showRes(); setTimeout(() => q.focus(), 30);
   };
