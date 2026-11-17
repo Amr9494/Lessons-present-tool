@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    extrasTitle: 'More about this lesson', extrasManage: 'Add / edit moons', extrasHint: 'Moons float around the lesson on the map: extra videos, stories or websites about the same lesson. Choose a language to show one only in that language.', extra_video: 'Video', extra_story: 'Story', extra_link: 'Website', extraAllLangs: 'All languages', extraTitle: 'Title', extraTitlePh: 'e.g. The story of the ark', extraLang: 'Show in', extraYoutube: 'YouTube link', extraUrl: 'Website address', extraText: 'Story text', extraTextPh: 'Write or paste the story here…', extraPic: 'Picture (optional)', extraUploaded: 'video uploaded', extraNeedUrl: 'Please paste a web address starting with https://', extraNeedVideo: 'Paste a YouTube link or upload a video.', extraNeedText: 'Write the story text.', confirmDelete: 'Delete this?',
     finishSub: 'You finished the lesson!',
     addPics: 'Add pictures', 
     downloadImages: 'Download as pictures', downloadImagesHint: 'Every slide as a PNG picture in a ZIP file — for editing in PowerPoint, Canva, etc.', makingImages: (i, n) => `Making picture ${i} of ${n}…`,
@@ -158,6 +159,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    extrasTitle: 'المزيد عن هذا الدرس', extrasManage: 'إضافة / تعديل الأقمار', extrasHint: 'الأقمار تدور حول الدرس على الخريطة: فيديوهات أو قصص أو مواقع إضافية عن نفس الدرس. اختر لغة لإظهار القمر في تلك اللغة فقط.', extra_video: 'فيديو', extra_story: 'قصة', extra_link: 'موقع', extraAllLangs: 'كل اللغات', extraTitle: 'العنوان', extraTitlePh: 'مثلًا: قصة السفينة', extraLang: 'يظهر في', extraYoutube: 'رابط يوتيوب', extraUrl: 'عنوان الموقع', extraText: 'نص القصة', extraTextPh: 'اكتب القصة أو الصقها هنا…', extraPic: 'صورة (اختياري)', extraUploaded: 'تم رفع الفيديو', extraNeedUrl: 'الصق عنوانًا يبدأ بـ https://', extraNeedVideo: 'الصق رابط يوتيوب أو ارفع فيديو.', extraNeedText: 'اكتب نص القصة.', confirmDelete: 'حذف هذا؟',
     finishSub: 'أنهيت الدرس!',
     addPics: 'إضافة صور', 
     downloadImages: 'تنزيل كصور', downloadImagesHint: 'كل شريحة كصورة PNG داخل ملف ZIP — للتعديل في PowerPoint أو Canva وغيرها.', makingImages: (i, n) => `جارٍ صنع الصورة ${i} من ${n}…`,
@@ -245,6 +247,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    extrasTitle: 'Lisää tästä oppitunnista', extrasManage: 'Lisää / muokkaa kuita', extrasHint: 'Kuut kiertävät oppituntia kartalla: lisävideoita, tarinoita tai verkkosivuja samasta aiheesta. Valitse kieli, jos kuu näkyy vain sillä kielellä.', extra_video: 'Video', extra_story: 'Tarina', extra_link: 'Verkkosivu', extraAllLangs: 'Kaikki kielet', extraTitle: 'Otsikko', extraTitlePh: 'esim. Arkin tarina', extraLang: 'Näytä', extraYoutube: 'YouTube-linkki', extraUrl: 'Verkkosivun osoite', extraText: 'Tarinan teksti', extraTextPh: 'Kirjoita tai liitä tarina tähän…', extraPic: 'Kuva (valinnainen)', extraUploaded: 'video ladattu', extraNeedUrl: 'Liitä osoite, joka alkaa https://', extraNeedVideo: 'Liitä YouTube-linkki tai lataa video.', extraNeedText: 'Kirjoita tarinan teksti.', confirmDelete: 'Poistetaanko?',
     finishSub: 'Suoritit oppitunnin!',
     addPics: 'Lisää kuvia', 
     downloadImages: 'Lataa kuvina', downloadImagesHint: 'Jokainen dia PNG-kuvana ZIP-tiedostossa — muokattavaksi PowerPointissa, Canvassa ym.', makingImages: (i, n) => `Tehdään kuvaa ${i}/${n}…`,
@@ -581,12 +584,12 @@ async function guard(fn, msg) {
   finally { if (msg) done(); }
 }
 function openModal(id) { $(id).hidden = false; setTimeout(() => $(id).querySelector('input:not([type=file]),select')?.focus(), 30); }
-function closeModal(id) { $(id).hidden = true; }
+function closeModal(id) { const el = id && $(id); if (el) el.hidden = true; }
 document.querySelectorAll('.modal').forEach(m => {
   m.addEventListener('click', e => { if (e.target === m || e.target.closest('[data-close]')) closeModal(m.id); });
 });
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape' && $('presenter').hidden) document.querySelectorAll('.modal:not([hidden])').forEach(m => closeModal(m.id));
+  if (e.key === 'Escape' && $('presenter').hidden) document.querySelectorAll('.modal:not([hidden])').forEach(m => { m.querySelectorAll('video').forEach(v => v.pause()); m.hidden = true; });
 });
 
 function safeName(s) { return String(s || 'lesson').replace(/[\\/:*?"<>|]+/g, '-').trim().slice(0, 90) || 'lesson'; }
@@ -868,9 +871,11 @@ function renderJourney(lessons, color) {
     const qr = quizRes(ls.id, state.lang), hasQuiz = quizOf(ls, state.lang).length > 0;
     const sub = hiddenL ? '☁ ' + t('comingSoon') : (doneNow ? t('doneLabel') : soon ? t('soonIn', state.lang) : file ? t('slides', visiblePages(file)) + (video ? ' · 🎬' : '') : '🎬')
       + (qr ? ' · 🧠 ' + '⭐'.repeat(starsFor(qr.best, qr.total)) : hasQuiz ? ' · 🧠' : '');
+    const core = h('div', { class: 'stop-core' }, btn);
+    if (!hiddenL) addMoons(core, ls, p.x < 45 ? 1 : -1);
     const stop = h('div', { class: cls, style: `left:${p.x}%;top:${p.y}px` },
       i === nextIdx ? h('span', { class: 'next-flag', text: t('nextUp') }) : null,
-      btn,
+      core,
       h('div', { class: 'stop-label' }, ls.draft && state.isAdmin ? draftChip() : null, h('span', { text: nameOf(ls.titles), 'data-edit-name': 'lesson:' + ls.id }), h('small', { text: sub }))
     );
     stop.querySelectorAll('.stop-btn,.stop-label').forEach(el => el.addEventListener('click', () => hiddenL ? toast(t('comingSoon')) : openLessonSheet(ls)));
@@ -942,6 +947,12 @@ function openLessonSheet(ls) {
     acts.prepend(h('p', { class: 'note-soon', style: 'grid-column:1/-1;margin:0' }, t('soonIn', L) + (avail.length ? ' — ' + t('availableIn') + ' ' + avail.map(l => LANG_NAMES[l]).join(', ') : '')));
   }
 
+  const ex = extrasFor(ls);
+  if (ex.length || state.isAdmin) acts.append(h('div', { class: 'sheet-extras' },
+    h('b', { text: '🌙 ' + t('extrasTitle') }),
+    h('div', { class: 'chips' }, ex.map(x => h('button', { type: 'button', class: 'chip extra-chip' + (extraSeen(x) ? ' seen' : ''), onclick: () => openExtra(ls, x) }, (x.icon || EXTRA_ICON[x.type]) + ' ' + (x.title || t('extra_' + x.type))))),
+    state.isAdmin ? h('button', { type: 'button', class: 'btn small', onclick: () => openExtrasManager(ls) }, '＋ 🌙 ', t('extrasManage')) : null));
+
   const adm = $('sheetAdmin'); adm.innerHTML = '';
   if (state.isAdmin) {
     adm.append(
@@ -958,6 +969,133 @@ function openLessonSheet(ls) {
     );
   }
   openModal('lessonSheet');
+}
+
+/* ── Moons: extra videos / stories / websites floating around a lesson ── */
+const EXTRA_ICON = { video: '🎬', story: '📖', link: '🌐' };
+const extrasAll = ls => (ls.quiz && Array.isArray(ls.quiz.extras)) ? ls.quiz.extras : [];
+const extrasFor = ls => extrasAll(ls).filter(x => !x.lang || x.lang === 'all' || x.lang === state.lang);
+const seenExtras = readJSON('lpt.extras', {});
+const extraSeen = x => !!seenExtras[x.id];
+function markExtraSeen(x) { seenExtras[x.id] = 1; try { localStorage.setItem('lpt.extras', JSON.stringify(seenExtras)); } catch (e) {} }
+function addMoons(core, ls, side) {
+  const ex = extrasFor(ls); if (!ex.length) return;
+  const show = ex.slice(0, 6), n = show.length + (ex.length > 6 ? 1 : 0);
+  const R = 86, span = Math.min(160, 38 * (n - 1));
+  const place = (k, el) => {
+    const a = (n === 1 ? 0 : -span / 2 + span * k / (n - 1)) * Math.PI / 180;
+    el.style.left = `calc(50% + ${side * Math.cos(a) * R}px)`; el.style.top = `calc(50% + ${Math.sin(a) * R}px)`;
+    el.style.animationDelay = `${-k * .7}s`;
+  };
+  show.forEach((x, k) => {
+    const m = h('button', { type: 'button', class: 'moon moon-' + x.type + (extraSeen(x) ? ' seen' : ''), title: x.title || t('extra_' + x.type), onclick: e => { e.stopPropagation(); openExtra(ls, x); } }, h('span', { text: x.icon || EXTRA_ICON[x.type] }));
+    place(k, m); core.append(m);
+  });
+  if (ex.length > 6) { const m = h('button', { type: 'button', class: 'moon more', onclick: e => { e.stopPropagation(); openLessonSheet(ls); } }, '+' + (ex.length - 6)); place(6, m); core.append(m); }
+}
+let extraModal = null;
+function extraBox(cls) {
+  if (!extraModal) {
+    extraModal = h('div', { class: 'modal', hidden: true });
+    extraModal.addEventListener('click', e => { if (e.target === extraModal || e.target.closest('[data-x]')) closeExtra(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && extraModal && !extraModal.hidden) closeExtra(); });
+    document.body.append(extraModal);
+  }
+  extraModal.className = 'modal ' + (cls || '');
+  extraModal.innerHTML = ''; extraModal.hidden = false;
+  return extraModal;
+}
+function closeExtra() { if (!extraModal) return; extraModal.querySelectorAll('video').forEach(v => v.pause()); extraModal.hidden = true; extraModal.innerHTML = ''; }
+async function openExtra(ls, x) {
+  markExtraSeen(x);
+  document.querySelectorAll('.moon').forEach(m => { if (m.title === (x.title || t('extra_' + x.type))) m.classList.add('seen'); });
+  if (x.type === 'link') { window.open(x.url, '_blank', 'noopener'); return; }
+  if (x.type === 'video' && x.url && ytId(x.url)) { openVideo(x.url); return; }
+  if (x.type === 'video') {
+    const box = extraBox('video-modal'), u = x.src ? await api.mediaUrl(x.src) : x.url;
+    box.append(h('div', { class: 'video-wrap' }, h('button', { type: 'button', class: 'sheet-close', 'data-x': '' }, '✕'),
+      h('div', { class: 'video-frame' }, Object.assign(h('video', { controls: true, autoplay: true, playsinline: true, style: 'width:100%;height:100%;background:#000' }), { src: u }))));
+    return;
+  }
+  const box = extraBox('story-modal'), pic = x.img ? h('img', { class: 'story-img', alt: '' }) : null;
+  if (pic) api.mediaUrl(x.img).then(u => { pic.src = u; });
+  box.append(h('div', { class: 'modal-card story-card' },
+    h('button', { type: 'button', class: 'sheet-close', 'data-x': '' }, '✕'),
+    h('div', { class: 'story-head' }, h('span', { class: 'story-ic', text: x.icon || '📖' }), h('h2', { dir: 'auto', text: x.title || t('extra_story') })),
+    pic, h('div', { class: 'story-text', dir: 'auto', text: x.text || '' })));
+}
+async function saveExtras(ls, list) {
+  await api.saveLesson({ ...ls, quiz: { ...(ls.quiz || {}), extras: list } });
+  await reload();
+  return state.lessons.find(l => l.id === ls.id) || ls;
+}
+function openExtrasManager(ls) {
+  closeModal('lessonSheet');
+  const box = extraBox();
+  const card = h('div', { class: 'modal-card wide' });
+  box.append(card);
+  const draw = () => {
+    const list = extrasAll(ls);
+    card.innerHTML = '';
+    card.append(h('h2', {}, '🌙 ', t('extrasTitle'), ' — ', nameOf(ls.titles)), h('p', { class: 'muted', text: t('extrasHint') }),
+      h('div', { class: 'extras-list' }, list.length ? list.map((x, i) => h('div', { class: 'extra-row' },
+        h('span', { class: 'er-ic', text: x.icon || EXTRA_ICON[x.type] }),
+        h('div', { class: 'er-t' }, h('b', { dir: 'auto', text: x.title || t('extra_' + x.type) }), h('small', { text: t('extra_' + x.type) + ' · ' + (x.lang && x.lang !== 'all' ? LANG_NAMES[x.lang] : t('extraAllLangs')) })),
+        h('button', { type: 'button', class: 'btn small', disabled: i === 0, onclick: () => move(i, -1) }, '↑'),
+        h('button', { type: 'button', class: 'btn small', disabled: i === list.length - 1, onclick: () => move(i, 1) }, '↓'),
+        h('button', { type: 'button', class: 'btn small', onclick: () => editExtra(x) }, '✎'),
+        h('button', { type: 'button', class: 'btn small danger', onclick: () => remove(i) }, '🗑'))) : h('p', { class: 'muted', text: '—' })),
+      h('div', { class: 'row', style: 'display:flex;gap:8px;flex-wrap:wrap' },
+        ['video', 'story', 'link'].map(tp => h('button', { type: 'button', class: 'btn', onclick: () => editExtra({ type: tp, lang: 'all' }, true) }, '＋ ', EXTRA_ICON[tp], ' ', t('extra_' + tp)))),
+      h('div', { class: 'modal-foot' }, h('button', { type: 'button', class: 'btn primary', 'data-x': '' }, t('editDone'))));
+  };
+  const commit = async list => { await guard(async () => { ls = await saveExtras(ls, list); }, t('saving')); draw(); };
+  const move = (i, d) => { const l = extrasAll(ls).slice(); l.splice(i + d, 0, l.splice(i, 1)[0]); commit(l); };
+  const remove = i => { if (!confirm(t('confirmDelete'))) return; const l = extrasAll(ls).slice(); const [x] = l.splice(i, 1); const files = [x.src, x.img].filter(Boolean); if (files.length) api.removeMedia(files).catch(() => {}); commit(l); };
+  const editExtra = (x, isNew) => {
+    x = { ...x };
+    let file = null, imgFile = null;
+    const title = h('input', { type: 'text', dir: 'auto', placeholder: t('extraTitlePh') }); title.value = x.title || '';
+    const icon = h('input', { type: 'text', maxlength: 4, style: 'width:70px;text-align:center;font-size:22px' }); icon.value = x.icon || EXTRA_ICON[x.type];
+    const lang = h('select', {}, [['all', t('extraAllLangs')], ...LANGS.map(l => [l, LANG_NAMES[l]])].map(([v, n]) => h('option', { value: v, text: n }))); lang.value = x.lang || 'all';
+    const url = h('input', { type: 'url', dir: 'ltr', placeholder: x.type === 'video' ? 'https://youtube.com/watch?v=…' : 'https://…' }); url.value = x.url || '';
+    const text = h('textarea', { rows: 8, dir: 'auto', placeholder: t('extraTextPh') }); text.value = x.text || '';
+    const fIn = h('input', { type: 'file', accept: 'video/*', hidden: true }), fName = h('small', { class: 'muted', text: x.src ? '✓ ' + t('extraUploaded') : '' });
+    fIn.onchange = () => { file = fIn.files[0]; if (file && file.size > 50 * 1024 * 1024) { toast(t('mediaTooBig'), true); file = null; return; } fName.textContent = file ? '✓ ' + file.name : ''; if (file) url.value = ''; };
+    const iIn = h('input', { type: 'file', accept: 'image/*', hidden: true }), iName = h('small', { class: 'muted', text: x.img ? '✓' : '' });
+    iIn.onchange = () => { imgFile = iIn.files[0]; iName.textContent = imgFile ? '✓ ' + imgFile.name : ''; };
+    const f = (label, el) => h('label', { class: 'field' }, h('span', { text: label }), el);
+    const form = h('form', { class: 'modal-card' },
+      h('h2', {}, EXTRA_ICON[x.type], ' ', t('extra_' + x.type)),
+      h('div', { style: 'display:flex;gap:10px;align-items:end' }, f(t('ls_icon'), icon), h('div', { style: 'flex:1' }, f(t('extraTitle'), title))),
+      f(t('extraLang'), lang),
+      x.type === 'video' ? h('div', {}, f(t('extraYoutube'), url), h('div', { style: 'display:flex;gap:8px;align-items:center;margin:6px 0 10px' }, h('label', { class: 'btn small' }, '⬆ ', t('mediaUpload'), fIn), fName)) : null,
+      x.type === 'link' ? f(t('extraUrl'), url) : null,
+      x.type === 'story' ? h('div', {}, f(t('extraText'), text), h('div', { style: 'display:flex;gap:8px;align-items:center;margin:6px 0' }, h('label', { class: 'btn small' }, '🖼 ', t('extraPic'), iIn), iName)) : null,
+      h('div', { class: 'modal-foot' }, h('button', { type: 'button', class: 'btn', onclick: draw }, t('cancel')), h('button', { type: 'submit', class: 'btn primary' }, t('save'))));
+    form.onsubmit = async e => {
+      e.preventDefault();
+      x.title = title.value.trim(); x.icon = icon.value.trim() || EXTRA_ICON[x.type]; x.lang = lang.value;
+      if (x.type !== 'story') x.url = url.value.trim();
+      if (x.type === 'story') x.text = text.value.trim();
+      if (x.type === 'link' && !/^https?:\/\//i.test(x.url)) { toast(t('extraNeedUrl'), true); return; }
+      if (x.type === 'video' && !file && !x.src && !x.url) { toast(t('extraNeedVideo'), true); return; }
+      if (x.type === 'video' && x.url && !ytId(x.url) && !/^https?:\/\//i.test(x.url)) { toast(t('ytInvalid'), true); return; }
+      if (x.type === 'story' && !x.text && !imgFile && !x.img) { toast(t('extraNeedText'), true); return; }
+      await guard(async () => {
+        const up = async (fl, kind) => { const ext = (fl.name.match(/\.(\w+)$/) || [, 'bin'])[1].toLowerCase(); const p = `extras/${ls.id}/${uid()}.${ext}`; await api.uploadMedia(p, fl); return p; };
+        if (x.type === 'video' && file) { if (x.src) api.removeMedia([x.src]).catch(() => {}); x.src = await up(file); x.url = ''; }
+        else if (x.type === 'video' && x.url && x.src) { api.removeMedia([x.src]).catch(() => {}); delete x.src; }
+        if (imgFile) { if (x.img) api.removeMedia([x.img]).catch(() => {}); x.img = await up(imgFile); }
+        const l = extrasAll(ls).slice();
+        if (isNew) { x.id = uid(); l.push(x); } else l[l.findIndex(y => y.id === x.id)] = x;
+        ls = await saveExtras(ls, l);
+      }, t('saving'));
+      draw();
+    };
+    card.innerHTML = ''; card.append(form); title.focus();
+  };
+  draw();
 }
 
 /* ── YouTube ── */
