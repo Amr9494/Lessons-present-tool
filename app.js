@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    transSlide: 'Transition into this slide', transSlideTitle: 'Transition into this slide', transDefault: d => `Lesson default (${d})`, transSlideNote: 'The lesson default is set with ✨ in the presenter bar. Press Save to keep.',
     transTitle: 'Slide transition', tr_none: 'None', tr_fade: 'Fade', tr_slide: 'Slide', tr_zoom: 'Zoom', tr_flip: 'Flip', tr_dip: 'Dip to black', tr_cover: 'Cover', tr_random: 'Random', transSavedLesson: 'Transition saved for this lesson ✓', transSavedMe: 'Transition saved on this device ✓', transNoteAdmin: 'Saved for this lesson — everyone sees it.', transNoteMe: 'Saved on this device only.',
     libOpen: 'Sound library', libTitle: 'Sound library', libSearchTab: 'Search free sounds', libMineTab: 'My sounds', libSearchPh: 'e.g. applause, bell, rain, camel, door…', libSearchBtn: 'Search', libCatFx: 'Sound effects', libCatMusic: 'Music', libCatAll: 'Everything', libSearchHint: 'Type a word in English and press Search.', libSearchNote: 'Free sounds from Openverse / Freesound. Search in English. CC0 ✓ = free to use with no credit; other licences ask you to credit the author (shown under the sound).', libNoResults: 'Nothing found — try another (English) word.', libSearchFail: 'Search is not reachable right now. Check the internet connection and try again.', libAdd: 'Add', libFilterPh: 'Filter by name…', libEmpty: 'No sounds yet. Sounds you upload, record or add from the search are kept here for every lesson.', libRename: 'Name of this sound:', libRemove: 'Remove from the library', libRemoveQ: 'Remove this sound from the library? Slides that already use it keep working.',
     slideAudioHint2: 'Add one or more sounds to this slide — your voice, a nasheed, sound effects. Set each sound’s volume, and play them one after another or all together.', slideAudioTrack: n => `Sound ${n}`, audDelay: 'Start after', audAddFile: 'Add audio file(s)', audTestAll: 'Test all', audModeQ: 'How do the sounds play?', audSeq: 'One after another (in this order)', audTogether: 'All together (mixed)',
@@ -163,6 +164,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    transSlide: 'الانتقال إلى هذه الشريحة', transSlideTitle: 'الانتقال إلى هذه الشريحة', transDefault: d => `افتراضي الدرس (${d})`, transSlideNote: 'افتراضي الدرس يُضبط من ✨ في شريط العرض. اضغط حفظ للاحتفاظ بالتغيير.',
     transTitle: 'الانتقال بين الشرائح', tr_none: 'بدون', tr_fade: 'تلاشي', tr_slide: 'انزلاق', tr_zoom: 'تكبير', tr_flip: 'قلب', tr_dip: 'تلاشي للأسود', tr_cover: 'تغطية', tr_random: 'عشوائي', transSavedLesson: 'حُفظ الانتقال لهذا الدرس ✓', transSavedMe: 'حُفظ الانتقال على هذا الجهاز ✓', transNoteAdmin: 'يُحفظ لهذا الدرس — يراه الجميع.', transNoteMe: 'يُحفظ على هذا الجهاز فقط.',
     libOpen: 'مكتبة الأصوات', libTitle: 'مكتبة الأصوات', libSearchTab: 'ابحث في أصوات مجانية', libMineTab: 'أصواتي', libSearchPh: 'مثلًا: applause، bell، rain، camel، door…', libSearchBtn: 'بحث', libCatFx: 'مؤثرات صوتية', libCatMusic: 'موسيقى', libCatAll: 'الكل', libSearchHint: 'اكتب كلمة بالإنجليزية واضغط بحث.', libSearchNote: 'أصوات مجانية من Openverse / Freesound. ابحث بالإنجليزية. CC0 ✓ = مجاني بدون ذكر المصدر؛ التراخيص الأخرى تطلب ذكر صاحب الصوت (يظهر تحت الصوت).', libNoResults: 'لم يُعثر على شيء — جرّب كلمة إنجليزية أخرى.', libSearchFail: 'البحث غير متاح الآن. تحقق من الإنترنت وحاول مرة أخرى.', libAdd: 'إضافة', libFilterPh: 'تصفية بالاسم…', libEmpty: 'لا توجد أصوات بعد. الأصوات التي ترفعها أو تسجلها أو تضيفها من البحث تُحفظ هنا لكل الدروس.', libRename: 'اسم هذا الصوت:', libRemove: 'إزالة من المكتبة', libRemoveQ: 'إزالة هذا الصوت من المكتبة؟ الشرائح التي تستخدمه ستظل تعمل.',
     slideAudioHint2: 'أضف صوتًا أو أكثر لهذه الشريحة — صوتك، أنشودة، مؤثرات صوتية. اضبط مستوى كل صوت، وشغّلها واحدًا بعد الآخر أو كلها معًا.', slideAudioTrack: n => `الصوت ${n}`, audDelay: 'يبدأ بعد', audAddFile: 'إضافة ملف/ملفات صوت', audTestAll: 'تجربة الكل', audModeQ: 'كيف تعمل الأصوات؟', audSeq: 'واحدًا بعد الآخر (بهذا الترتيب)', audTogether: 'كلها معًا (ممزوجة)',
@@ -255,6 +257,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    transSlide: 'Siirtymä tähän diaan', transSlideTitle: 'Siirtymä tähän diaan', transDefault: d => `Oppitunnin oletus (${d})`, transSlideNote: 'Oppitunnin oletus valitaan ✨-painikkeesta esityspalkissa. Tallenna painamalla Tallenna.',
     transTitle: 'Diasiirtymä', tr_none: 'Ei mitään', tr_fade: 'Häivytys', tr_slide: 'Liu’utus', tr_zoom: 'Zoomaus', tr_flip: 'Käännös', tr_dip: 'Häivytys mustaan', tr_cover: 'Peitto', tr_random: 'Satunnainen', transSavedLesson: 'Siirtymä tallennettu tälle oppitunnille ✓', transSavedMe: 'Siirtymä tallennettu tälle laitteelle ✓', transNoteAdmin: 'Tallentuu tälle oppitunnille — kaikki näkevät sen.', transNoteMe: 'Tallentuu vain tälle laitteelle.',
     libOpen: 'Äänikirjasto', libTitle: 'Äänikirjasto', libSearchTab: 'Hae ilmaisia ääniä', libMineTab: 'Omat äänet', libSearchPh: 'esim. applause, bell, rain, camel, door…', libSearchBtn: 'Hae', libCatFx: 'Ääniefektit', libCatMusic: 'Musiikki', libCatAll: 'Kaikki', libSearchHint: 'Kirjoita sana englanniksi ja paina Hae.', libSearchNote: 'Ilmaisia ääniä Openversesta / Freesoundista. Hae englanniksi. CC0 ✓ = vapaa käyttää ilman mainintaa; muut lisenssit pyytävät mainitsemaan tekijän (näkyy äänen alla).', libNoResults: 'Ei tuloksia — kokeile toista englanninkielistä sanaa.', libSearchFail: 'Haku ei ole juuri nyt saatavilla. Tarkista internetyhteys ja yritä uudelleen.', libAdd: 'Lisää', libFilterPh: 'Suodata nimellä…', libEmpty: 'Ei vielä ääniä. Lataamasi, äänittämäsi tai hausta lisäämäsi äänet säilyvät täällä kaikille oppitunneille.', libRename: 'Äänen nimi:', libRemove: 'Poista kirjastosta', libRemoveQ: 'Poistetaanko ääni kirjastosta? Sitä jo käyttävät diat toimivat edelleen.',
     slideAudioHint2: 'Lisää dialle yksi tai useampi ääni — oma äänesi, nasheed, ääniefektit. Säädä jokaisen äänen voimakkuus ja soita ne peräkkäin tai kaikki yhdessä.', slideAudioTrack: n => `Ääni ${n}`, audDelay: 'Alkaa', audAddFile: 'Lisää äänitiedosto(ja)', audTestAll: 'Kokeile kaikki', audModeQ: 'Miten äänet soivat?', audSeq: 'Peräkkäin (tässä järjestyksessä)', audTogether: 'Kaikki yhdessä (sekoitettuna)',
@@ -1376,7 +1379,7 @@ async function renderEditor(lessonId, lang) {
         if (!state.editor || state.editor.token !== token) return;
         await addSource(bytes, false);
         const hid = hiddenPages(f);
-        state.editor.items.forEach(it => { if (!isSpecial(it) && hid.has(it.page)) it.hidden = true; if (!isSpecial(it) && f.audio && f.audio[it.page]) it.audio = { ...f.audio[it.page] }; });
+        state.editor.items.forEach(it => { if (!isSpecial(it) && hid.has(it.page)) it.hidden = true; if (!isSpecial(it) && f.audio && f.audio[it.page]) it.audio = { ...f.audio[it.page] }; if (!isSpecial(it) && f.trans && f.trans[it.page]) it.trans = f.trans[it.page]; });
       } catch (e) { toast(t('error') + e.message, true); }
     }
     mergeQuizSlides(state.editor, ls);
@@ -1394,7 +1397,7 @@ function sharedSlides(ls) {
 const pick = (o, lang) => (o && (o[lang] || o.en || o.ar || o.fi)) || '';
 const isSpecial = it => !!(it.quiz || it.media);
 const sharedMedia = ls => ((ls && ls.quiz && Array.isArray(ls.quiz.slideMedia)) ? ls.quiz.slideMedia : []);
-const mediaItem = m => ({ key: uid(), after: m.after | 0, ord: m.ord | 0, hidden: !!m.hidden, media: { id: m.id || uid(), type: m.type || 'video', src: { ...(m.src || {}) }, yt: { ...(m.yt || {}) } } });
+const mediaItem = m => ({ key: uid(), after: m.after | 0, ord: m.ord | 0, hidden: !!m.hidden, trans: m.tr || '', media: { id: m.id || uid(), type: m.type || 'video', src: { ...(m.src || {}) }, yt: { ...(m.yt || {}) } } });
 const localQuiz = (s0, lang) => ({ q: pick(s0.q, lang), a: s0.a.map(x => pick(x, lang)), c: s0.c | 0 });
 function mergeQuizSlides(ed, ls) {
   if (!ed) return;
@@ -1414,7 +1417,7 @@ function placeSpecials(ed, qs) {
   while (k < qs.length) out.push(qs[k++]);
   ed.items = out;
 }
-const quizItem = q => ({ key: uid(), after: q.after | 0, quiz: { id: q.id || uid(), q: { ...q.q }, a: (q.a || []).map(x => ({ ...x })), c: q.c | 0 } });
+const quizItem = q => ({ key: uid(), after: q.after | 0, trans: q.tr || '', quiz: { id: q.id || uid(), q: { ...q.q }, a: (q.a || []).map(x => ({ ...x })), c: q.c | 0 } });
 
 async function addSource(bytes, markNew) {
   const ed = state.editor;
@@ -1454,6 +1457,7 @@ function drawSlides() {
     } }, it.hidden ? '🙈' : '👁');
     const el = h('div', { class: 'slide' + (it.isNew ? ' new' : '') + (it.quiz ? ' is-quiz' : '') + (it.media ? ' is-media' : '') + (it.hidden ? ' is-hidden' : ''), 'data-key': it.key },
       thumb, eye,
+      h('button', { class: 'trn' + (it.trans ? ' on' : ''), type: 'button', title: t('transSlide') + (it.trans ? ': ' + t('tr_' + it.trans) : ''), onclick: e => { e.stopPropagation(); openSlideTransMenu(it, e.currentTarget); } }, it.trans ? TRANS_ICON[it.trans] : '✨'),
       isSpecial(it) ? null : h('button', { class: 'snd' + (hasAudio(it.audio) ? ' on' : ''), type: 'button', title: t('slideAudio'), onclick: e => { e.stopPropagation(); openSlideAudio(it); } }, hasAudio(it.audio) ? (normAudio(it.audio).play === 'auto' ? '🔊' : '🔈') + (normAudio(it.audio).tracks.length > 1 ? normAudio(it.audio).tracks.length : '') : '🎵'),
       h('div', { class: 'num' },
         h('b', { text: `${t('slide')} ${i + 1}` }),
@@ -1468,7 +1472,7 @@ function drawSlides() {
   });
   if (slideSortable) slideSortable.destroy();
   slideSortable = window.Sortable ? Sortable.create(grid, {
-    animation: 170, ghostClass: 'sortable-ghost', filter: '.del,.eye,.snd', preventOnFilter: false,
+    animation: 170, ghostClass: 'sortable-ghost', filter: '.del,.eye,.snd,.trn', preventOnFilter: false,
     onEnd: () => {
       const keys = [...grid.children].map(c => c.dataset.key);
       const map = new Map(ed.items.map(x => [x.key, x]));
@@ -1583,13 +1587,13 @@ $('saveSlidesBtn').onclick = async () => {
       if (it.media) {
         const m = it.media;
         if (Object.values(m.src).some(Boolean) || Object.values(m.yt).some(Boolean))
-          slidesM.push({ id: m.id, after: pdfItems.length ? cnt : (it.after | 0), ord, type: m.type, src: m.src, yt: m.yt, hidden: !!it.hidden });
+          slidesM.push({ id: m.id, after: pdfItems.length ? cnt : (it.after | 0), ord, type: m.type, src: m.src, yt: m.yt, hidden: !!it.hidden, ...(it.trans ? { tr: it.trans } : {}) });
         return;
       }
       const z = it.quiz;
       const a = z.a.map((x, i) => ({ x, ok: i === z.c })).filter(o => pick(o.x, ed.lang).trim());
       if (!pick(z.q, ed.lang).trim() || a.length < 2) return;
-      slidesQ.push({ id: z.id, after: pdfItems.length ? cnt : (it.after | 0), ord, q: z.q, a: a.map(o => o.x), c: Math.max(0, a.findIndex(o => o.ok)) });
+      slidesQ.push({ id: z.id, after: pdfItems.length ? cnt : (it.after | 0), ord, q: z.q, a: a.map(o => o.x), c: Math.max(0, a.findIndex(o => o.ok)), ...(it.trans ? { tr: it.trans } : {}) });
     });
     const unchanged = old && files[ed.lang].pages === pdfItems.length && pdfItems.every((it, i) => it.src === 0 && it.page === i + 1);
     if (!pdfItems.length) {
@@ -1618,6 +1622,8 @@ $('saveSlidesBtn').onclick = async () => {
       if (hid.length) files[ed.lang].hidden = hid; else delete files[ed.lang].hidden;
       const au = {}; pdfItems.forEach((it, k) => { if (hasAudio(it.audio)) au[k + 1] = normAudio(it.audio); });
       if (Object.keys(au).length) files[ed.lang].audio = au; else delete files[ed.lang].audio;
+      const tr = {}; pdfItems.forEach((it, k) => { if (it.trans) tr[k + 1] = it.trans; });
+      if (Object.keys(tr).length) files[ed.lang].trans = tr; else delete files[ed.lang].trans;
     }
     busy(t('saving'));
     const quiz = { ...(ls.quiz || {}) };
@@ -1793,7 +1799,7 @@ function withQuizSlides(pages, slides) {   // slides: [{ after, ord, quiz | medi
   const qs = (slides || []).slice().sort((a, b) => ((a.after | 0) - (b.after | 0)) || ((a.ord | 0) - (b.ord | 0)));
   if (!qs.length) return pages;
   const out = []; let k = 0;
-  const wrap = x => x.media ? { media: x.media } : { quiz: x.quiz || x };
+  const wrap = x => ({ ...(x.media ? { media: x.media } : { quiz: x.quiz || x }), trans: x.trans || '' });
   const flush = n => { while (k < qs.length && (qs[k].after | 0) <= n) out.push(wrap(qs[k++])); };
   flush(0);
   pages.forEach((p, i) => { out.push(p); flush(i + 1); });
@@ -1801,8 +1807,8 @@ function withQuizSlides(pages, slides) {   // slides: [{ after, ord, quiz | medi
   return out;
 }
 function specialsFor(ls, lang) {
-  return [...sharedSlides(ls).map(s0 => ({ after: s0.after, ord: s0.ord, quiz: localQuiz(s0, lang) })),
-          ...sharedMedia(ls).filter(m => !m.hidden).map(m => ({ after: m.after, ord: m.ord, media: m }))];
+  return [...sharedSlides(ls).map(s0 => ({ after: s0.after, ord: s0.ord, quiz: localQuiz(s0, lang), trans: s0.tr || '' })),
+          ...sharedMedia(ls).filter(m => !m.hidden).map(m => ({ after: m.after, ord: m.ord, media: m, trans: m.tr || '' }))];
 }
 function showQuizSlide(q) {
   const stage = $('stage'); stage.querySelector('.p-quiz')?.remove();
@@ -1850,7 +1856,7 @@ async function present(ls, lang) {
   try {
     const doc = await getDoc(f.path);
     const hid = hiddenPages(f);
-    startDeck(withQuizSlides(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1, audio: f.audio && f.audio[k + 1] })), specialsFor(ls, lang)).filter(p => p.quiz || p.media || !hid.has(p.page)).concat([{ finish: true }]));
+    startDeck(withQuizSlides(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1, audio: f.audio && f.audio[k + 1], trans: f.trans && f.trans[k + 1] })), specialsFor(ls, lang)).filter(p => p.quiz || p.media || !hid.has(p.page)).concat([{ finish: true }]));
     P.lang = lang;
   } catch (e) { closePresenter(); toast(t('error') + e.message, true); }
 }
@@ -1859,7 +1865,7 @@ function presentEditorDraft() {
   openPresenter();
   P.lessonId = null;
   P.lang = ed.lang; P.trans = transFor(state.lessons.find(l => l.id === ed.lessonId));
-  startDeck(ed.items.filter(it => !it.hidden).map(it => it.quiz ? { quiz: localQuiz(it.quiz, ed.lang) } : it.media ? { media: it.media } : { doc: ed.sources[it.src].doc, page: it.page, audio: it.audio }));
+  startDeck(ed.items.filter(it => !it.hidden).map(it => ({ ...(it.quiz ? { quiz: localQuiz(it.quiz, ed.lang) } : it.media ? { media: it.media } : { doc: ed.sources[it.src].doc, page: it.page, audio: it.audio }), trans: it.trans || '' })));
 }
 function openPresenter() {
   const el = $('presenter'); el.hidden = false; document.body.style.overflow = 'hidden';
@@ -2103,9 +2109,9 @@ function transFor(ls) {
   const v = local || (ls && ls.quiz && ls.quiz.transition) || 'fade';
   return TRANSITIONS.includes(v) ? v : 'fade';
 }
-function makeGhost() {
+function makeGhost(kind) {
   const st = $('stage'); st.querySelector('.p-ghost')?.remove();
-  if (!P.shown || P.trans === 'none' || matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
+  if (!P.shown || kind === 'none' || matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
   const g = h('div', { class: 'p-ghost' });
   const ov = st.querySelector(':scope > .p-quiz, :scope > .p-media, :scope > .p-finish');
   if (ov) { ov.querySelectorAll('video,audio').forEach(v => { try { v.pause(); } catch (e) {} }); ov.querySelectorAll('iframe').forEach(f => f.remove()); g.append(ov); }
@@ -2116,10 +2122,10 @@ function makeGhost() {
   }
   st.append(g); return g;
 }
-function runTrans(g, el) {
+function runTrans(g, el, kind) {
   P.shown = true;
   if (!g) return;
-  let kind = P.trans;
+  kind = kind || P.trans;
   if (kind === 'random') { const opts = TRANSITIONS.filter(x => !['none', 'random'].includes(x)); kind = opts[Math.floor(Math.random() * opts.length)]; }
   if (!el || kind === 'none') { g.remove(); return; }
   const back = P.dir < 0;
@@ -2128,6 +2134,32 @@ function runTrans(g, el) {
   g.classList.add('t-out', 't-' + kind); el.classList.add('t-in', 't-' + kind); if (back) { g.classList.add('t-back'); el.classList.add('t-back'); }
   clearTimeout(P.transTimer);
   P.transTimer = setTimeout(() => { g.remove(); el.classList.remove('t-in', 't-back', ...all); }, 760);
+}
+function openSlideTransMenu(it, btn) {
+  document.querySelector('.slide-trans-pop')?.remove();
+  const ed = state.editor; if (!ed) return;
+  const ls = state.lessons.find(l => l.id === ed.lessonId);
+  const def = transFor(ls);
+  const choose = k => {
+    it.trans = k; ed.dirty = true; pop.remove();
+    btn.classList.toggle('on', !!k); btn.textContent = k ? TRANS_ICON[k] : '✨';
+    btn.title = t('transSlide') + (k ? ': ' + t('tr_' + k) : '');
+    updateEditorChrome();
+  };
+  const pop = h('div', { class: 'slide-trans-pop' },
+    h('b', { text: '✨ ' + t('transSlideTitle') }),
+    h('button', { type: 'button', class: 'stp-def' + (!it.trans ? ' on' : ''), onclick: () => choose('') }, '↺ ', t('transDefault', t('tr_' + def))),
+    h('div', { class: 'ptm-grid' }, TRANSITIONS.map(k => h('button', { type: 'button', class: it.trans === k ? 'on' : '', onclick: () => choose(k) }, h('span', { class: 'ptm-i', text: TRANS_ICON[k] }), t('tr_' + k)))),
+    h('small', { text: t('transSlideNote') }));
+  document.body.append(pop);
+  const r = btn.getBoundingClientRect(), pw = pop.offsetWidth, ph = pop.offsetHeight;
+  pop.style.left = Math.max(8, Math.min(window.innerWidth - pw - 8, r.left + r.width / 2 - pw / 2)) + 'px';
+  pop.style.top = (r.bottom + ph + 8 < window.innerHeight ? r.bottom + 6 : Math.max(8, r.top - ph - 6)) + 'px';
+  setTimeout(() => {
+    const off = ev => { if (!pop.contains(ev.target)) { pop.remove(); document.removeEventListener('pointerdown', off, true); window.removeEventListener('scroll', close2, true); } };
+    const close2 = () => { pop.remove(); document.removeEventListener('pointerdown', off, true); window.removeEventListener('scroll', close2, true); };
+    document.addEventListener('pointerdown', off, true); window.addEventListener('scroll', close2, true);
+  }, 0);
 }
 function openTransMenu() {
   const old = $('presenter').querySelector('.p-trans-menu'); if (old) { old.remove(); return; }
@@ -2139,7 +2171,7 @@ function openTransMenu() {
         try { localStorage.removeItem('lpt.trans'); } catch (e) {}
         try { await api.saveLesson({ ...ls, quiz: { ...(ls.quiz || {}), transition: k } }); ls.quiz = { ...(ls.quiz || {}), transition: k }; toast(t('transSavedLesson')); } catch (e) { toast(t('error') + e.message, true); }
       } else { try { localStorage.setItem('lpt.trans', k); } catch (e) {} toast(t('transSavedMe')); }
-      P.dir = 1; const g = makeGhost(); runTrans(g, $('stage').querySelector(':scope > .p-quiz, :scope > .p-media, :scope > .p-finish') || $('slideCanvas'));
+      P.dir = 1; const g = makeGhost(k); runTrans(g, $('stage').querySelector(':scope > .p-quiz, :scope > .p-media, :scope > .p-finish') || $('slideCanvas'));
     } }, h('span', { class: 'ptm-i', text: TRANS_ICON[k] }), t('tr_' + k)))),
     h('small', { text: state.isAdmin && P.lessonId ? t('transNoteAdmin') : t('transNoteMe') }));
   m.addEventListener('click', ev => ev.stopPropagation());
@@ -2167,7 +2199,8 @@ async function showSlide(i) {
   i = Math.max(0, Math.min(P.pages.length - 1, i));
   P.dir = i >= P.i ? 1 : -1;
   $('presenter').querySelector('.p-trans-menu')?.remove();
-  const ghost = i === P.i && P.shown ? null : makeGhost();
+  const tk = (P.pages[i] && P.pages[i].trans) || P.trans;
+  const ghost = i === P.i && P.shown ? null : makeGhost(tk);
   P.i = i;
   $('pCount').textContent = `${i + 1} / ${P.pages.length}`;
   const token = ++P.token;
@@ -2181,18 +2214,18 @@ async function showSlide(i) {
       h('h2', { text: t('lessonComplete') }),
       h('p', { text: t('finishSub') }));
     fin.addEventListener('click', ev => ev.stopPropagation());
-    $('stage').append(fin); runTrans(ghost, fin);
+    $('stage').append(fin); runTrans(ghost, fin, tk);
     if (P.lessonId && !P.celebrated) { P.celebrated = true; setDone(P.lessonId, true); }
     celebrate();
     return;
   }
   if (P.pages[i].media) {
-    showPresenterMessage(null); showMediaSlide(P.pages[i].media); runTrans(ghost, $('stage').querySelector(':scope > .p-media'));
+    showPresenterMessage(null); showMediaSlide(P.pages[i].media); runTrans(ghost, $('stage').querySelector(':scope > .p-media'), tk);
     if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
     return;
   }
   if (P.pages[i].quiz) {
-    showPresenterMessage(null); showQuizSlide(P.pages[i].quiz); runTrans(ghost, $('stage').querySelector(':scope > .p-quiz'));
+    showPresenterMessage(null); showQuizSlide(P.pages[i].quiz); runTrans(ghost, $('stage').querySelector(':scope > .p-quiz'), tk);
     if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
     return;
   }
@@ -2203,7 +2236,7 @@ async function showSlide(i) {
     const c = $('slideCanvas');
     c.width = src.width; c.height = src.height; c.style.width = src.style.width; c.style.height = src.style.height;
     c.getContext('2d').drawImage(src, 0, 0);
-    runTrans(ghost, c);
+    runTrans(ghost, c, tk);
     if (hasAudio(P.pages[i].audio) && normAudio(P.pages[i].audio).play === 'auto') slideAudioPlay(P.pages[i].audio, token);
     // warm up neighbours
     if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
