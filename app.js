@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    slideAudioHint2: 'Add one or more sounds to this slide — your voice, a nasheed, sound effects. Set each sound’s volume, and play them one after another or all together.', slideAudioTrack: n => `Sound ${n}`, audDelay: 'Start after', audAddFile: 'Add audio file(s)', audTestAll: 'Test all', audModeQ: 'How do the sounds play?', audSeq: 'One after another (in this order)', audTogether: 'All together (mixed)',
     slideAudio: 'Slide audio', slideAudioHint: 'Record or upload a sound for this slide (an explanation, a nasheed, a sound effect). It plays in the presentation of this language.', audPlayQ: 'When does it play?', audAuto: 'Automatically when the slide opens', audManual: 'Only when I press 🔊', audAfterQ: 'When the audio ends:', audStay: 'Stay on this slide (I press next)', audNext: 'Go to the next slide automatically',
     extrasTitle: 'More about this lesson', extrasManage: 'Add / edit moons', extrasHint: 'Moons float around the lesson on the map: extra videos, stories or websites about the same lesson. Choose a language to show one only in that language.', extra_video: 'Video', extra_story: 'Story', extra_link: 'Website', extraAllLangs: 'All languages', extraTitle: 'Title', extraTitlePh: 'e.g. The story of the ark', extraLang: 'Show in', extraYoutube: 'YouTube link', extraUrl: 'Website address', extraText: 'Story text', extraTextPh: 'Write or paste the story here…', extraPic: 'Picture (optional)', extraUploaded: 'video uploaded', extraNeedUrl: 'Please paste a web address starting with https://', extraNeedVideo: 'Paste a YouTube link or upload a video.', extraNeedText: 'Write the story text.', confirmDelete: 'Delete this?',
     finishSub: 'You finished the lesson!',
@@ -160,6 +161,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    slideAudioHint2: 'أضف صوتًا أو أكثر لهذه الشريحة — صوتك، أنشودة، مؤثرات صوتية. اضبط مستوى كل صوت، وشغّلها واحدًا بعد الآخر أو كلها معًا.', slideAudioTrack: n => `الصوت ${n}`, audDelay: 'يبدأ بعد', audAddFile: 'إضافة ملف/ملفات صوت', audTestAll: 'تجربة الكل', audModeQ: 'كيف تعمل الأصوات؟', audSeq: 'واحدًا بعد الآخر (بهذا الترتيب)', audTogether: 'كلها معًا (ممزوجة)',
     slideAudio: 'صوت الشريحة', slideAudioHint: 'سجّل أو ارفع صوتًا لهذه الشريحة (شرح، أنشودة، مؤثر صوتي). يعمل في عرض هذه اللغة.', audPlayQ: 'متى يعمل الصوت؟', audAuto: 'تلقائيًا عند فتح الشريحة', audManual: 'فقط عندما أضغط 🔊', audAfterQ: 'عند انتهاء الصوت:', audStay: 'ابقَ على الشريحة (أضغط التالي بنفسي)', audNext: 'انتقل إلى الشريحة التالية تلقائيًا',
     extrasTitle: 'المزيد عن هذا الدرس', extrasManage: 'إضافة / تعديل الأقمار', extrasHint: 'الأقمار تدور حول الدرس على الخريطة: فيديوهات أو قصص أو مواقع إضافية عن نفس الدرس. اختر لغة لإظهار القمر في تلك اللغة فقط.', extra_video: 'فيديو', extra_story: 'قصة', extra_link: 'موقع', extraAllLangs: 'كل اللغات', extraTitle: 'العنوان', extraTitlePh: 'مثلًا: قصة السفينة', extraLang: 'يظهر في', extraYoutube: 'رابط يوتيوب', extraUrl: 'عنوان الموقع', extraText: 'نص القصة', extraTextPh: 'اكتب القصة أو الصقها هنا…', extraPic: 'صورة (اختياري)', extraUploaded: 'تم رفع الفيديو', extraNeedUrl: 'الصق عنوانًا يبدأ بـ https://', extraNeedVideo: 'الصق رابط يوتيوب أو ارفع فيديو.', extraNeedText: 'اكتب نص القصة.', confirmDelete: 'حذف هذا؟',
     finishSub: 'أنهيت الدرس!',
@@ -249,6 +251,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    slideAudioHint2: 'Lisää dialle yksi tai useampi ääni — oma äänesi, nasheed, ääniefektit. Säädä jokaisen äänen voimakkuus ja soita ne peräkkäin tai kaikki yhdessä.', slideAudioTrack: n => `Ääni ${n}`, audDelay: 'Alkaa', audAddFile: 'Lisää äänitiedosto(ja)', audTestAll: 'Kokeile kaikki', audModeQ: 'Miten äänet soivat?', audSeq: 'Peräkkäin (tässä järjestyksessä)', audTogether: 'Kaikki yhdessä (sekoitettuna)',
     slideAudio: 'Dian ääni', slideAudioHint: 'Äänitä tai lataa ääni tälle dialle (selitys, nasheed, ääniefekti). Se soi tämän kielen esityksessä.', audPlayQ: 'Milloin ääni soi?', audAuto: 'Automaattisesti, kun dia avautuu', audManual: 'Vain kun painan 🔊', audAfterQ: 'Kun ääni loppuu:', audStay: 'Pysy tällä dialla (painan itse seuraava)', audNext: 'Siirry seuraavaan diaan automaattisesti',
     extrasTitle: 'Lisää tästä oppitunnista', extrasManage: 'Lisää / muokkaa kuita', extrasHint: 'Kuut kiertävät oppituntia kartalla: lisävideoita, tarinoita tai verkkosivuja samasta aiheesta. Valitse kieli, jos kuu näkyy vain sillä kielellä.', extra_video: 'Video', extra_story: 'Tarina', extra_link: 'Verkkosivu', extraAllLangs: 'Kaikki kielet', extraTitle: 'Otsikko', extraTitlePh: 'esim. Arkin tarina', extraLang: 'Näytä', extraYoutube: 'YouTube-linkki', extraUrl: 'Verkkosivun osoite', extraText: 'Tarinan teksti', extraTextPh: 'Kirjoita tai liitä tarina tähän…', extraPic: 'Kuva (valinnainen)', extraUploaded: 'video ladattu', extraNeedUrl: 'Liitä osoite, joka alkaa https://', extraNeedVideo: 'Liitä YouTube-linkki tai lataa video.', extraNeedText: 'Kirjoita tarinan teksti.', confirmDelete: 'Poistetaanko?',
     finishSub: 'Suoritit oppitunnin!',
@@ -1445,7 +1448,7 @@ function drawSlides() {
     } }, it.hidden ? '🙈' : '👁');
     const el = h('div', { class: 'slide' + (it.isNew ? ' new' : '') + (it.quiz ? ' is-quiz' : '') + (it.media ? ' is-media' : '') + (it.hidden ? ' is-hidden' : ''), 'data-key': it.key },
       thumb, eye,
-      isSpecial(it) ? null : h('button', { class: 'snd' + (it.audio ? ' on' : ''), type: 'button', title: t('slideAudio'), onclick: e => { e.stopPropagation(); openSlideAudio(it); } }, it.audio ? (it.audio.play === 'auto' ? '🔊' : '🔈') : '🎵'),
+      isSpecial(it) ? null : h('button', { class: 'snd' + (hasAudio(it.audio) ? ' on' : ''), type: 'button', title: t('slideAudio'), onclick: e => { e.stopPropagation(); openSlideAudio(it); } }, hasAudio(it.audio) ? (normAudio(it.audio).play === 'auto' ? '🔊' : '🔈') + (normAudio(it.audio).tracks.length > 1 ? normAudio(it.audio).tracks.length : '') : '🎵'),
       h('div', { class: 'num' },
         h('b', { text: `${t('slide')} ${i + 1}` }),
         it.isNew ? h('span', { class: 'chip', text: t('added') }) : null,
@@ -1607,7 +1610,7 @@ $('saveSlidesBtn').onclick = async () => {
     if (files[ed.lang]) {
       const hid = pdfItems.map((it, k) => it.hidden ? k + 1 : 0).filter(Boolean);
       if (hid.length) files[ed.lang].hidden = hid; else delete files[ed.lang].hidden;
-      const au = {}; pdfItems.forEach((it, k) => { if (it.audio && it.audio.path) au[k + 1] = it.audio; });
+      const au = {}; pdfItems.forEach((it, k) => { if (hasAudio(it.audio)) au[k + 1] = normAudio(it.audio); });
       if (Object.keys(au).length) files[ed.lang].audio = au; else delete files[ed.lang].audio;
     }
     busy(t('saving'));
@@ -1860,34 +1863,83 @@ function openPresenter() {
   }
   pokeUI();
 }
-/* ── per-slide audio ── */
-const slideAudio = new Audio();
-function setAudioBtn(a) { const b = $('pAudio'); if (!b) return; b.hidden = !a; b.textContent = '🔊'; b.classList.remove('playing'); }
-function slideAudioStop() { try { slideAudio.pause(); } catch (e) {} slideAudio.onended = null; const b = $('pAudio'); if (b) { b.classList.remove('playing'); b.textContent = '🔊'; } }
+/* ── per-slide audio: one or more sounds per slide, each with its own volume;
+      played one after another (sequence) or all together, with an optional start delay ── */
+const normAudio = a => !a ? null : a.tracks ? a : (a.path ? { tracks: [{ path: a.path, vol: 1, delay: 0 }], mode: 'sequence', play: a.play || 'auto', after: a.after || 'stay' } : null);
+const hasAudio = a => !!(a && normAudio(a) && normAudio(a).tracks.some(x => x.path));
+const SA = { els: [], token: 0, timers: [], state: 'idle' };
+function setAudioBtn(a) { const b = $('pAudio'); if (!b) return; b.hidden = !hasAudio(a); b.textContent = '🔊'; b.classList.remove('playing'); }
+function slideAudioStop() {
+  SA.token++; SA.timers.forEach(clearTimeout); SA.timers = [];
+  SA.els.forEach(el => { try { el.pause(); el.src = ''; } catch (e) {} }); SA.els = []; SA.state = 'idle';
+  const b = $('pAudio'); if (b) { b.classList.remove('playing'); b.textContent = '🔊'; }
+}
+function audioBtnPlaying(on) { const b = $('pAudio'); if (b) { b.classList.toggle('playing', on); b.textContent = on ? '⏸' : (SA.state === 'paused' ? '▶' : '🔊'); } }
 async function slideAudioPlay(a, token) {
-  const u = await api.mediaUrl(a.path); if (!u || (token && token !== P.token)) return;
-  slideAudio.src = u; slideAudio.currentTime = 0;
-  slideAudio.onended = () => { const b = $('pAudio'); if (b) { b.classList.remove('playing'); b.textContent = '🔊'; } if (a.after === 'next' && P.pages && P.token === (token || P.token)) showSlide(P.i + 1); };
-  try { await slideAudio.play(); const b = $('pAudio'); if (b) { b.classList.add('playing'); b.textContent = '⏸'; } } catch (e) { /* autoplay blocked: the 🔊 button still works */ }
+  a = normAudio(a); if (!a) return;
+  slideAudioStop(); const my = SA.token;
+  const tracks = a.tracks.filter(x => x.path);
+  const urls = await Promise.all(tracks.map(x => api.mediaUrl(x.path)));
+  if (my !== SA.token || (token && token !== P.token)) return;
+  const els = tracks.map((x, k) => { const el = new Audio(urls[k]); el.volume = Math.max(0, Math.min(1, x.vol ?? 1)); el.preload = 'auto'; return el; });
+  SA.els = els; SA.state = 'playing'; audioBtnPlaying(true);
+  const finished = () => {
+    if (my !== SA.token) return;
+    SA.state = 'idle'; audioBtnPlaying(false);
+    if (a.after === 'next' && P.pages && (!token || P.token === token)) showSlide(P.i + 1);
+  };
+  const start = (el, k) => new Promise(res => {
+    el.onended = res; el.onerror = res;
+    const go = () => { if (my !== SA.token) return res(); el.play().catch(() => { SA.state = 'blocked'; audioBtnPlaying(false); res(); }); };
+    const d = (tracks[k].delay || 0) * 1000;
+    if (d > 0) SA.timers.push(setTimeout(go, d)); else go();
+  });
+  if (a.mode === 'together') { await Promise.all(els.map(start)); }
+  else { for (let k = 0; k < els.length; k++) { if (my !== SA.token) return; await start(els[k], k); } }
+  if (SA.state !== 'blocked') finished();
 }
 $('pAudio').onclick = e => {
-  e.stopPropagation(); const a = P.pages && P.pages[P.i] && P.pages[P.i].audio; if (!a) return;
-  if (!slideAudio.paused) { slideAudio.pause(); $('pAudio').classList.remove('playing'); $('pAudio').textContent = '▶'; }
-  else if (slideAudio.src && slideAudio.currentTime > 0 && !slideAudio.ended) { slideAudio.play(); $('pAudio').classList.add('playing'); $('pAudio').textContent = '⏸'; }
+  e.stopPropagation(); const a = P.pages && P.pages[P.i] && P.pages[P.i].audio; if (!hasAudio(a)) return;
+  if (SA.state === 'playing') { SA.els.forEach(el => { if (!el.paused) { el._wasPlaying = true; el.pause(); } }); SA.state = 'paused'; audioBtnPlaying(false); }
+  else if (SA.state === 'paused') { SA.els.forEach(el => { if (el._wasPlaying) { el._wasPlaying = false; el.play().catch(() => {}); } }); SA.state = 'playing'; audioBtnPlaying(true); }
   else slideAudioPlay(a, P.token);
 };
 let audDlg = null;
 function openSlideAudio(it) {
   const ed = state.editor; if (!ed) return;
-  if (!audDlg) { audDlg = h('div', { class: 'modal', hidden: true }); audDlg.addEventListener('click', e => { if (e.target === audDlg || e.target.closest('[data-x]')) { stopRec(); audDlg.hidden = true; } }); document.body.append(audDlg); }
-  const cur = it.audio || { play: 'auto', after: 'stay' };
-  let blob = null, removed = false, rec = null;
+  if (!audDlg) { audDlg = h('div', { class: 'modal', hidden: true }); audDlg.addEventListener('click', e => { if (e.target === audDlg || e.target.closest('[data-x]')) { closeAud(); } }); document.body.append(audDlg); }
+  const orig = normAudio(it.audio);
+  const cur = orig ? { ...orig, tracks: orig.tracks.map(x => ({ ...x })) } : { tracks: [], mode: 'sequence', play: 'auto', after: 'stay' };
+  const removed = [];
+  let rec = null, testEls = [];
   const stopRec = () => { if (rec && rec.state !== 'inactive') rec.stop(); };
-  const prev = h('audio', { controls: true, style: 'width:100%', hidden: !cur.path });
-  if (cur.path) api.mediaUrl(cur.path).then(u => { prev.src = u; });
-  const status = h('small', { class: 'muted', text: cur.path ? '' : t('ls_noSound') });
-  const fIn = h('input', { type: 'file', accept: 'audio/*', hidden: true });
-  fIn.onchange = () => { const f = fIn.files[0]; if (!f) return; if (f.size > 50 * 1024 * 1024) { toast(t('mediaTooBig'), true); return; } blob = f; removed = false; prev.src = URL.createObjectURL(f); prev.hidden = false; status.textContent = '✓ ' + f.name; };
+  const stopTest = () => { testEls.forEach(el => { try { el.pause(); } catch (e) {} }); testEls = []; };
+  const closeAud = () => { stopRec(); stopTest(); audDlg.hidden = true; };
+  const list = h('div', { class: 'aud-tracks' });
+  const urlOf = async x => x.blob ? (x.url || (x.url = URL.createObjectURL(x.blob))) : await api.mediaUrl(x.path);
+  const drawTracks = () => {
+    list.innerHTML = '';
+    if (!cur.tracks.length) list.append(h('p', { class: 'muted', text: t('ls_noSound') }));
+    cur.tracks.forEach((x, k) => {
+      const vol = h('input', { type: 'range', min: 0, max: 1, step: .05 }); vol.value = x.vol ?? 1;
+      const vLbl = h('small', { text: Math.round((x.vol ?? 1) * 100) + '%' });
+      vol.oninput = () => { x.vol = +vol.value; vLbl.textContent = Math.round(x.vol * 100) + '%'; testEls.forEach(el => { if (el._k === k) el.volume = x.vol; }); };
+      const delay = h('input', { type: 'number', min: 0, max: 600, step: .5, style: 'width:70px' }); delay.value = x.delay || 0; delay.oninput = () => { x.delay = Math.max(0, +delay.value || 0); };
+      list.append(h('div', { class: 'aud-track' },
+        h('b', { class: 'at-n', text: k + 1 }),
+        h('div', { class: 'at-main' },
+          h('div', { class: 'at-name', text: x.name || (x.blob ? t('ls_newSound') : '🎵 ' + t('slideAudioTrack', k + 1)) }),
+          h('label', { class: 'at-row' }, '🔉', vol, vLbl),
+          h('label', { class: 'at-row' }, '⏱ ' + t('audDelay'), delay, 's')),
+        h('div', { class: 'at-btns' },
+          h('button', { type: 'button', class: 'btn small', onclick: async () => { stopTest(); const el = new Audio(await urlOf(x)); el.volume = x.vol ?? 1; el._k = k; testEls = [el]; el.play(); } }, '▶'),
+          h('button', { type: 'button', class: 'btn small', disabled: k === 0, onclick: () => { cur.tracks.splice(k - 1, 0, cur.tracks.splice(k, 1)[0]); drawTracks(); } }, '↑'),
+          h('button', { type: 'button', class: 'btn small', disabled: k === cur.tracks.length - 1, onclick: () => { cur.tracks.splice(k + 1, 0, cur.tracks.splice(k, 1)[0]); drawTracks(); } }, '↓'),
+          h('button', { type: 'button', class: 'btn small danger', onclick: () => { const [r] = cur.tracks.splice(k, 1); if (r.path) removed.push(r.path); drawTracks(); } }, '🗑'))));
+    });
+  };
+  const fIn = h('input', { type: 'file', accept: 'audio/*', multiple: true, hidden: true });
+  fIn.onchange = () => { [...fIn.files].forEach(f => { if (f.size > 50 * 1024 * 1024) { toast(t('mediaTooBig'), true); return; } cur.tracks.push({ blob: f, name: f.name, vol: 1, delay: 0 }); }); fIn.value = ''; drawTracks(); };
   const recBtn = h('button', { type: 'button', class: 'btn' }, '🎙 ', t('ls_record'));
   recBtn.onclick = async () => {
     if (rec && rec.state === 'recording') { stopRec(); return; }
@@ -1895,38 +1947,48 @@ function openSlideAudio(it) {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } });
       const chunks = []; rec = new MediaRecorder(stream);
       rec.ondataavailable = ev => ev.data.size && chunks.push(ev.data);
-      rec.onstop = () => { stream.getTracks().forEach(tr => tr.stop()); blob = new Blob(chunks, { type: rec.mimeType || 'audio/webm' }); removed = false; prev.src = URL.createObjectURL(blob); prev.hidden = false; status.textContent = t('ls_newSound'); recBtn.textContent = '🎙 ' + t('ls_record'); recBtn.classList.remove('danger'); };
-      rec.start(); recBtn.textContent = '⏹ ' + t('ls_stopRec'); recBtn.classList.add('danger'); status.textContent = '● REC';
+      rec.onstop = () => { stream.getTracks().forEach(tr => tr.stop()); cur.tracks.push({ blob: new Blob(chunks, { type: rec.mimeType || 'audio/webm' }), name: '🎙 ' + t('ls_record') + ' ' + (cur.tracks.length + 1), vol: 1, delay: 0 }); recBtn.textContent = '🎙 ' + t('ls_record'); recBtn.classList.remove('danger'); drawTracks(); };
+      rec.start(); recBtn.textContent = '⏹ ' + t('ls_stopRec'); recBtn.classList.add('danger');
     } catch (err) { toast(t('micDenied'), true); }
   };
+  const testAll = h('button', { type: 'button', class: 'btn small' }, '▶ ', t('audTestAll'));
+  testAll.onclick = async () => {
+    stopTest(); const mode = form.querySelector('input[name=mode]:checked').value;
+    const els = await Promise.all(cur.tracks.map(async (x, k) => { const el = new Audio(await urlOf(x)); el.volume = x.vol ?? 1; el._k = k; return el; }));
+    testEls = els;
+    if (mode === 'together') els.forEach((el, k) => setTimeout(() => testEls.includes(el) && el.play(), (cur.tracks[k].delay || 0) * 1000));
+    else (async () => { for (let k = 0; k < els.length; k++) { if (!testEls.includes(els[k])) return; await new Promise(res => { els[k].onended = res; els[k].onerror = res; setTimeout(() => els[k].play().catch(res), (cur.tracks[k].delay || 0) * 1000); }); } })();
+  };
   const radio = (name, val, label, checked) => { const r = h('input', { type: 'radio', name, value: val }); r.checked = checked; return h('label', { class: 'tcheck' }, r, label); };
-  const form = h('form', { class: 'modal-card' },
+  const form = h('form', { class: 'modal-card wide' },
     h('h2', {}, '🎵 ', t('slideAudio')),
-    h('p', { class: 'muted', text: t('slideAudioHint') }),
-    prev, status,
-    h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;margin:10px 0' }, recBtn, h('label', { class: 'btn' }, '⬆ ', t('ls_upload'), fIn),
-      cur.path ? h('button', { type: 'button', class: 'btn danger', onclick: () => { removed = true; blob = null; prev.hidden = true; status.textContent = t('ls_noSound'); } }, '🗑 ', t('ls_removeSound')) : null),
-    h('b', { text: t('audPlayQ') }),
-    h('div', { class: 'aud-opts' }, radio('play', 'auto', '▶ ' + t('audAuto'), cur.play !== 'manual'), radio('play', 'manual', '🔊 ' + t('audManual'), cur.play === 'manual')),
-    h('b', { text: t('audAfterQ') }),
-    h('div', { class: 'aud-opts' }, radio('after', 'stay', '✋ ' + t('audStay'), cur.after !== 'next'), radio('after', 'next', '⏭ ' + t('audNext'), cur.after === 'next')),
+    h('p', { class: 'muted', text: t('slideAudioHint2') }),
+    list,
+    h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;margin:10px 0' }, recBtn, h('label', { class: 'btn' }, '⬆ ', t('audAddFile'), fIn), testAll, h('button', { type: 'button', class: 'btn small', onclick: stopTest }, '⏹')),
+    h('div', { class: 'aud-grid' },
+      h('div', {}, h('b', { text: t('audModeQ') }), h('div', { class: 'aud-opts' }, radio('mode', 'sequence', '➡ ' + t('audSeq'), cur.mode !== 'together'), radio('mode', 'together', '🔀 ' + t('audTogether'), cur.mode === 'together'))),
+      h('div', {}, h('b', { text: t('audPlayQ') }), h('div', { class: 'aud-opts' }, radio('play', 'auto', '▶ ' + t('audAuto'), cur.play !== 'manual'), radio('play', 'manual', '🔊 ' + t('audManual'), cur.play === 'manual'))),
+      h('div', {}, h('b', { text: t('audAfterQ') }), h('div', { class: 'aud-opts' }, radio('after', 'stay', '✋ ' + t('audStay'), cur.after !== 'next'), radio('after', 'next', '⏭ ' + t('audNext'), cur.after === 'next')))),
     h('div', { class: 'modal-foot' }, h('button', { type: 'button', class: 'btn', 'data-x': '' }, t('cancel')), h('button', { type: 'submit', class: 'btn primary' }, t('save'))));
   form.onsubmit = async e => {
-    e.preventDefault(); stopRec();
-    const play = form.querySelector('input[name=play]:checked').value, after = form.querySelector('input[name=after]:checked').value;
+    e.preventDefault(); stopRec(); stopTest();
+    cur.mode = form.querySelector('input[name=mode]:checked').value;
+    cur.play = form.querySelector('input[name=play]:checked').value;
+    cur.after = form.querySelector('input[name=after]:checked').value;
     await guard(async () => {
-      if (removed) { if (cur.path) api.removeMedia([cur.path]).catch(() => {}); delete it.audio; }
-      else if (blob) {
-        const ext = (blob.name && /\.(\w+)$/.test(blob.name)) ? RegExp.$1.toLowerCase() : ((blob.type.split('/')[1] || 'webm').split(';')[0]);
-        const path = `audio/${ed.lessonId}/${uid()}.${ext}`;
-        await api.uploadMedia(path, blob);
-        it.audio = { path, play, after };
-      } else if (it.audio) { it.audio = { ...it.audio, play, after }; }
-      else { toast(t('ls_noSound'), true); return; }
-      ed.dirty = true; audDlg.hidden = true; drawSlides();
+      for (const x of cur.tracks) if (x.blob) {
+        const b = x.blob, ext = (b.name && /\.(\w+)$/.test(b.name)) ? RegExp.$1.toLowerCase() : ((b.type.split('/')[1] || 'webm').split(';')[0]);
+        x.path = `audio/${ed.lessonId}/${uid()}.${ext}`;
+        await api.uploadMedia(x.path, b);
+        if (!x.name || x.name.startsWith('🎙')) x.name = x.name || ''; delete x.blob; delete x.url;
+      }
+      if (removed.length) api.removeMedia(removed).catch(() => {});
+      cur.tracks = cur.tracks.filter(x => x.path).map(({ path, vol, delay, name }) => ({ path, vol: vol ?? 1, delay: delay || 0, name: name || '' }));
+      if (cur.tracks.length) it.audio = cur; else delete it.audio;
+      ed.dirty = true; closeAud(); drawSlides();
     }, t('uploading'));
   };
-  audDlg.innerHTML = ''; audDlg.append(form); audDlg.hidden = false;
+  audDlg.innerHTML = ''; audDlg.append(form); audDlg.hidden = false; drawTracks();
 }
 function startDeck(pages) { P.pages = pages; P.i = 0; P.cache.clear(); P.token++; showSlide(0); }
 function showPresenterMessage(msg) {
@@ -1983,7 +2045,7 @@ async function showSlide(i) {
     const c = $('slideCanvas');
     c.width = src.width; c.height = src.height; c.style.width = src.style.width; c.style.height = src.style.height;
     c.getContext('2d').drawImage(src, 0, 0);
-    if (P.pages[i].audio && P.pages[i].audio.play === 'auto') slideAudioPlay(P.pages[i].audio, token);
+    if (hasAudio(P.pages[i].audio) && normAudio(P.pages[i].audio).play === 'auto') slideAudioPlay(P.pages[i].audio, token);
     // warm up neighbours
     if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
     if (i > 0 && P.pages[i - 1].doc) renderSlideCanvas(i - 1);
