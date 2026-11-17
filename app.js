@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    libSlow: 'Searching… the free search can take 10–30 seconds.',
     libMore: 'More results', libBusy: 'Too many searches in a short time — wait a minute and try again.',
     transSlide: 'Transition into this slide', transSlideTitle: 'Transition into this slide', transDefault: d => `Lesson default (${d})`, transSlideNote: 'The lesson default is set with ✨ in the presenter bar. Press Save to keep.',
     transTitle: 'Slide transition', tr_none: 'None', tr_fade: 'Fade', tr_slide: 'Slide', tr_zoom: 'Zoom', tr_flip: 'Flip', tr_dip: 'Dip to black', tr_cover: 'Cover', tr_random: 'Random', transSavedLesson: 'Transition saved for this lesson ✓', transSavedMe: 'Transition saved on this device ✓', transNoteAdmin: 'Saved for this lesson — everyone sees it.', transNoteMe: 'Saved on this device only.',
@@ -165,6 +166,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    libSlow: 'جارٍ البحث… البحث المجاني قد يستغرق ١٠–٣٠ ثانية.',
     libMore: 'نتائج أكثر', libBusy: 'عمليات بحث كثيرة في وقت قصير — انتظر دقيقة وحاول مرة أخرى.',
     transSlide: 'الانتقال إلى هذه الشريحة', transSlideTitle: 'الانتقال إلى هذه الشريحة', transDefault: d => `افتراضي الدرس (${d})`, transSlideNote: 'افتراضي الدرس يُضبط من ✨ في شريط العرض. اضغط حفظ للاحتفاظ بالتغيير.',
     transTitle: 'الانتقال بين الشرائح', tr_none: 'بدون', tr_fade: 'تلاشي', tr_slide: 'انزلاق', tr_zoom: 'تكبير', tr_flip: 'قلب', tr_dip: 'تلاشي للأسود', tr_cover: 'تغطية', tr_random: 'عشوائي', transSavedLesson: 'حُفظ الانتقال لهذا الدرس ✓', transSavedMe: 'حُفظ الانتقال على هذا الجهاز ✓', transNoteAdmin: 'يُحفظ لهذا الدرس — يراه الجميع.', transNoteMe: 'يُحفظ على هذا الجهاز فقط.',
@@ -259,6 +261,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    libSlow: 'Haetaan… ilmainen haku voi kestää 10–30 sekuntia.',
     libMore: 'Lisää tuloksia', libBusy: 'Liian monta hakua lyhyessä ajassa — odota hetki ja yritä uudelleen.',
     transSlide: 'Siirtymä tähän diaan', transSlideTitle: 'Siirtymä tähän diaan', transDefault: d => `Oppitunnin oletus (${d})`, transSlideNote: 'Oppitunnin oletus valitaan ✨-painikkeesta esityspalkissa. Tallenna painamalla Tallenna.',
     transTitle: 'Diasiirtymä', tr_none: 'Ei mitään', tr_fade: 'Häivytys', tr_slide: 'Liu’utus', tr_zoom: 'Zoomaus', tr_flip: 'Käännös', tr_dip: 'Häivytys mustaan', tr_cover: 'Peitto', tr_random: 'Satunnainen', transSavedLesson: 'Siirtymä tallennettu tälle oppitunnille ✓', transSavedMe: 'Siirtymä tallennettu tälle laitteelle ✓', transNoteAdmin: 'Tallentuu tälle oppitunnille — kaikki näkevät sen.', transNoteMe: 'Tallentuu vain tälle laitteelle.',
@@ -1936,6 +1939,38 @@ async function addToSoundLib(entry) {
 }
 const soundSrc = async x => x.blob ? (x.objUrl || (x.objUrl = URL.createObjectURL(x.blob))) : x.path ? await api.mediaUrl(x.path) : (x.url || '');
 let libDlg = null, libPlayer = new Audio();
+// Search: the site's own /api/sounds (Freesound, fast — needs FREESOUND_KEY in Vercel); otherwise the free Openverse search (slower).
+const SOUND_CACHE = new Map(); let soundApiOff = false;
+async function soundSearch(q, cat, page, note) {
+  const ck = [q.toLowerCase(), cat, page].join('|');
+  if (SOUND_CACHE.has(ck)) return SOUND_CACHE.get(ck);
+  let d = null;
+  if (!soundApiOff && location.protocol === 'https:') {
+    try {
+      const r = await fetch(`/api/sounds?q=${encodeURIComponent(q)}&page=${page}&kind=${cat === 'sound_effect' ? 'fx' : cat === 'music' ? 'music' : 'all'}`);
+      if (r.status === 429) throw new Error('busy');
+      if (r.ok && (r.headers.get('content-type') || '').includes('json')) d = await r.json();
+      else if (r.status === 501 || r.status === 404 || !(r.headers.get('content-type') || '').includes('json')) soundApiOff = true;
+    } catch (e) { if (e.message === 'busy') throw e; }
+  }
+  if (!d) {
+    note && note(t('libSlow'));
+    // anonymous Openverse requests: max 20 results per page
+    const u = new URL('https://api.openverse.org/v1/audio/'); u.searchParams.set('q', q); u.searchParams.set('page_size', '20'); u.searchParams.set('page', String(page));
+    if (cat === 'sound_effect') u.searchParams.set('source', 'freesound');   // Openverse's own "sound effect" category is almost empty; Freesound is all effects
+    else if (cat === 'music') u.searchParams.set('category', 'music');
+    const r = await fetch(u);
+    if (r.status === 429) throw new Error('busy');
+    if (!r.ok) return null;
+    d = await r.json();
+  }
+  SOUND_CACHE.set(ck, d); return d;
+}
+async function fetchSoundBlob(url) {
+  try { const r = await fetch(url); if (r.ok) return await r.blob(); } catch (e) {}
+  if (location.protocol === 'https:') { const r = await fetch('/api/sounds?dl=' + encodeURIComponent(url)); if (r.ok && !(r.headers.get('content-type') || '').includes('json')) return await r.blob(); }
+  return null;
+}
 function openSoundPicker(onAdd) {
   if (!libDlg) { libDlg = h('div', { class: 'modal lib-modal', hidden: true }); libDlg.addEventListener('click', e => { if (e.target === libDlg || e.target.closest('[data-x]')) { libPlayer.pause(); libDlg.hidden = true; } }); document.body.append(libDlg); }
   let tab = 'search';
@@ -1960,16 +1995,10 @@ function openSoundPicker(onAdd) {
     const go = async more => {
       if (!more) { lastQ = q.value.trim(); lastCat = cat.value; lastPage = 1; lastRes = null; } else lastPage++;
       if (!lastQ) return;
-      if (!more) { res.innerHTML = ''; res.append(h('div', { class: 'spinner' })); }
+      if (!more) { res.innerHTML = ''; res.append(h('div', { class: 'spinner' }), h('p', { class: 'muted small lib-wait', style: 'text-align:center' })); }
       try {
-        // anonymous Openverse requests: max 20 results per page
-        const u = new URL('https://api.openverse.org/v1/audio/'); u.searchParams.set('q', lastQ); u.searchParams.set('page_size', '20'); u.searchParams.set('page', String(lastPage));
-        if (lastCat === 'sound_effect') u.searchParams.set('source', 'freesound');   // Openverse's own "sound effect" category is almost empty; Freesound is all effects
-        else if (lastCat === 'music') u.searchParams.set('category', 'music');
-        const r = await fetch(u);
-        if (r.status === 429) throw new Error('busy');
-        if (!r.ok) { if (more) { lastMore = false; showRes(); return; } throw new Error(r.status); }
-        const d = await r.json();
+        const d = await soundSearch(lastQ, lastCat, lastPage, msg => { const sp = res.querySelector('.lib-wait'); if (sp) sp.textContent = msg; });
+        if (!d) { if (more) { lastMore = false; showRes(); return; } throw new Error('fail'); }
         lastRes = (more ? lastRes || [] : []).concat(d.results || []);
         lastMore = lastPage < (d.page_count || 1);
         showRes();
@@ -1985,7 +2014,7 @@ function openSoundPicker(onAdd) {
           add.disabled = true; add.textContent = '…';
           const credit = r.attribution || `${r.title} by ${r.creator} (${(r.license || '').toUpperCase()})`;
           let path = '';
-          try { const b = await (await fetch(r.url)).blob(); if (!b.size) throw 0; path = `sounds/${uid()}.${r.filetype || 'mp3'}`; await api.uploadMedia(path, new Blob([b], { type: b.type || 'audio/mpeg' })); }
+          try { const b = await fetchSoundBlob(r.url); if (!b || !b.size) throw 0; path = `sounds/${uid()}.${r.filetype || 'mp3'}`; await api.uploadMedia(path, new Blob([b], { type: b.type || 'audio/mpeg' })); }
           catch (e) { path = ''; }
           try { await addToSoundLib({ name: r.title, path, url: path ? '' : r.url, credit, license: r.license, dur: (r.duration || 0) / 1000, ovid: r.id }); } catch (e) {}
           libPlayer.pause(); libDlg.hidden = true;
