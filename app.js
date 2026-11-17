@@ -71,6 +71,8 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    transTitle: 'Slide transition', tr_none: 'None', tr_fade: 'Fade', tr_slide: 'Slide', tr_zoom: 'Zoom', tr_flip: 'Flip', tr_dip: 'Dip to black', tr_cover: 'Cover', tr_random: 'Random', transSavedLesson: 'Transition saved for this lesson ✓', transSavedMe: 'Transition saved on this device ✓', transNoteAdmin: 'Saved for this lesson — everyone sees it.', transNoteMe: 'Saved on this device only.',
+    libOpen: 'Sound library', libTitle: 'Sound library', libSearchTab: 'Search free sounds', libMineTab: 'My sounds', libSearchPh: 'e.g. applause, bell, rain, camel, door…', libSearchBtn: 'Search', libCatFx: 'Sound effects', libCatMusic: 'Music', libCatAll: 'Everything', libSearchHint: 'Type a word in English and press Search.', libSearchNote: 'Free sounds from Openverse / Freesound. Search in English. CC0 ✓ = free to use with no credit; other licences ask you to credit the author (shown under the sound).', libNoResults: 'Nothing found — try another (English) word.', libSearchFail: 'Search is not reachable right now. Check the internet connection and try again.', libAdd: 'Add', libFilterPh: 'Filter by name…', libEmpty: 'No sounds yet. Sounds you upload, record or add from the search are kept here for every lesson.', libRename: 'Name of this sound:', libRemove: 'Remove from the library', libRemoveQ: 'Remove this sound from the library? Slides that already use it keep working.',
     slideAudioHint2: 'Add one or more sounds to this slide — your voice, a nasheed, sound effects. Set each sound’s volume, and play them one after another or all together.', slideAudioTrack: n => `Sound ${n}`, audDelay: 'Start after', audAddFile: 'Add audio file(s)', audTestAll: 'Test all', audModeQ: 'How do the sounds play?', audSeq: 'One after another (in this order)', audTogether: 'All together (mixed)',
     slideAudio: 'Slide audio', slideAudioHint: 'Record or upload a sound for this slide (an explanation, a nasheed, a sound effect). It plays in the presentation of this language.', audPlayQ: 'When does it play?', audAuto: 'Automatically when the slide opens', audManual: 'Only when I press 🔊', audAfterQ: 'When the audio ends:', audStay: 'Stay on this slide (I press next)', audNext: 'Go to the next slide automatically',
     extrasTitle: 'More about this lesson', extrasManage: 'Add / edit moons', extrasHint: 'Moons float around the lesson on the map: extra videos, stories or websites about the same lesson. Choose a language to show one only in that language.', extra_video: 'Video', extra_story: 'Story', extra_link: 'Website', extraAllLangs: 'All languages', extraTitle: 'Title', extraTitlePh: 'e.g. The story of the ark', extraLang: 'Show in', extraYoutube: 'YouTube link', extraUrl: 'Website address', extraText: 'Story text', extraTextPh: 'Write or paste the story here…', extraPic: 'Picture (optional)', extraUploaded: 'video uploaded', extraNeedUrl: 'Please paste a web address starting with https://', extraNeedVideo: 'Paste a YouTube link or upload a video.', extraNeedText: 'Write the story text.', confirmDelete: 'Delete this?',
@@ -161,6 +163,8 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    transTitle: 'الانتقال بين الشرائح', tr_none: 'بدون', tr_fade: 'تلاشي', tr_slide: 'انزلاق', tr_zoom: 'تكبير', tr_flip: 'قلب', tr_dip: 'تلاشي للأسود', tr_cover: 'تغطية', tr_random: 'عشوائي', transSavedLesson: 'حُفظ الانتقال لهذا الدرس ✓', transSavedMe: 'حُفظ الانتقال على هذا الجهاز ✓', transNoteAdmin: 'يُحفظ لهذا الدرس — يراه الجميع.', transNoteMe: 'يُحفظ على هذا الجهاز فقط.',
+    libOpen: 'مكتبة الأصوات', libTitle: 'مكتبة الأصوات', libSearchTab: 'ابحث في أصوات مجانية', libMineTab: 'أصواتي', libSearchPh: 'مثلًا: applause، bell، rain، camel، door…', libSearchBtn: 'بحث', libCatFx: 'مؤثرات صوتية', libCatMusic: 'موسيقى', libCatAll: 'الكل', libSearchHint: 'اكتب كلمة بالإنجليزية واضغط بحث.', libSearchNote: 'أصوات مجانية من Openverse / Freesound. ابحث بالإنجليزية. CC0 ✓ = مجاني بدون ذكر المصدر؛ التراخيص الأخرى تطلب ذكر صاحب الصوت (يظهر تحت الصوت).', libNoResults: 'لم يُعثر على شيء — جرّب كلمة إنجليزية أخرى.', libSearchFail: 'البحث غير متاح الآن. تحقق من الإنترنت وحاول مرة أخرى.', libAdd: 'إضافة', libFilterPh: 'تصفية بالاسم…', libEmpty: 'لا توجد أصوات بعد. الأصوات التي ترفعها أو تسجلها أو تضيفها من البحث تُحفظ هنا لكل الدروس.', libRename: 'اسم هذا الصوت:', libRemove: 'إزالة من المكتبة', libRemoveQ: 'إزالة هذا الصوت من المكتبة؟ الشرائح التي تستخدمه ستظل تعمل.',
     slideAudioHint2: 'أضف صوتًا أو أكثر لهذه الشريحة — صوتك، أنشودة، مؤثرات صوتية. اضبط مستوى كل صوت، وشغّلها واحدًا بعد الآخر أو كلها معًا.', slideAudioTrack: n => `الصوت ${n}`, audDelay: 'يبدأ بعد', audAddFile: 'إضافة ملف/ملفات صوت', audTestAll: 'تجربة الكل', audModeQ: 'كيف تعمل الأصوات؟', audSeq: 'واحدًا بعد الآخر (بهذا الترتيب)', audTogether: 'كلها معًا (ممزوجة)',
     slideAudio: 'صوت الشريحة', slideAudioHint: 'سجّل أو ارفع صوتًا لهذه الشريحة (شرح، أنشودة، مؤثر صوتي). يعمل في عرض هذه اللغة.', audPlayQ: 'متى يعمل الصوت؟', audAuto: 'تلقائيًا عند فتح الشريحة', audManual: 'فقط عندما أضغط 🔊', audAfterQ: 'عند انتهاء الصوت:', audStay: 'ابقَ على الشريحة (أضغط التالي بنفسي)', audNext: 'انتقل إلى الشريحة التالية تلقائيًا',
     extrasTitle: 'المزيد عن هذا الدرس', extrasManage: 'إضافة / تعديل الأقمار', extrasHint: 'الأقمار تدور حول الدرس على الخريطة: فيديوهات أو قصص أو مواقع إضافية عن نفس الدرس. اختر لغة لإظهار القمر في تلك اللغة فقط.', extra_video: 'فيديو', extra_story: 'قصة', extra_link: 'موقع', extraAllLangs: 'كل اللغات', extraTitle: 'العنوان', extraTitlePh: 'مثلًا: قصة السفينة', extraLang: 'يظهر في', extraYoutube: 'رابط يوتيوب', extraUrl: 'عنوان الموقع', extraText: 'نص القصة', extraTextPh: 'اكتب القصة أو الصقها هنا…', extraPic: 'صورة (اختياري)', extraUploaded: 'تم رفع الفيديو', extraNeedUrl: 'الصق عنوانًا يبدأ بـ https://', extraNeedVideo: 'الصق رابط يوتيوب أو ارفع فيديو.', extraNeedText: 'اكتب نص القصة.', confirmDelete: 'حذف هذا؟',
@@ -251,6 +255,8 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    transTitle: 'Diasiirtymä', tr_none: 'Ei mitään', tr_fade: 'Häivytys', tr_slide: 'Liu’utus', tr_zoom: 'Zoomaus', tr_flip: 'Käännös', tr_dip: 'Häivytys mustaan', tr_cover: 'Peitto', tr_random: 'Satunnainen', transSavedLesson: 'Siirtymä tallennettu tälle oppitunnille ✓', transSavedMe: 'Siirtymä tallennettu tälle laitteelle ✓', transNoteAdmin: 'Tallentuu tälle oppitunnille — kaikki näkevät sen.', transNoteMe: 'Tallentuu vain tälle laitteelle.',
+    libOpen: 'Äänikirjasto', libTitle: 'Äänikirjasto', libSearchTab: 'Hae ilmaisia ääniä', libMineTab: 'Omat äänet', libSearchPh: 'esim. applause, bell, rain, camel, door…', libSearchBtn: 'Hae', libCatFx: 'Ääniefektit', libCatMusic: 'Musiikki', libCatAll: 'Kaikki', libSearchHint: 'Kirjoita sana englanniksi ja paina Hae.', libSearchNote: 'Ilmaisia ääniä Openversesta / Freesoundista. Hae englanniksi. CC0 ✓ = vapaa käyttää ilman mainintaa; muut lisenssit pyytävät mainitsemaan tekijän (näkyy äänen alla).', libNoResults: 'Ei tuloksia — kokeile toista englanninkielistä sanaa.', libSearchFail: 'Haku ei ole juuri nyt saatavilla. Tarkista internetyhteys ja yritä uudelleen.', libAdd: 'Lisää', libFilterPh: 'Suodata nimellä…', libEmpty: 'Ei vielä ääniä. Lataamasi, äänittämäsi tai hausta lisäämäsi äänet säilyvät täällä kaikille oppitunneille.', libRename: 'Äänen nimi:', libRemove: 'Poista kirjastosta', libRemoveQ: 'Poistetaanko ääni kirjastosta? Sitä jo käyttävät diat toimivat edelleen.',
     slideAudioHint2: 'Lisää dialle yksi tai useampi ääni — oma äänesi, nasheed, ääniefektit. Säädä jokaisen äänen voimakkuus ja soita ne peräkkäin tai kaikki yhdessä.', slideAudioTrack: n => `Ääni ${n}`, audDelay: 'Alkaa', audAddFile: 'Lisää äänitiedosto(ja)', audTestAll: 'Kokeile kaikki', audModeQ: 'Miten äänet soivat?', audSeq: 'Peräkkäin (tässä järjestyksessä)', audTogether: 'Kaikki yhdessä (sekoitettuna)',
     slideAudio: 'Dian ääni', slideAudioHint: 'Äänitä tai lataa ääni tälle dialle (selitys, nasheed, ääniefekti). Se soi tämän kielen esityksessä.', audPlayQ: 'Milloin ääni soi?', audAuto: 'Automaattisesti, kun dia avautuu', audManual: 'Vain kun painan 🔊', audAfterQ: 'Kun ääni loppuu:', audStay: 'Pysy tällä dialla (painan itse seuraava)', audNext: 'Siirry seuraavaan diaan automaattisesti',
     extrasTitle: 'Lisää tästä oppitunnista', extrasManage: 'Lisää / muokkaa kuita', extrasHint: 'Kuut kiertävät oppituntia kartalla: lisävideoita, tarinoita tai verkkosivuja samasta aiheesta. Valitse kieli, jos kuu näkyy vain sillä kielellä.', extra_video: 'Video', extra_story: 'Tarina', extra_link: 'Verkkosivu', extraAllLangs: 'Kaikki kielet', extraTitle: 'Otsikko', extraTitlePh: 'esim. Arkin tarina', extraLang: 'Näytä', extraYoutube: 'YouTube-linkki', extraUrl: 'Verkkosivun osoite', extraText: 'Tarinan teksti', extraTextPh: 'Kirjoita tai liitä tarina tähän…', extraPic: 'Kuva (valinnainen)', extraUploaded: 'video ladattu', extraNeedUrl: 'Liitä osoite, joka alkaa https://', extraNeedVideo: 'Liitä YouTube-linkki tai lataa video.', extraNeedText: 'Kirjoita tarinan teksti.', confirmDelete: 'Poistetaanko?',
@@ -1839,7 +1845,7 @@ async function present(ls, lang) {
   if (!f) { toast(t('notIn', lang), true); return; }
   writeLast(ls.id, lang);
   openPresenter();
-  P.lessonId = ls.id; P.celebrated = isDone(ls.id);
+  P.lessonId = ls.id; P.celebrated = isDone(ls.id); P.trans = transFor(ls);
   showPresenterMessage(t('loading'));
   try {
     const doc = await getDoc(f.path);
@@ -1852,7 +1858,7 @@ function presentEditorDraft() {
   const ed = state.editor; if (!ed || !ed.items.length) return;
   openPresenter();
   P.lessonId = null;
-  P.lang = ed.lang;
+  P.lang = ed.lang; P.trans = transFor(state.lessons.find(l => l.id === ed.lessonId));
   startDeck(ed.items.filter(it => !it.hidden).map(it => it.quiz ? { quiz: localQuiz(it.quiz, ed.lang) } : it.media ? { media: it.media } : { doc: ed.sources[it.src].doc, page: it.page, audio: it.audio }));
 }
 function openPresenter() {
@@ -1866,7 +1872,7 @@ function openPresenter() {
 /* ── per-slide audio: one or more sounds per slide, each with its own volume;
       played one after another (sequence) or all together, with an optional start delay ── */
 const normAudio = a => !a ? null : a.tracks ? a : (a.path ? { tracks: [{ path: a.path, vol: 1, delay: 0 }], mode: 'sequence', play: a.play || 'auto', after: a.after || 'stay' } : null);
-const hasAudio = a => !!(a && normAudio(a) && normAudio(a).tracks.some(x => x.path));
+const hasAudio = a => !!(a && normAudio(a) && normAudio(a).tracks.some(x => x.path || x.url));
 const SA = { els: [], token: 0, timers: [], state: 'idle' };
 function setAudioBtn(a) { const b = $('pAudio'); if (!b) return; b.hidden = !hasAudio(a); b.textContent = '🔊'; b.classList.remove('playing'); }
 function slideAudioStop() {
@@ -1878,8 +1884,8 @@ function audioBtnPlaying(on) { const b = $('pAudio'); if (b) { b.classList.toggl
 async function slideAudioPlay(a, token) {
   a = normAudio(a); if (!a) return;
   slideAudioStop(); const my = SA.token;
-  const tracks = a.tracks.filter(x => x.path);
-  const urls = await Promise.all(tracks.map(x => api.mediaUrl(x.path)));
+  const tracks = a.tracks.filter(x => x.path || x.url);
+  const urls = await Promise.all(tracks.map(x => x.path ? api.mediaUrl(x.path) : x.url));
   if (my !== SA.token || (token && token !== P.token)) return;
   const els = tracks.map((x, k) => { const el = new Audio(urls[k]); el.volume = Math.max(0, Math.min(1, x.vol ?? 1)); el.preload = 'auto'; return el; });
   SA.els = els; SA.state = 'playing'; audioBtnPlaying(true);
@@ -1904,9 +1910,106 @@ $('pAudio').onclick = e => {
   else if (SA.state === 'paused') { SA.els.forEach(el => { if (el._wasPlaying) { el._wasPlaying = false; el.play().catch(() => {}); } }); SA.state = 'playing'; audioBtnPlaying(true); }
   else slideAudioPlay(a, P.token);
 };
+/* ── Sound library: search free sounds (Openverse / Freesound) + the site's own "My sounds" list ── */
+let soundLib = null;
+async function loadSoundLib(force) {
+  if (soundLib && !force) return soundLib;
+  try { const st = await api.getSettings(); soundLib = Array.isArray(st.sounds) ? st.sounds : []; } catch (e) { soundLib = soundLib || []; }
+  return soundLib;
+}
+async function saveSoundLib() { await api.saveSetting('sounds', soundLib); }
+async function addToSoundLib(entry) {
+  await loadSoundLib(true);
+  if (entry.ovid && soundLib.some(s => s.ovid === entry.ovid)) return soundLib.find(s => s.ovid === entry.ovid);
+  if (entry.path && soundLib.some(s => s.path === entry.path)) return soundLib.find(s => s.path === entry.path);
+  const e = { id: uid(), name: entry.name || 'sound', path: entry.path || '', url: entry.url || '', credit: entry.credit || '', license: entry.license || '', dur: entry.dur || 0, ovid: entry.ovid || '' };
+  soundLib.unshift(e); await saveSoundLib(); return e;
+}
+const soundSrc = async x => x.blob ? (x.objUrl || (x.objUrl = URL.createObjectURL(x.blob))) : x.path ? await api.mediaUrl(x.path) : (x.url || '');
+let libDlg = null, libPlayer = new Audio();
+function openSoundPicker(onAdd) {
+  if (!libDlg) { libDlg = h('div', { class: 'modal lib-modal', hidden: true }); libDlg.addEventListener('click', e => { if (e.target === libDlg || e.target.closest('[data-x]')) { libPlayer.pause(); libDlg.hidden = true; } }); document.body.append(libDlg); }
+  let tab = 'search';
+  const card = h('div', { class: 'modal-card wide lib-card' });
+  libDlg.innerHTML = ''; libDlg.append(card); libDlg.hidden = false;
+  const fmtD = s => s ? (s >= 60 ? `${Math.floor(s / 60)}:${String(Math.round(s % 60)).padStart(2, '0')}` : `${Math.round(s * 10) / 10}s`) : '';
+  const playBtn = getUrl => { const b = h('button', { type: 'button', class: 'btn small', text: '▶' }); b.onclick = async () => { if (!libPlayer.paused && b.textContent === '⏸') { libPlayer.pause(); b.textContent = '▶'; return; } card.querySelectorAll('.lib-play').forEach(x => { x.textContent = '▶'; }); libPlayer.src = await getUrl(); libPlayer.play().catch(() => toast(t('error') + 'audio', true)); b.textContent = '⏸'; libPlayer.onended = () => { b.textContent = '▶'; }; }; b.classList.add('lib-play'); return b; };
+  const pickLib = (s) => { libPlayer.pause(); libDlg.hidden = true; onAdd({ path: s.path, url: s.url, name: s.name, credit: s.credit }); };
+  const draw = () => {
+    card.innerHTML = '';
+    card.append(h('button', { type: 'button', class: 'sheet-close', 'data-x': '' }, '✕'), h('h2', {}, '🎵 ', t('libTitle')),
+      h('div', { class: 'tabs' },
+        h('button', { type: 'button', class: tab === 'search' ? 'active' : '', onclick: () => { tab = 'search'; draw(); } }, '🔎 ', t('libSearchTab')),
+        h('button', { type: 'button', class: tab === 'mine' ? 'active' : '', onclick: () => { tab = 'mine'; draw(); } }, '🎵 ', t('libMineTab'))));
+    if (tab === 'search') drawSearch(); else drawMine();
+  };
+  let lastQ = '', lastCat = 'sound_effect', lastRes = null;
+  const drawSearch = () => {
+    const q = h('input', { type: 'search', dir: 'ltr', placeholder: t('libSearchPh') }); q.value = lastQ;
+    const cat = h('select', {}, [['sound_effect', t('libCatFx')], ['music', t('libCatMusic')], ['', t('libCatAll')]].map(([v, n]) => h('option', { value: v, text: n }))); cat.value = lastCat;
+    const res = h('div', { class: 'lib-list' });
+    const go = async () => {
+      lastQ = q.value.trim(); lastCat = cat.value; if (!lastQ) return;
+      res.innerHTML = ''; res.append(h('div', { class: 'spinner' }));
+      try {
+        const u = new URL('https://api.openverse.org/v1/audio/'); u.searchParams.set('q', lastQ); u.searchParams.set('page_size', '30');
+        if (lastCat) u.searchParams.set('category', lastCat);
+        const r = await fetch(u); if (!r.ok) throw new Error(r.status);
+        lastRes = (await r.json()).results || []; showRes();
+      } catch (e) { res.innerHTML = ''; res.append(h('p', { class: 'muted', text: t('libSearchFail') })); }
+    };
+    const showRes = () => {
+      res.innerHTML = '';
+      if (!lastRes) { res.append(h('p', { class: 'muted', text: t('libSearchHint') })); return; }
+      if (!lastRes.length) { res.append(h('p', { class: 'muted', text: t('libNoResults') })); return; }
+      lastRes.forEach(r => {
+        const add = h('button', { type: 'button', class: 'btn small primary' }, '＋ ', t('libAdd'));
+        add.onclick = async () => {
+          add.disabled = true; add.textContent = '…';
+          const credit = r.attribution || `${r.title} by ${r.creator} (${(r.license || '').toUpperCase()})`;
+          let path = '';
+          try { const b = await (await fetch(r.url)).blob(); if (!b.size) throw 0; path = `sounds/${uid()}.${r.filetype || 'mp3'}`; await api.uploadMedia(path, new Blob([b], { type: b.type || 'audio/mpeg' })); }
+          catch (e) { path = ''; }
+          try { await addToSoundLib({ name: r.title, path, url: path ? '' : r.url, credit, license: r.license, dur: (r.duration || 0) / 1000, ovid: r.id }); } catch (e) {}
+          libPlayer.pause(); libDlg.hidden = true;
+          onAdd({ path, url: path ? '' : r.url, name: r.title, credit });
+        };
+        res.append(h('div', { class: 'lib-row' },
+          playBtn(async () => r.url),
+          h('div', { class: 'lib-t' }, h('b', { text: r.title }), h('small', { text: [fmtD((r.duration || 0) / 1000), r.creator, (r.license || '').toUpperCase() + (r.license === 'cc0' ? ' ✓' : ''), r.source].filter(Boolean).join(' · ') })),
+          add));
+      });
+    };
+    q.onkeydown = e => { if (e.key === 'Enter') { e.preventDefault(); go(); } };
+    card.append(h('div', { class: 'lib-bar' }, q, cat, h('button', { type: 'button', class: 'btn primary', onclick: go }, '🔎 ', t('libSearchBtn'))),
+      h('p', { class: 'muted small', text: t('libSearchNote') }), res);
+    showRes(); setTimeout(() => q.focus(), 30);
+  };
+  const drawMine = async () => {
+    const f = h('input', { type: 'search', dir: 'auto', placeholder: t('libFilterPh') });
+    const list = h('div', { class: 'lib-list' }, h('div', { class: 'spinner' }));
+    card.append(h('div', { class: 'lib-bar' }, f), list);
+    await loadSoundLib(true);
+    const show = () => {
+      list.innerHTML = '';
+      const qq = f.value.trim().toLowerCase();
+      const items = soundLib.filter(s => !qq || (s.name || '').toLowerCase().includes(qq));
+      if (!items.length) { list.append(h('p', { class: 'muted', text: t('libEmpty') })); return; }
+      items.forEach(s => list.append(h('div', { class: 'lib-row' },
+        playBtn(() => soundSrc(s)),
+        h('div', { class: 'lib-t' }, h('b', { dir: 'auto', text: s.name }), s.credit ? h('small', { text: s.credit }) : null),
+        state.isAdmin ? h('button', { type: 'button', class: 'btn small', title: t('edit'), onclick: async () => { const n = prompt(t('libRename'), s.name); if (n && n.trim()) { s.name = n.trim(); await guard(saveSoundLib); show(); } } }, '✎') : null,
+        state.isAdmin ? h('button', { type: 'button', class: 'btn small danger', title: t('libRemove'), onclick: async () => { if (!confirm(t('libRemoveQ'))) return; soundLib = soundLib.filter(x => x !== s); await guard(saveSoundLib); show(); } }, '🗑') : null,
+        h('button', { type: 'button', class: 'btn small primary', onclick: () => pickLib(s) }, '＋ ', t('libAdd')))));
+    };
+    f.oninput = show; show();
+  };
+  draw();
+}
 let audDlg = null;
 function openSlideAudio(it) {
   const ed = state.editor; if (!ed) return;
+  const ls0 = state.lessons.find(l => l.id === ed.lessonId) || { titles: {} };
   if (!audDlg) { audDlg = h('div', { class: 'modal', hidden: true }); audDlg.addEventListener('click', e => { if (e.target === audDlg || e.target.closest('[data-x]')) { closeAud(); } }); document.body.append(audDlg); }
   const orig = normAudio(it.audio);
   const cur = orig ? { ...orig, tracks: orig.tracks.map(x => ({ ...x })) } : { tracks: [], mode: 'sequence', play: 'auto', after: 'stay' };
@@ -1916,7 +2019,7 @@ function openSlideAudio(it) {
   const stopTest = () => { testEls.forEach(el => { try { el.pause(); } catch (e) {} }); testEls = []; };
   const closeAud = () => { stopRec(); stopTest(); audDlg.hidden = true; };
   const list = h('div', { class: 'aud-tracks' });
-  const urlOf = async x => x.blob ? (x.url || (x.url = URL.createObjectURL(x.blob))) : await api.mediaUrl(x.path);
+  const urlOf = soundSrc;
   const drawTracks = () => {
     list.innerHTML = '';
     if (!cur.tracks.length) list.append(h('p', { class: 'muted', text: t('ls_noSound') }));
@@ -1929,6 +2032,7 @@ function openSlideAudio(it) {
         h('b', { class: 'at-n', text: k + 1 }),
         h('div', { class: 'at-main' },
           h('div', { class: 'at-name', text: x.name || (x.blob ? t('ls_newSound') : '🎵 ' + t('slideAudioTrack', k + 1)) }),
+          x.credit ? h('small', { class: 'at-credit', text: x.credit }) : null,
           h('label', { class: 'at-row' }, '🔉', vol, vLbl),
           h('label', { class: 'at-row' }, '⏱ ' + t('audDelay'), delay, 's')),
         h('div', { class: 'at-btns' },
@@ -1964,7 +2068,7 @@ function openSlideAudio(it) {
     h('h2', {}, '🎵 ', t('slideAudio')),
     h('p', { class: 'muted', text: t('slideAudioHint2') }),
     list,
-    h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;margin:10px 0' }, recBtn, h('label', { class: 'btn' }, '⬆ ', t('audAddFile'), fIn), testAll, h('button', { type: 'button', class: 'btn small', onclick: stopTest }, '⏹')),
+    h('div', { style: 'display:flex;gap:8px;flex-wrap:wrap;margin:10px 0' }, h('button', { type: 'button', class: 'btn gold', onclick: () => openSoundPicker(x => { cur.tracks.push({ ...x, vol: 1, delay: 0 }); drawTracks(); }) }, '🔎 ', t('libOpen')), recBtn, h('label', { class: 'btn' }, '⬆ ', t('audAddFile'), fIn), testAll, h('button', { type: 'button', class: 'btn small', onclick: stopTest }, '⏹')),
     h('div', { class: 'aud-grid' },
       h('div', {}, h('b', { text: t('audModeQ') }), h('div', { class: 'aud-opts' }, radio('mode', 'sequence', '➡ ' + t('audSeq'), cur.mode !== 'together'), radio('mode', 'together', '🔀 ' + t('audTogether'), cur.mode === 'together'))),
       h('div', {}, h('b', { text: t('audPlayQ') }), h('div', { class: 'aud-opts' }, radio('play', 'auto', '▶ ' + t('audAuto'), cur.play !== 'manual'), radio('play', 'manual', '🔊 ' + t('audManual'), cur.play === 'manual'))),
@@ -1978,19 +2082,70 @@ function openSlideAudio(it) {
     await guard(async () => {
       for (const x of cur.tracks) if (x.blob) {
         const b = x.blob, ext = (b.name && /\.(\w+)$/.test(b.name)) ? RegExp.$1.toLowerCase() : ((b.type.split('/')[1] || 'webm').split(';')[0]);
-        x.path = `audio/${ed.lessonId}/${uid()}.${ext}`;
+        x.path = `sounds/${uid()}.${ext}`;
         await api.uploadMedia(x.path, b);
+        try { await addToSoundLib({ name: (x.name || '').replace(/^🎙\s*/, '') || (nameOf(ls0.titles) + ' — ' + t('slideAudio')), path: x.path }); } catch (e) {}
         if (!x.name || x.name.startsWith('🎙')) x.name = x.name || ''; delete x.blob; delete x.url;
       }
-      if (removed.length) api.removeMedia(removed).catch(() => {});
-      cur.tracks = cur.tracks.filter(x => x.path).map(({ path, vol, delay, name }) => ({ path, vol: vol ?? 1, delay: delay || 0, name: name || '' }));
+      cur.tracks = cur.tracks.filter(x => x.path || x.url).map(({ path, url, vol, delay, name, credit }) => ({ path: path || '', url: url || '', vol: vol ?? 1, delay: delay || 0, name: name || '', credit: credit || '' }));
       if (cur.tracks.length) it.audio = cur; else delete it.audio;
       ed.dirty = true; closeAud(); drawSlides();
     }, t('uploading'));
   };
   audDlg.innerHTML = ''; audDlg.append(form); audDlg.hidden = false; drawTracks();
 }
-function startDeck(pages) { P.pages = pages; P.i = 0; P.cache.clear(); P.token++; showSlide(0); }
+function startDeck(pages) { P.pages = pages; P.i = 0; P.cache.clear(); P.token++; P.shown = false; $('stage').querySelector('.p-ghost')?.remove(); showSlide(0); }
+/* ── slide transitions: the leaving slide is copied into a "ghost" layer that animates out while the new one animates in ── */
+const TRANSITIONS = ['none', 'fade', 'slide', 'zoom', 'flip', 'dip', 'cover', 'random'];
+const TRANS_ICON = { none: '⏹', fade: '🌫', slide: '➡', zoom: '🔍', flip: '🔄', dip: '⬛', cover: '🃏', random: '🎲' };
+function transFor(ls) {
+  let local = ''; try { local = localStorage.getItem('lpt.trans') || ''; } catch (e) {}
+  const v = local || (ls && ls.quiz && ls.quiz.transition) || 'fade';
+  return TRANSITIONS.includes(v) ? v : 'fade';
+}
+function makeGhost() {
+  const st = $('stage'); st.querySelector('.p-ghost')?.remove();
+  if (!P.shown || P.trans === 'none' || matchMedia('(prefers-reduced-motion: reduce)').matches) return null;
+  const g = h('div', { class: 'p-ghost' });
+  const ov = st.querySelector(':scope > .p-quiz, :scope > .p-media, :scope > .p-finish');
+  if (ov) { ov.querySelectorAll('video,audio').forEach(v => { try { v.pause(); } catch (e) {} }); ov.querySelectorAll('iframe').forEach(f => f.remove()); g.append(ov); }
+  else {
+    const c = $('slideCanvas'); if (c.style.visibility === 'hidden' || !c.width) return null;
+    const k = document.createElement('canvas'); k.width = c.width; k.height = c.height; k.style.width = c.style.width; k.style.height = c.style.height;
+    k.getContext('2d').drawImage(c, 0, 0); g.append(k);
+  }
+  st.append(g); return g;
+}
+function runTrans(g, el) {
+  P.shown = true;
+  if (!g) return;
+  let kind = P.trans;
+  if (kind === 'random') { const opts = TRANSITIONS.filter(x => !['none', 'random'].includes(x)); kind = opts[Math.floor(Math.random() * opts.length)]; }
+  if (!el || kind === 'none') { g.remove(); return; }
+  const back = P.dir < 0;
+  const all = TRANSITIONS.map(x => 't-' + x);
+  el.classList.remove('t-in', 't-back', ...all); void el.offsetWidth;
+  g.classList.add('t-out', 't-' + kind); el.classList.add('t-in', 't-' + kind); if (back) { g.classList.add('t-back'); el.classList.add('t-back'); }
+  clearTimeout(P.transTimer);
+  P.transTimer = setTimeout(() => { g.remove(); el.classList.remove('t-in', 't-back', ...all); }, 760);
+}
+function openTransMenu() {
+  const old = $('presenter').querySelector('.p-trans-menu'); if (old) { old.remove(); return; }
+  const m = h('div', { class: 'p-trans-menu' }, h('b', { text: '✨ ' + t('transTitle') }),
+    h('div', { class: 'ptm-grid' }, TRANSITIONS.map(k => h('button', { type: 'button', class: P.trans === k ? 'on' : '', onclick: async ev => {
+      ev.stopPropagation(); P.trans = k; m.remove();
+      const ls = P.lessonId && state.lessons.find(l => l.id === P.lessonId);
+      if (state.isAdmin && ls) {
+        try { localStorage.removeItem('lpt.trans'); } catch (e) {}
+        try { await api.saveLesson({ ...ls, quiz: { ...(ls.quiz || {}), transition: k } }); ls.quiz = { ...(ls.quiz || {}), transition: k }; toast(t('transSavedLesson')); } catch (e) { toast(t('error') + e.message, true); }
+      } else { try { localStorage.setItem('lpt.trans', k); } catch (e) {} toast(t('transSavedMe')); }
+      P.dir = 1; const g = makeGhost(); runTrans(g, $('stage').querySelector(':scope > .p-quiz, :scope > .p-media, :scope > .p-finish') || $('slideCanvas'));
+    } }, h('span', { class: 'ptm-i', text: TRANS_ICON[k] }), t('tr_' + k)))),
+    h('small', { text: state.isAdmin && P.lessonId ? t('transNoteAdmin') : t('transNoteMe') }));
+  m.addEventListener('click', ev => ev.stopPropagation());
+  $('presenter').append(m);
+}
+$('pTrans').onclick = e => { e.stopPropagation(); openTransMenu(); pokeUI(); };
 function showPresenterMessage(msg) {
   const stage = $('stage'); stage.querySelector('.p-msg')?.remove();
   if (msg) stage.append(h('div', { class: 'p-msg', text: msg }));
@@ -2010,11 +2165,14 @@ function renderSlideCanvas(i) {
 async function showSlide(i) {
   if (!P.pages || !P.pages.length) return;
   i = Math.max(0, Math.min(P.pages.length - 1, i));
+  P.dir = i >= P.i ? 1 : -1;
+  $('presenter').querySelector('.p-trans-menu')?.remove();
+  const ghost = i === P.i && P.shown ? null : makeGhost();
   P.i = i;
   $('pCount').textContent = `${i + 1} / ${P.pages.length}`;
   const token = ++P.token;
   slideAudioStop(); setAudioBtn(P.pages[i].audio);
-  $('stage').querySelector('.p-quiz')?.remove(); $('stage').querySelector('.p-media')?.remove(); $('stage').querySelector('.p-finish')?.remove(); $('slideCanvas').style.visibility = '';
+  $('stage').querySelectorAll(':scope > .p-quiz, :scope > .p-media, :scope > .p-finish').forEach(e => e.remove()); $('slideCanvas').style.visibility = '';
   if (P.pages[i].finish) {   // closing slide added after the last real slide (never part of the PDF)
     showPresenterMessage(null); $('slideCanvas').style.visibility = 'hidden';
     const fin = h('div', { class: 'p-finish' },
@@ -2023,18 +2181,18 @@ async function showSlide(i) {
       h('h2', { text: t('lessonComplete') }),
       h('p', { text: t('finishSub') }));
     fin.addEventListener('click', ev => ev.stopPropagation());
-    $('stage').append(fin);
+    $('stage').append(fin); runTrans(ghost, fin);
     if (P.lessonId && !P.celebrated) { P.celebrated = true; setDone(P.lessonId, true); }
     celebrate();
     return;
   }
   if (P.pages[i].media) {
-    showPresenterMessage(null); showMediaSlide(P.pages[i].media);
+    showPresenterMessage(null); showMediaSlide(P.pages[i].media); runTrans(ghost, $('stage').querySelector(':scope > .p-media'));
     if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
     return;
   }
   if (P.pages[i].quiz) {
-    showPresenterMessage(null); showQuizSlide(P.pages[i].quiz);
+    showPresenterMessage(null); showQuizSlide(P.pages[i].quiz); runTrans(ghost, $('stage').querySelector(':scope > .p-quiz'));
     if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
     return;
   }
@@ -2045,11 +2203,12 @@ async function showSlide(i) {
     const c = $('slideCanvas');
     c.width = src.width; c.height = src.height; c.style.width = src.style.width; c.style.height = src.style.height;
     c.getContext('2d').drawImage(src, 0, 0);
+    runTrans(ghost, c);
     if (hasAudio(P.pages[i].audio) && normAudio(P.pages[i].audio).play === 'auto') slideAudioPlay(P.pages[i].audio, token);
     // warm up neighbours
     if (i + 1 < P.pages.length && P.pages[i + 1].doc) renderSlideCanvas(i + 1);
     if (i > 0 && P.pages[i - 1].doc) renderSlideCanvas(i - 1);
-  } catch (e) { showPresenterMessage(t('error') + e.message); }
+  } catch (e) { ghost?.remove(); showPresenterMessage(t('error') + e.message); }
 }
 function celebrate() {
   const box = $('celebrate'); box.innerHTML = ''; box.hidden = false;
@@ -2343,7 +2502,7 @@ $('makerPreviewBtn').onclick = async () => {
   const bytes = await guard(() => makerBuild(), t('building'));
   if (!bytes) return;
   const doc = await docFromBytes(bytes);
-  openPresenter(); P.lessonId = null;
+  openPresenter(); P.lessonId = null; P.trans = transFor(null);
   startDeck(Array.from({ length: doc.numPages }, (_, k) => ({ doc, page: k + 1 })));
 };
 $('makerSaveBtn').onclick = async () => {

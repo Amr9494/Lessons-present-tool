@@ -766,3 +766,50 @@ body.edit-mode .tx-hover{outline:2px dashed var(--accent);outline-offset:2px;bor
 .at-btns{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
 .aud-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
 @media(max-width:640px){.aud-track{grid-template-columns:auto 1fr}.at-btns{grid-column:1/-1}}
+.lib-modal{z-index:120}
+.lib-card{position:relative;max-height:88vh;display:flex;flex-direction:column}
+.lib-bar{display:flex;gap:8px;margin:10px 0 4px;flex-wrap:wrap}
+.lib-bar input{flex:1;min-width:180px;padding:10px 12px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font:600 15px var(--font)}
+.lib-bar select{padding:8px 10px;border:2px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font-weight:700}
+.lib-list{display:flex;flex-direction:column;gap:6px;overflow:auto;min-height:120px;max-height:56vh;padding:2px}
+.lib-row{display:flex;align-items:center;gap:8px;padding:8px 10px;border:2px solid var(--line);border-radius:12px;background:var(--bg-2)}
+.lib-t{flex:1;min-width:0;display:flex;flex-direction:column}
+.lib-t b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lib-t small{color:var(--muted);font-weight:600;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.at-credit{color:var(--muted);font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* slide transitions */
+.p-ghost{position:absolute;inset:0;z-index:4;display:grid;place-items:center;pointer-events:none;background:transparent}
+.p-ghost canvas{max-width:100vw;max-height:100vh;display:block}
+.p-ghost.t-dip,.p-ghost.t-flip{background:#000}
+.t-out,.t-in{animation-duration:.7s;animation-fill-mode:both;animation-timing-function:cubic-bezier(.4,0,.2,1)}
+.t-out.t-fade{animation-name:trFadeOut;animation-duration:.6s}
+.t-out.t-dip{animation-name:trFadeOut;animation-duration:.35s}
+.t-in.t-dip{animation-name:trFadeIn;animation-duration:.35s;animation-delay:.35s}
+.t-out.t-slide{animation-name:trSlideOut}.t-in.t-slide{animation-name:trSlideIn}
+.t-out.t-slide.t-back{animation-name:trSlideOutB}.t-in.t-slide.t-back{animation-name:trSlideInB}
+.t-out.t-zoom{animation-name:trZoomOut;animation-duration:.6s}.t-in.t-zoom{animation-name:trZoomIn;animation-duration:.6s}
+.t-out.t-flip{animation-name:trFlipOut;animation-duration:.35s;animation-timing-function:ease-in}
+.t-in.t-flip{animation-name:trFlipIn;animation-duration:.35s;animation-delay:.35s;animation-timing-function:ease-out}
+.t-out.t-cover{animation-name:trStay}.t-in.t-cover{animation-name:trSlideIn;position:relative;z-index:5}
+.t-in.t-cover.t-back{animation-name:trSlideInB}
+.p-quiz.t-in.t-cover,.p-media.t-in.t-cover,.p-finish.t-in.t-cover{position:absolute}
+.stage{perspective:1600px;overflow:hidden}
+@keyframes trFadeOut{from{opacity:1}to{opacity:0}}
+@keyframes trFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes trStay{from{opacity:1}to{opacity:1}}
+@keyframes trSlideOut{from{transform:translateX(0)}to{transform:translateX(-100vw)}}
+@keyframes trSlideIn{from{transform:translateX(100vw)}to{transform:translateX(0)}}
+@keyframes trSlideOutB{from{transform:translateX(0)}to{transform:translateX(100vw)}}
+@keyframes trSlideInB{from{transform:translateX(-100vw)}to{transform:translateX(0)}}
+@keyframes trZoomOut{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.25)}}
+@keyframes trZoomIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+@keyframes trFlipOut{from{transform:rotateY(0)}to{transform:rotateY(90deg)}}
+@keyframes trFlipIn{from{transform:rotateY(-90deg)}to{transform:rotateY(0)}}
+.p-trans-menu{position:absolute;bottom:80px;left:50%;transform:translateX(-50%);z-index:6;background:rgba(20,22,40,.94);color:#fff;border:1px solid rgba(255,255,255,.15);border-radius:18px;padding:12px 14px;display:flex;flex-direction:column;gap:8px;cursor:default;min-width:300px}
+.p-trans-menu small{opacity:.7}
+.ptm-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.ptm-grid button{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 6px;border-radius:12px;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.06);color:#fff;font:700 12px var(--font);cursor:pointer}
+.ptm-grid button:hover{background:rgba(255,255,255,.14)}
+.ptm-grid button.on{background:#6d62f0;border-color:#9b93ff}
+.ptm-i{font-size:20px}
+@media (prefers-reduced-motion:reduce){.t-out,.t-in{animation:none!important}}
