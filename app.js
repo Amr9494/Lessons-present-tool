@@ -71,6 +71,7 @@ const T = {
     start: 'Start', finishAll: 'Journey complete! 🎉', finishMore: 'More adventures coming',
     nextUp: 'Next!', doneLabel: '✓ Done', soonIn: l => `Coming soon in ${LANG_NAMES[l]}`,
     ytInvalid: 'That doesn’t look like a YouTube link.', lessonComplete: 'Great job! ⭐',
+    slidePicHint: 'Open full screen', downloadPic: 'Download this picture', prevSlide: 'Previous', nextSlide: 'Next',
     libSlow: 'Searching… the free search can take 10–30 seconds.',
     libMore: 'More results', libBusy: 'Too many searches in a short time — wait a minute and try again.',
     transSlide: 'Transition into this slide', transSlideTitle: 'Transition into this slide', transDefault: d => `Lesson default (${d})`, transSlideNote: 'The lesson default is set with ✨ in the presenter bar. Press Save to keep.',
@@ -166,6 +167,7 @@ const T = {
     start: 'البداية', finishAll: 'أحسنت! أكملت الرحلة 🎉', finishMore: 'مغامرات أخرى قريبًا',
     nextUp: 'التالي!', doneLabel: '✓ مكتمل', soonIn: l => `قريبًا بـ${LANG_NAMES[l]}`,
     ytInvalid: 'هذا لا يبدو رابط يوتيوب.', lessonComplete: 'أحسنت! ⭐',
+    slidePicHint: 'فتح بملء الشاشة', downloadPic: 'تحميل هذه الصورة', prevSlide: 'السابقة', nextSlide: 'التالية',
     libSlow: 'جارٍ البحث… البحث المجاني قد يستغرق ١٠–٣٠ ثانية.',
     libMore: 'نتائج أكثر', libBusy: 'عمليات بحث كثيرة في وقت قصير — انتظر دقيقة وحاول مرة أخرى.',
     transSlide: 'الانتقال إلى هذه الشريحة', transSlideTitle: 'الانتقال إلى هذه الشريحة', transDefault: d => `افتراضي الدرس (${d})`, transSlideNote: 'افتراضي الدرس يُضبط من ✨ في شريط العرض. اضغط حفظ للاحتفاظ بالتغيير.',
@@ -261,6 +263,7 @@ const T = {
     start: 'Alku', finishAll: 'Matka suoritettu! 🎉', finishMore: 'Lisää seikkailuja tulossa',
     nextUp: 'Seuraava!', doneLabel: '✓ Tehty', soonIn: l => `Tulossa kielellä ${LANG_NAMES[l]}`,
     ytInvalid: 'Tämä ei näytä YouTube-linkiltä.', lessonComplete: 'Hienoa! ⭐',
+    slidePicHint: 'Avaa koko näytölle', downloadPic: 'Lataa tämä kuva', prevSlide: 'Edellinen', nextSlide: 'Seuraava',
     libSlow: 'Haetaan… ilmainen haku voi kestää 10–30 sekuntia.',
     libMore: 'Lisää tuloksia', libBusy: 'Liian monta hakua lyhyessä ajassa — odota hetki ja yritä uudelleen.',
     transSlide: 'Siirtymä tähän diaan', transSlideTitle: 'Siirtymä tähän diaan', transDefault: d => `Oppitunnin oletus (${d})`, transSlideNote: 'Oppitunnin oletus valitaan ✨-painikkeesta esityspalkissa. Tallenna painamalla Tallenna.',
@@ -992,6 +995,56 @@ function openLessonSheet(ls) {
   openModal('lessonSheet');
 }
 
+/* ── Picture viewer: open one slide full screen (from the slide editor) and download it alone ── */
+let PV = null;
+function openPicViewer(title, L, pages, k) {
+  const ov = h('div', { class: 'pic-viewer', tabindex: '-1' });
+  const stage = h('div', { class: 'pv-stage' }), count = h('span', { class: 'pv-count' });
+  const prev = h('button', { type: 'button', class: 'pv-nav pv-prev', title: t('prevSlide') }, '‹'), next = h('button', { type: 'button', class: 'pv-nav pv-next', title: t('nextSlide') }, '›');
+  const dl = h('button', { type: 'button', class: 'pv-btn' }, '⬇ ', t('downloadPic'));
+  const fs = h('button', { type: 'button', class: 'pv-btn', title: t('fullscreen') }, '⛶');
+  const close = h('button', { type: 'button', class: 'pv-btn', title: t('close') }, '✕');
+  ov.append(stage, prev, next, h('div', { class: 'pv-bar' }, count, h('span', { class: 'pv-title', text: title }), dl, fs, close));
+  document.body.append(ov);
+  PV = { pages, k, token: 0 };
+  const show = async () => {
+    const my = ++PV.token, it = pages[PV.k];
+    count.textContent = `${PV.k + 1} / ${pages.length}`;
+    prev.disabled = PV.k === 0; next.disabled = PV.k === pages.length - 1;
+    if (!stage.firstChild) stage.append(h('div', { class: 'spinner' }));
+    try {
+      const c = await renderPage(it.doc, it.page, stage.clientWidth || innerWidth, stage.clientHeight || innerHeight);
+      if (my !== PV.token || !ov.isConnected) return;
+      stage.innerHTML = ''; stage.append(c);
+    } catch (e) { if (my === PV.token) { stage.innerHTML = ''; stage.append(h('p', { text: t('error') + e.message })); } }
+  };
+  const step = d => { const n = Math.max(0, Math.min(pages.length - 1, PV.k + d)); if (n !== PV.k) { PV.k = n; show(); } };
+  const shut = () => { document.removeEventListener('keydown', key, true); removeEventListener('resize', onResize); if (document.fullscreenElement === ov) document.exitFullscreen().catch(() => {}); ov.remove(); PV = null; };
+  const key = e => {
+    if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); shut(); }
+    else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); step(document.dir === 'rtl' && e.key === 'ArrowRight' ? -1 : 1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); e.stopPropagation(); step(document.dir === 'rtl' && e.key === 'ArrowLeft' ? 1 : -1); }
+  };
+  let rt = 0; const onResize = () => { clearTimeout(rt); rt = setTimeout(show, 150); };
+  prev.onclick = () => step(-1); next.onclick = () => step(1); close.onclick = shut;
+  stage.onclick = e => { if (e.target === stage) shut(); };
+  fs.onclick = () => { if (document.fullscreenElement) document.exitFullscreen().catch(() => {}); else ov.requestFullscreen?.().catch(() => {}); };
+  ov.addEventListener('wheel', e => { e.preventDefault(); if (Math.abs(e.deltaY) > 20) step(e.deltaY > 0 ? 1 : -1); }, { passive: false });
+  let sx = null; ov.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, { passive: true });
+  ov.addEventListener('touchend', e => { if (sx == null) return; const dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 50) step((dx < 0 ? 1 : -1) * (document.dir === 'rtl' ? -1 : 1)); });
+  dl.onclick = () => guard(async () => {
+    const { doc, page: p } = pages[PV.k];
+    const page = await doc.getPage(p), base = page.getViewport({ scale: 1 });
+    const scale = Math.min(4, Math.max(1, 1920 / base.width));
+    const c = await renderPage(doc, p, base.width * scale, base.height * scale, 1);
+    const blob = await new Promise(r => c.toBlob(r, 'image/png'));
+    saveBlob(blob, `${safeName(title)} (${L.toUpperCase()}) ${String(pages[PV.k].n || PV.k + 1).padStart(2, '0')}.png`);
+  }, t('loading'));
+  document.addEventListener('keydown', key, true); addEventListener('resize', onResize);
+  ov.requestFullscreen?.().catch(() => {});
+  setTimeout(() => { ov.focus(); show(); }, 30);
+}
+
 /* ── Moons: extra videos / stories / websites floating around a lesson ── */
 const EXTRA_ICON = { video: '🎬', story: '📖', link: '🌐' };
 const extrasAll = ls => (ls.quiz && Array.isArray(ls.quiz.extras)) ? ls.quiz.extras : [];
@@ -1456,7 +1509,11 @@ function drawSlides() {
     const thumb = it.quiz
       ? h('div', { class: 'thumb quiz-thumb', onclick: () => openQuizSlideModal(it) }, h('span', { class: 'qt-ic', text: '🧠' }), h('span', { class: 'qt-q', dir: 'auto', text: pick(it.quiz.q, ed.lang) || '…' }))
       : it.media ? mediaThumb(it, ed.lang)
-      : h('div', { class: 'thumb' });
+      : h('div', { class: 'thumb zoomable', title: t('slidePicHint'), onclick: () => {
+          const all = ed.items.filter(x => !isSpecial(x));
+          const ls1 = state.lessons.find(l => l.id === ed.lessonId);
+          openPicViewer(ls1 ? nameOf(ls1.titles) : '', ed.lang, all.map(x => ({ doc: ed.sources[x.src].doc, page: x.page, n: ed.items.indexOf(x) + 1 })), all.indexOf(it));
+        } });
     const eye = it.quiz ? null : h('button', { class: 'eye', type: 'button', title: it.hidden ? t('showSlide') : t('hideSlide'), onclick: e => {
       e.stopPropagation(); it.hidden = !it.hidden; ed.dirty = true;
       el.classList.toggle('is-hidden', !!it.hidden); eye.textContent = it.hidden ? '🙈' : '👁'; eye.title = it.hidden ? t('showSlide') : t('hideSlide'); updateEditorChrome();
